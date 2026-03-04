@@ -204,18 +204,19 @@
       transform: translate(-50%, -50%);
       font-variant-numeric: tabular-nums;
       font-weight: 900;
-      font-size: 42px;
-      letter-spacing: 0.6px;
-      padding: 7px 14px;
-      min-width: 176px;
+      font-size: 76px;
+      letter-spacing: 1.2px;
+      line-height: 1;
+      padding: 14px 24px;
+      min-width: 320px;
       text-align: center;
-      border-radius: 10px;
+      border-radius: 16px;
       border: none;
-      background: rgba(3, 9, 18, 0.62);
+      background: rgba(3, 9, 18, 0.75);
       color: rgba(220, 240, 255, 0.95);
       text-shadow: 0 0 12px rgba(100, 200, 255, 0.35), 0 3px 8px rgba(0,0,0,0.75);
       pointer-events: none;
-      z-index: 3;
+      z-index: 48;
     }
 
     /* ====== 平台 ====== */
@@ -2494,16 +2495,16 @@
     // =============================
     // 參數設定
     // =============================
-    // 地圖左右尺寸縮小 20%
+    // 地圖左右尺寸縮小 20%；高度在壓縮後回調
     const WORLD_W = 2560;
-    const WORLD_H = 1138;
+    const WORLD_H = 1052;
     const CAMERA_ZOOM = 1.43;
 
-    const GROUND_Y = 1120;
+    const GROUND_Y = 1035;
     const GROUND_H = 18;
-    const TOP_PLAT_Y = 360;
-    // 最上方平台等比例縮小 20%
-    const TOP_PLAT_W = 1248;
+    const TOP_PLAT_Y = 332;
+    // 樓上主平台寬度加大
+    const TOP_PLAT_W = 1622;
     const TOP_PLAT_X = Math.floor((WORLD_W - TOP_PLAT_W) / 2);
     const TOP_PLAT_H = 18;
 
@@ -7676,7 +7677,7 @@
       const vw = viewport.clientWidth, vh = viewport.clientHeight;
       const vwWorld = vw / CAMERA_ZOOM, vhWorld = vh / CAMERA_ZOOM;
       camX = clamp(playerX - vwWorld * 0.38, 0, WORLD_W - vwWorld);
-      camY = clamp(playerY - vhWorld * 0.55, 0, WORLD_H - vhWorld);
+      camY = clamp(playerY - vhWorld * 0.50, 0, WORLD_H - vhWorld);
       world.style.transform = `translate(${-camX * CAMERA_ZOOM}px, ${-camY * CAMERA_ZOOM}px) scale(${CAMERA_ZOOM})`;
     }
 
