@@ -358,6 +358,7 @@
       font-size: 0;
       user-select: none;
       pointer-events: none;
+      transform-origin: 50% 100%;
     }
     #boss.antiShield {
       filter: none;
@@ -399,6 +400,7 @@
       pointer-events: none;
       opacity: 1;
       filter: grayscale(1) brightness(0.72);
+      transform-origin: 50% 100%;
     }
 
 
@@ -744,7 +746,7 @@
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
       background: rgba(0,0,0,0.35);
-      width: min(860px, 100%);
+      width: 100%;
     }
     #mageCmd > div:first-child {
       font-size: 20px !important;
@@ -1013,6 +1015,15 @@
       border-style: dashed;
       opacity: 0.72;
     }
+    .bossGroundSlamRange {
+      position: absolute;
+      border: 3px solid rgba(255,60,60,0.95);
+      background: rgba(255,30,30,0.22);
+      box-shadow: 0 0 22px rgba(255,40,40,0.6);
+      border-radius: 8px;
+      pointer-events: none;
+      z-index: 69;
+    }
 
     #hintToast {
       position: fixed; left: 50%; bottom: 118px; transform: translateX(-50%);
@@ -1218,6 +1229,40 @@
     .goStatValue {
       font-variant-numeric: tabular-nums;
       color: rgba(200,240,255,0.98);
+    }
+    .goSpecialModeBox {
+      margin-bottom: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,120,120,0.28);
+      background: linear-gradient(to bottom, rgba(120,28,28,0.28), rgba(38,12,12,0.44));
+    }
+    .goSpecialModeTitle {
+      font-size: 14px;
+      font-weight: 900;
+      color: rgba(255,220,220,0.98);
+      margin-bottom: 8px;
+    }
+    .goSpecialModeList {
+      display: grid;
+      gap: 6px;
+    }
+    .goSpecialModeRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      padding: 6px 8px;
+      font-weight: 800;
+    }
+    .goSpecialModeRow .label { opacity: 0.9; }
+    .goSpecialModeRow .value {
+      color: rgba(255,235,200,0.98);
+      font-variant-numeric: tabular-nums;
+      font-weight: 900;
     }
     .goExplodeBox {
       margin: 0 0 12px;
@@ -1658,6 +1703,68 @@
       height: 16px;
       cursor: pointer;
     }
+    #setupBossStartHpWrap {
+      margin-top: 10px;
+    }
+    #setupBossStartBar {
+      width: 100%;
+      max-width: 100%;
+      height: 28px;
+      margin-top: 6px;
+    }
+    #setupBossStartPct {
+      width: 100%;
+      margin-top: 8px;
+    }
+    #setupBossStartHpWrap.disabled {
+      opacity: 0.58;
+    }
+    #setupSpecialModeOptions {
+      margin-top: 10px;
+    }
+    #setupSpecialModeOptions .setupCheckRow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+    }
+
+    #restartConfirmModal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 260;
+      background: rgba(0,0,0,0.72);
+      padding: 16px;
+    }
+    #restartConfirmModal.show {
+      display: flex;
+    }
+    #restartConfirmCard {
+      width: min(520px, 94vw);
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgb(14,18,29);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.66);
+      padding: 14px;
+    }
+    #restartConfirmTitle {
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    #restartConfirmDesc {
+      font-size: 13px;
+      opacity: 0.9;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    #restartConfirmActions {
+      display: grid;
+      gap: 8px;
+    }
     .setupGuidePreviewGrid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1742,8 +1849,8 @@
     }
     #commandPanel {
       display: grid;
-      grid-template-columns: minmax(260px, 0.62fr) minmax(420px, 1.38fr);
-      align-items: start;
+      grid-template-columns: minmax(338px, 0.81fr) minmax(0, 1fr);
+      align-items: stretch;
       justify-content: start;
       gap: 10px;
       width: 75%;
@@ -1752,8 +1859,25 @@
       grid-row: 2;
       margin-top: 6px;
     }
-    #mageCmd { grid-column: 1; }
-    #physicalCmd { grid-column: 2; }
+    #mageCmd {
+      grid-column: 1;
+      grid-row: 1;
+      margin-top: 0 !important;
+      height: 100%;
+    }
+    #mageInfoStack {
+      grid-column: 1;
+      grid-row: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+    #physicalCmd {
+      grid-column: 2;
+      grid-row: 1;
+      height: 100%;
+    }
     #teamInfoColumn {
       grid-column: 1;
       grid-row: 2;
@@ -1780,6 +1904,9 @@
       font-weight: 900;
       margin-bottom: 2px;
       color: rgba(232,244,255,0.98);
+    }
+    #mageAutoPickInfoPanel .teamInfoTitle {
+      white-space: nowrap;
     }
     .teamInfoBody {
       font-size: 12px;
@@ -1872,7 +1999,8 @@
     }
     #physicalCmd {
       display: none;
-      width: 70%;
+      width: 100%;
+      min-width: 0;
       margin-top: 0 !important;
       padding: 6px;
       border: 1px solid rgba(255,255,255,0.2);
@@ -1948,7 +2076,12 @@
       #mageCmd,
       #physicalCmd {
         grid-column: 1;
+        grid-row: auto;
         width: 100%;
+      }
+      #mageInfoStack {
+        grid-column: 1;
+        grid-row: auto;
       }
     }
     .btn { appearance: none; border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.08); color: #fff; border-radius: 12px; padding: 10px 12px; font-weight: 900; cursor: pointer; }
@@ -2011,12 +2144,18 @@
       </div>
 
       <div class="chip" id="commandPanel">
-        <div id="mageCmd" aria-label="指揮法師" style="margin-top:10px;">
-          <div style="font-weight:900; font-size:18px; margin-bottom:6px;">指揮法師（可提前下指令；下令後 2 秒生效，超過時機無效）</div>
+        <div id="mageCmd" aria-label="指揮法師">
+          <div style="font-weight:900; font-size:18px; margin-bottom:6px;">指揮法師（可提前下指令）</div>
           <div id="mageCmdOptions">
             <button class="btn" id="cmdLeftBtn">清左半</button>
             <button class="btn" id="cmdRightBtn">清右半</button>
             <button class="btn" id="cmdNoneBtn">不清</button>
+          </div>
+        </div>
+        <div id="mageInfoStack">
+          <div id="mageAutoPickInfoPanel" class="chip teamInfoCard">
+            <div class="teamInfoTitle">法師隨機選</div>
+            <div class="teamInfoBody" id="mageAutoPickInfoBody">黑球出現後若未通知，會在設定秒數後隨機選清左/清右/不清，1.5 秒後生效。</div>
           </div>
         </div>
         <div id="physicalCmd" aria-label="指揮物理控時">
@@ -2040,10 +2179,6 @@
         <div id="teamRedClockInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">隊友紅鬧鐘</div>
           <div class="teamInfoBody">隊友對紅鬧鐘、黑水、彼此的玩家炸彈無敵。</div>
-        </div>
-        <div id="mageAutoPickInfoPanel" class="chip teamInfoCard">
-          <div class="teamInfoTitle">法師隨機選</div>
-          <div class="teamInfoBody" id="mageAutoPickInfoBody">黑球出現後若未通知，會在設定秒數後隨機選清左/清右/不清，1.5 秒後生效。</div>
         </div>
         <div id="callIgnoreInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">不聽 Call</div>
@@ -2093,11 +2228,22 @@
       </div>
     </div>
   </div>
+  <div id="restartConfirmModal" role="dialog" aria-modal="true" aria-label="重新開始確認">
+    <div id="restartConfirmCard">
+      <div id="restartConfirmTitle">確定重新開始嗎？</div>
+      <div id="restartConfirmDesc">請選擇下一步動作。</div>
+      <div id="restartConfirmActions">
+        <button class="btn" id="restartConfirmResumeBtn">恢復遊戲</button>
+        <button class="btn" id="restartConfirmSettleBtn">遊戲結束並進入結算畫面</button>
+        <button class="btn primary" id="restartConfirmToSetupBtn">重新開始（回到設定畫面）</button>
+      </div>
+    </div>
+  </div>
 
   <div id="setupModal" role="dialog" aria-modal="true" aria-label="說明與設定">
     <div id="setupCard">
       <h2>困難拉圖斯控時練習：說明與設定</h2>
-      <p>這個程式用來練習困難拉圖斯的控時、走位、招式辨識與失誤處理。先設定你的技能與鍵位，再開始遊玩。</p>
+      <p>這個程式用來練習困難拉圖斯的控時、走位、招式辨識與失誤處理，也可單純用來練習走位躲紅鬧鐘。先設定你的技能與鍵位，再開始遊玩。</p>
       <div class="setupTabs">
         <button type="button" class="btn setupTabBtn active" id="setupTabBasicBtn">一般設定</button>
         <button type="button" class="btn setupTabBtn" id="setupTabKeyBtn">按鍵設定</button>
@@ -2114,22 +2260,38 @@
             <input id="setupBgmVolume" type="range" min="0" max="100" step="1" value="20" />
             <div class="setupFieldHint" id="setupBgmVolumeText">20%</div>
           </div>
+          <div class="setupField fullRow">
+            <label for="setupInvSkillZeroCd">復甦之光（復活術）0 CD</label>
+            <input id="setupInvSkillZeroCd" type="checkbox" />
+            <div class="setupFieldHint">勾選後可重複施放，不受整場一次限制。</div>
+          </div>
         </div>
         <div class="setupField" style="margin-top:10px;">
-          <label>開始模式</label>
+          <label>遊玩模式</label>
           <div id="setupModeList" class="setupModeList">
-            <div class="setupModeItem"><input id="modeFull" name="gameMode" type="radio" value="full" checked><label id="modeFullLabel" for="modeFull">完整模式（起始血量 100%）</label></div>
-            <div class="setupModeItem"><input id="modeClock" name="gameMode" type="radio" value="clock"><label id="modeClockLabel" for="modeClock">控時模式（起始血量 92%，時鐘機制 90%觸發，小怪 84%出現）</label></div>
-            <div class="setupModeItem"><input id="modeTime" name="gameMode" type="radio" value="time"><label id="modeTimeLabel" for="modeTime">黑球模式（起始血量 85%，黑球 83%出現）</label></div>
-            <div class="setupModeItem"><input id="modeClone" name="gameMode" type="radio" value="clone"><label id="modeCloneLabel" for="modeClone">分身模式（分身觸發 +2%）</label></div>
-            <div class="setupModeItem"><input id="modeWater" name="gameMode" type="radio" value="water"><label id="modeWaterLabel" for="modeWater">黑水模式（黑水觸發 +2%）</label></div>
-            <div class="setupModeItem"><input id="modeRed" name="gameMode" type="radio" value="red"><label id="modeRedLabel" for="modeRed">紅鬧鐘模式（紅鬧鐘觸發 +2%）</label></div>
-            <div class="setupModeItem"><input id="modeRageRed" name="gameMode" type="radio" value="rageRed"><label id="modeRageRedLabel" for="modeRageRed">狂暴紅鬧鐘（狂暴觸發 +2%）</label></div>
+            <div class="setupModeItem"><input id="modeKillBoss" name="gameMode" type="radio" value="killBoss" checked><label id="modeKillBossLabel" for="modeKillBoss">擊殺王</label></div>
+            <div class="setupModeItem"><input id="modeRageSurvival" name="gameMode" type="radio" value="rageSurvival"><label id="modeRageSurvivalLabel" for="modeRageSurvival">狂暴紅鬧鐘存活挑戰（王血固定 19%）</label></div>
+          </div>
+          <div class="setupField" id="setupBossStartHpWrap">
+            <label for="setupBossStartPct">Boss 開場血量（1~100%）</label>
+            <div id="setupBossStartBar" class="bossBarWrap">
+              <div id="setupBossStartPctFill" class="bossBarFill"></div>
+              <div id="setupBossStartPctText" class="bossBarText">拉圖斯 160,000,000 / 160,000,000 (100%)</div>
+            </div>
+            <input id="setupBossStartPct" type="range" min="1" max="100" step="1" value="100" />
+            <div class="setupFieldHint" id="setupBossStartPctHint">目前 100%</div>
+          </div>
+          <div class="setupField" id="setupSpecialModeOptions">
+            <label for="setupSpecialControlTime">狂暴紅鬧鐘存活挑戰是否啟動控時</label>
+            <div class="setupCheckRow">
+              <input id="setupSpecialControlTime" type="checkbox" checked />
+              <span>啟動控時（不勾選時：背後時間鎖定 06:00，不受小怪、扣時、黑球爆炸影響）</span>
+            </div>
           </div>
           <div class="setupField" style="margin-top:10px;">
             <label for="setupStartTimeMin">進入遊戲時時鐘時間（MM:SS）</label>
             <input id="setupStartTimeMin" type="text" value="07:00" placeholder="例如 07:00" />
-            <div class="setupFieldHint">完整模式、控時模式不支援，固定 07:00</div>
+            <div class="setupFieldHint">若存活挑戰未啟動控時，固定鎖定 06:00</div>
           </div>
         </div>
       </div>
@@ -2151,11 +2313,6 @@
             <label for="setupOrbMobHp">黑球血量</label>
             <input id="setupOrbMobHp" type="number" step="0.1" min="0.1" value="6" />
           </div>
-          <div class="setupField">
-            <label for="setupInvSkillZeroCd">復甦之光（復活術）0 CD</label>
-            <input id="setupInvSkillZeroCd" type="checkbox" />
-            <div class="setupFieldHint">勾選後可重複施放，不受整場一次限制。</div>
-          </div>
         </div>
       </div>
       <div id="setupTabTeamPane" class="setupTabPane">
@@ -2166,7 +2323,7 @@
           </div>
           <div class="setupField">
             <label for="setupMageAutoPickDelay">黑球未下指令自動決定延遲（秒）</label>
-            <input id="setupMageAutoPickDelay" type="number" step="0.1" min="0" value="2" />
+            <input id="setupMageAutoPickDelay" type="number" step="0.1" min="0" value="5" />
           </div>
           <div class="setupField">
             <label for="setupMageIgnoreRate">法師黑球沒聽 call 機率（%）</label>
@@ -2237,8 +2394,8 @@
             <div class="setupField"><label for="setupLaserDebuffMs">雷射 Debuff 持續（秒）</label><input id="setupLaserDebuffMs" type="number" step="0.1" min="0" value="30" /></div>
             <div class="setupField"><label for="setupLaserChargeMs">雷射預警延遲（秒）</label><input id="setupLaserChargeMs" type="number" step="0.1" min="0" value="1.5" /></div>
             <div class="setupField"><label for="setupLaserFireMs">雷射噴射持續（ms）</label><input id="setupLaserFireMs" type="number" step="1" min="1" value="650" /></div>
-            <div class="setupField"><label for="setupLaserTopMax">雷射上層最多（個）</label><input id="setupLaserTopMax" type="number" step="1" min="0" value="4" /></div>
-            <div class="setupField"><label for="setupLaserGroundMax">雷射一樓最多（個）</label><input id="setupLaserGroundMax" type="number" step="1" min="0" value="6" /></div>
+            <div class="setupField"><label for="setupLaserTopMax">雷射上層最多（個）</label><input id="setupLaserTopMax" type="number" step="1" min="1" value="6" /></div>
+            <div class="setupField"><label for="setupLaserGroundMax">雷射一樓最多（個）</label><input id="setupLaserGroundMax" type="number" step="1" min="1" value="10" /></div>
             <div class="setupField"><label for="setupLaserChainMin">雷射連發最少（次）</label><input id="setupLaserChainMin" type="number" step="1" min="1" value="1" /></div>
             <div class="setupField"><label for="setupLaserChainMax">雷射連發最多（次）</label><input id="setupLaserChainMax" type="number" step="1" min="1" value="3" /></div>
             <div class="setupField"><label for="setupLaserRestMinMs">雷射休息最短（秒）</label><input id="setupLaserRestMinMs" type="number" step="0.1" min="0" value="6" /></div>
@@ -2249,8 +2406,8 @@
         <div id="setupBossSubBlueClockPane" class="bossSubPane">
           <div class="setupGrid">
             <div class="setupField"><label for="setupBlueClockHpPct">藍鬧鐘啟用血量（%）</label><input id="setupBlueClockHpPct" type="number" step="0.1" min="0" max="100" value="100" /></div>
-            <div class="setupField"><label for="setupBlueClockExtraMin">藍鬧鐘額外最少（個）</label><input id="setupBlueClockExtraMin" type="number" step="1" min="0" value="0" /></div>
-            <div class="setupField"><label for="setupBlueClockExtraMax">藍鬧鐘額外最多（個）</label><input id="setupBlueClockExtraMax" type="number" step="1" min="0" value="4" /></div>
+            <div class="setupField"><label for="setupBlueClockExtraMin">藍鬧鐘額外最少（個）</label><input id="setupBlueClockExtraMin" type="number" step="1" min="0" value="2" /></div>
+            <div class="setupField"><label for="setupBlueClockExtraMax">藍鬧鐘額外最多（個）</label><input id="setupBlueClockExtraMax" type="number" step="1" min="0" value="6" /></div>
             <div class="setupField"><label for="setupBlueClockCdMinMs">藍鬧鐘 CD 最短（秒）</label><input id="setupBlueClockCdMinMs" type="number" step="0.1" min="0" value="7" /></div>
             <div class="setupField"><label for="setupBlueClockCdMaxMs">藍鬧鐘 CD 最長（秒）</label><input id="setupBlueClockCdMaxMs" type="number" step="0.1" min="0" value="12" /></div>
             <div class="setupField"><label for="setupClockChargeMs">鬧鐘共用預警延遲（秒）</label><input id="setupClockChargeMs" type="number" step="0.1" min="0" value="1.5" /></div>
@@ -2261,9 +2418,9 @@
         <div id="setupBossSubRedClockPane" class="bossSubPane">
           <div class="setupGrid">
             <div class="setupField"><label for="setupRedClockHpPct">紅鬧鐘啟用血量（%）</label><input id="setupRedClockHpPct" type="number" step="0.1" min="0" max="100" value="50" /></div>
-            <div class="setupField"><label for="setupRedClockTopMax">紅鬧鐘上層最多（個）</label><input id="setupRedClockTopMax" type="number" step="1" min="0" value="3" /></div>
-            <div class="setupField"><label for="setupRedClockGroundMax">紅鬧鐘一樓最多（個）</label><input id="setupRedClockGroundMax" type="number" step="1" min="0" value="6" /></div>
-            <div class="setupField"><label for="setupRedClockTotal">紅鬧鐘總數（個）</label><input id="setupRedClockTotal" type="number" step="1" min="1" value="6" /></div>
+            <div class="setupField"><label for="setupRedClockTopMax">紅鬧鐘上層最多（個）</label><input id="setupRedClockTopMax" type="number" step="1" min="0" value="5" /></div>
+            <div class="setupField"><label for="setupRedClockGroundMax">紅鬧鐘一樓最多（個）</label><input id="setupRedClockGroundMax" type="number" step="1" min="0" value="9" /></div>
+            <div class="setupField"><label for="setupRedClockTotal">紅鬧鐘總數（個）</label><input id="setupRedClockTotal" type="number" step="1" min="1" value="14" /></div>
             <div class="setupField"><label for="setupRedClockCdMinMs">紅鬧鐘 CD 最短（秒）</label><input id="setupRedClockCdMinMs" type="number" step="0.1" min="0" value="9" /></div>
             <div class="setupField"><label for="setupRedClockCdMaxMs">紅鬧鐘 CD 最長（秒）</label><input id="setupRedClockCdMaxMs" type="number" step="0.1" min="0" value="14" /></div>
 
@@ -2403,10 +2560,17 @@
     const BOSS_MAX_HP = 160000000;
     const BOSS_START_HP = BOSS_MAX_HP;
     const GAME_START_MINUTES = 420;
+    const SPECIAL_RAGE_RED_LOCKED_PCT = 19;
+    const SPECIAL_LOCKED_CLOCK_MINUTES = 360; // 06:00
     const COUNTDOWN_BASE_SEC = 20 * 60;
     const COUNTDOWN_REFERENCE_DPM = 12000000;
     const GAME_COUNTDOWN_SEC = COUNTDOWN_BASE_SEC;
     const BOSS_SIZE = 360;
+    const BOSS_ACTION_IDLE_GAP_MS = 1500;
+    const BOSS_IDLE_WEIGHT = 0.38 * 1.2; // 發呆頻率 +20%
+    const BOSS_FOLLOW_WEIGHT = 0.34 * 0.7; // 移動頻率 -30%
+    const BOSS_FORCED_WEIGHT = 0.28 * 0.7; // 移動頻率 -30%
+    const BOSS_MOVE_WEIGHT_TOTAL = BOSS_IDLE_WEIGHT + BOSS_FOLLOW_WEIGHT + BOSS_FORCED_WEIGHT;
     let BOSS_ANTI_SHIELD_DURATION_MS = 8000;
     let BOSS_ANTI_SHIELD_CD_MS = 120000;
 
@@ -2420,6 +2584,15 @@
     const LASER_BEAM_H = 30;
     const LASER_SIGIL_W = 36;
     const LASER_SIGIL_H = 94;
+    const LASER_DYNAMIC_START_PCT = 90;
+    const LASER_TOP_MIN_AT_START_PCT = 0;
+    const LASER_GROUND_MIN_AT_START_PCT = 1;
+    const LASER_TOP_MIN_AT_19_PCT = 3;
+    const LASER_GROUND_MIN_AT_19_PCT = 6;
+    const LASER_TOP_MAX_AT_START_PCT = 3;
+    const LASER_GROUND_MAX_AT_START_PCT = 6;
+    const LASER_TOP_MAX_AT_19_PCT = 6;
+    const LASER_GROUND_MAX_AT_19_PCT = 10;
     let LASER_TOP_MAX = 4;
     let LASER_GROUND_MAX = 6;
     let LASER_HP_THRESHOLD_PCT = 90;
@@ -2438,9 +2611,9 @@
     let BLUE_CLOCK_CD_MIN_MS = 7000;
     let BLUE_CLOCK_CD_MAX_MS = 12000;
     let RED_CLOCK_HP_THRESHOLD_PCT = 50;
-    let RED_CLOCK_TOP_MAX = 3;
-    let RED_CLOCK_TOTAL = 6;
-    let RED_CLOCK_GROUND_MAX = 6;
+    let RED_CLOCK_TOP_MAX = 4;
+    let RED_CLOCK_TOTAL = 9;
+    let RED_CLOCK_GROUND_MAX = 8;
     let RED_CLOCK_CD_MIN_MS = 9000;
     let RED_CLOCK_CD_MAX_MS = 14000;
     let RED_BURST_HP_THRESHOLD_PCT = 20;
@@ -2457,6 +2630,13 @@
     let BLACK_WATER_CD_MS = 70000;
     let BLACK_WATER_HP_THRESHOLD_PCT = 60;
     let BLACK_WATER_CAST_LOCK_MS = 900;
+    const BOSS_GROUND_SLAM_CD_MIN_MS = 3000;
+    const BOSS_GROUND_SLAM_CD_MAX_MS = 6000;
+    const BOSS_GROUND_SLAM_CAST_DELAY_MS = 1000;
+    const BOSS_GROUND_SLAM_PREVIEW_MS = 473; // 方框出現時間 -30%（相較 675ms）
+    const BOSS_GROUND_SLAM_STUN_MS = 1200;
+    const BOSS_GROUND_SLAM_STOP_PCT = 60;
+    const BOSS_GROUND_SLAM_RANGE_HALF_WIDTH = BOSS_SIZE * 1.3;
     const BLACK_WATER_W = PLAYER_W * 6.9;
     const HIT_INV_MS = 2000;
     const TIME_EXPLOSION_FX_MS = 3000;
@@ -2540,6 +2720,10 @@
     const hudRestartBtn = document.getElementById('hudRestartBtn');
     const hudSupportBtn = document.getElementById('hudSupportBtn');
     const endBtn = document.getElementById('endBtn');
+    const restartConfirmModal = document.getElementById('restartConfirmModal');
+    const restartConfirmResumeBtn = document.getElementById('restartConfirmResumeBtn');
+    const restartConfirmSettleBtn = document.getElementById('restartConfirmSettleBtn');
+    const restartConfirmToSetupBtn = document.getElementById('restartConfirmToSetupBtn');
     const magicDefenseBuff = document.getElementById('magicDefenseBuff');
     const hpBarFill = document.getElementById('hpBarFill');
     const mpBarFill = document.getElementById('mpBarFill');
@@ -2582,16 +2766,18 @@
     const setupBgmVolume = document.getElementById('setupBgmVolume');
     const setupBgmVolumeText = document.getElementById('setupBgmVolumeText');
     const setupStartTimeMin = document.getElementById('setupStartTimeMin');
+    const setupBossStartPct = document.getElementById('setupBossStartPct');
+    const setupBossStartPctHint = document.getElementById('setupBossStartPctHint');
+    const setupBossStartPctFill = document.getElementById('setupBossStartPctFill');
+    const setupBossStartPctText = document.getElementById('setupBossStartPctText');
+    const setupBossStartHpWrap = document.getElementById('setupBossStartHpWrap');
     const setupMobMaxHp = document.getElementById('setupMobMaxHp');
     const setupOrbMobHp = document.getElementById('setupOrbMobHp');
-    const modeFullLabel = document.getElementById('modeFullLabel');
-    const modeClockLabel = document.getElementById('modeClockLabel');
-    const modeTimeLabel = document.getElementById('modeTimeLabel');
-    const modeCloneLabel = document.getElementById('modeCloneLabel');
-    const modeWaterLabel = document.getElementById('modeWaterLabel');
-    const modeRedLabel = document.getElementById('modeRedLabel');
-    const modeRageRedLabel = document.getElementById('modeRageRedLabel');
+    const modeKillBossLabel = document.getElementById('modeKillBossLabel');
+    const modeRageSurvivalLabel = document.getElementById('modeRageSurvivalLabel');
     const setupModeList = document.getElementById('setupModeList');
+    const setupSpecialModeOptions = document.getElementById('setupSpecialModeOptions');
+    const setupSpecialControlTime = document.getElementById('setupSpecialControlTime');
     const setupMageDelay = document.getElementById('setupMageDelay');
     const setupMageAutoPickDelay = document.getElementById('setupMageAutoPickDelay');
     const setupTeammateDeathRate = document.getElementById('setupTeammateDeathRate');
@@ -2664,15 +2850,17 @@
 
     let shootDamage = 1.0;
     let wrathDamage = 2.0;
-    let selectedGameMode = 'full';
+    let selectedGameMode = 'killBoss';
+    let configuredBossStartPct = 100;
     let configuredStartMinutes = GAME_START_MINUTES;
     let magicDefenseActive = true;
     let magicDefenseRestoreAt = 0;
     let safePointRecording = false;
     let safePointMarkers = [];
     let invSkillZeroCdEnabled = false;
+    let specialModeTimeControlEnabled = true;
     let mageCommandDelayMs = 2000;
-    let mageCommandAutoPickDelayMs = 2000;
+    let mageCommandAutoPickDelayMs = 5000;
     let physicalCommandDelayMs = PHYSICAL_KILL_START_DELAY_MS;
     let teammateMistakeDeathChance = 0; // 每秒觸發機率，0~1
     let teammateMageIgnoreChance = 0;
@@ -2713,6 +2901,7 @@
       timeExplosionLockUntil = shiftFutureMs(timeExplosionLockUntil, deltaMs);
       laserDebuffUntil.red = shiftFutureMs(laserDebuffUntil.red, deltaMs);
       laserDebuffUntil.blue = shiftFutureMs(laserDebuffUntil.blue, deltaMs);
+      groundSlamStunUntil = shiftFutureMs(groundSlamStunUntil, deltaMs);
       cloneSkillLockUntil = shiftFutureMs(cloneSkillLockUntil, deltaMs);
       cloneLockWaterUntil = shiftFutureMs(cloneLockWaterUntil, deltaMs);
       cloneZombieUntil = shiftFutureMs(cloneZombieUntil, deltaMs);
@@ -2730,11 +2919,14 @@
       bossAntiShieldUntil = shiftFuturePerf(bossAntiShieldUntil, deltaPerf);
       bossNextAntiShieldAt = shiftFuturePerf(bossNextAntiShieldAt, deltaPerf);
       bossActionUntil = shiftFuturePerf(bossActionUntil, deltaPerf);
+      bossActionIdleUntil = shiftFuturePerf(bossActionIdleUntil, deltaPerf);
       bossMoveModeUntil = shiftFuturePerf(bossMoveModeUntil, deltaPerf);
       bossCloneMoveModeUntil = shiftFuturePerf(bossCloneMoveModeUntil, deltaPerf);
       bossBlueClockNextAt = shiftFuturePerf(bossBlueClockNextAt, deltaPerf);
       bossBlackWaterNextAt = shiftFuturePerf(bossBlackWaterNextAt, deltaPerf);
       bossRedClockNextAt = shiftFuturePerf(bossRedClockNextAt, deltaPerf);
+      bossGroundSlamNextAt = shiftFuturePerf(bossGroundSlamNextAt, deltaPerf);
+      bossGroundSlamCastAt = shiftFuturePerf(bossGroundSlamCastAt, deltaPerf);
       playerBombNextAt = shiftFuturePerf(playerBombNextAt, deltaPerf);
       bossCloneNextCastAt = shiftFuturePerf(bossCloneNextCastAt, deltaPerf);
       bossCloneUnlockAt = shiftFuturePerf(bossCloneUnlockAt, deltaPerf);
@@ -2746,6 +2938,10 @@
       mageCommandResolveTimer = shiftFuturePerf(mageCommandResolveTimer, deltaPerf);
       noiseWarnUntil = shiftFuturePerf(noiseWarnUntil, deltaPerf);
       ropeJumpUntil = shiftFuturePerf(ropeJumpUntil, deltaPerf);
+      for (const e of bossClockStretchEvents) {
+        e.startAt = shiftFuturePerf(e.startAt, deltaPerf);
+        e.endAt = shiftFuturePerf(e.endAt, deltaPerf);
+      }
 
       for (let i = 0; i < redBurstCastTimes.length; i++) {
         redBurstCastTimes[i] = shiftFuturePerf(redBurstCastTimes[i], deltaPerf);
@@ -2759,6 +2955,7 @@
         w.endAt = shiftFuturePerf(w.endAt, deltaPerf);
       }
       for (const c of bossHandClocks) c.endAt = shiftFuturePerf(c.endAt, deltaPerf);
+      for (const s of bossGroundSlamRanges) s.endAt = shiftFuturePerf(s.endAt, deltaPerf);
       for (const o of orbMobs) o.endAt = shiftFutureMs(o.endAt, deltaMs);
       for (const b of playerBombs) {
         b.explodeAt = shiftFuturePerf(b.explodeAt, deltaPerf);
@@ -2833,7 +3030,7 @@
     }
     function updateMageCmdTitle() {
       if (!mageCmdTitle) return;
-      mageCmdTitle.textContent = `指揮法師（可提前下指令；下令後 ${formatDelaySecText(mageCommandDelayMs)} 秒生效，超過時機無效）`;
+      mageCmdTitle.textContent = '指揮法師（可提前下指令）';
     }
     function refreshTeamCommandInfoText() {
       const autoPickSecText = formatDelaySecText(mageCommandAutoPickDelayMs);
@@ -2970,7 +3167,12 @@
       const root = payload && typeof payload === 'object' ? payload : null;
       if (!root) throw new Error('invalid-payload');
       const settings = (root.settings && typeof root.settings === 'object') ? root.settings : root;
-      const mode = String(settings.mode || '').trim();
+      const rawMode = String(settings.mode || '').trim();
+      const mode = (() => {
+        if (rawMode === 'rageSurvival' || rawMode === 'specialRageRed') return 'rageSurvival';
+        if (rawMode === 'killBoss' || rawMode === 'full' || rawMode === 'clock' || rawMode === 'time' || rawMode === 'clone' || rawMode === 'water' || rawMode === 'red' || rawMode === 'rageRed') return 'killBoss';
+        return rawMode;
+      })();
       if (mode && setupModeList) {
         const radios = setupModeList.querySelectorAll('input[name="gameMode"]');
         const hasMode = Array.from(radios).some((r) => r.value === mode);
@@ -3020,25 +3222,58 @@
         if (setupImportJsonInput) setupImportJsonInput.value = '';
       }
     }
+    function isSpecialRageRedMode(mode = selectedGameMode) {
+      return String(mode || '') === 'rageSurvival';
+    }
+    function isSpecialTimeControlEnabled(mode = selectedGameMode) {
+      if (!isSpecialRageRedMode(mode)) return true;
+      return !!specialModeTimeControlEnabled;
+    }
+    function isSpecialTimeLockedMode(mode = selectedGameMode) {
+      return isSpecialRageRedMode(mode) && !isSpecialTimeControlEnabled(mode);
+    }
+    function getSpecialLockedBossHp() {
+      return BOSS_MAX_HP * (SPECIAL_RAGE_RED_LOCKED_PCT / 100);
+    }
+    function updateSpecialModeOptionVisibility() {
+      if (!setupSpecialModeOptions) return;
+      const mode = readSelectedGameMode();
+      const isSpecial = isSpecialRageRedMode(mode);
+      setupSpecialModeOptions.style.display = isSpecial ? 'block' : 'none';
+      if (setupSpecialControlTime) {
+        setupSpecialControlTime.disabled = setupReadOnlyMode || !isSpecial;
+      }
+      if (setupBossStartHpWrap) {
+        setupBossStartHpWrap.classList.toggle('disabled', setupReadOnlyMode || isSpecial);
+      }
+    }
+    function updateSetupBossStartHpPreview(pctValue) {
+      const pct = clamp(readNum(pctValue, configuredBossStartPct), 1, 100);
+      const hpNow = Math.round(BOSS_MAX_HP * (pct / 100));
+      if (setupBossStartPctFill) setupBossStartPctFill.style.width = pct + '%';
+      if (setupBossStartPctText) {
+        setupBossStartPctText.textContent = `拉圖斯 ${hpNow.toLocaleString()} / ${BOSS_MAX_HP.toLocaleString()} (${Math.round(pct)}%)`;
+      }
+      if (setupBossStartPctHint) setupBossStartPctHint.textContent = `目前 ${Math.round(pct)}%`;
+    }
+    function updateBossStartPctInputState() {
+      const mode = readSelectedGameMode();
+      const isSpecial = isSpecialRageRedMode(mode);
+      const disabled = setupReadOnlyMode || isSpecial;
+      if (setupBossStartPct) setupBossStartPct.disabled = disabled;
+      const previewPct = isSpecial
+        ? SPECIAL_RAGE_RED_LOCKED_PCT
+        : clamp(readNum(setupBossStartPct ? setupBossStartPct.value : configuredBossStartPct, configuredBossStartPct), 1, 100);
+      updateSetupBossStartHpPreview(previewPct);
+    }
     function gameModeStartPct(mode) {
-      const key = String(mode || 'full');
-      if (key === 'clock') return clamp(CLOCK_MECHANIC_TRIGGER_PCT + 2, 0, 100);
-      if (key === 'time') return 85;
-      if (key === 'clone') return clamp(CLONE_TRIGGER_PCT + 2, 0, 100);
-      if (key === 'water') return clamp(BLACK_WATER_HP_THRESHOLD_PCT + 2, 0, 100);
-      if (key === 'red') return clamp(RED_CLOCK_HP_THRESHOLD_PCT + 2, 0, 100);
-      if (key === 'rageRed') return clamp(RED_BURST_HP_THRESHOLD_PCT + 2, 0, 100);
-      return 100;
+      if (isSpecialRageRedMode(mode)) return SPECIAL_RAGE_RED_LOCKED_PCT;
+      return clamp(readNum(configuredBossStartPct, 100), 1, 100);
     }
     function gameModeLabel(mode) {
-      const key = String(mode || 'full');
-      if (key === 'clock') return '控時模式';
-      if (key === 'time') return '黑球模式';
-      if (key === 'clone') return '分身模式';
-      if (key === 'water') return '黑水模式';
-      if (key === 'red') return '紅鬧鐘模式';
-      if (key === 'rageRed') return '狂暴紅鬧鐘模式';
-      return '完整模式';
+      return isSpecialRageRedMode(mode)
+        ? '狂暴紅鬧鐘存活挑戰'
+        : '擊殺王';
     }
     function formatPctText(v) {
       const n = clamp(readNum(v, 0), 0, 100);
@@ -3048,48 +3283,49 @@
       const pct = clamp(readNum(startPct, 100), 0, 100);
       const dpm = Math.max(1, readNum(dpmValue, COUNTDOWN_REFERENCE_DPM));
       const missingBossHp = BOSS_MAX_HP * ((100 - pct) / 100);
-      const missingBossSec = (missingBossHp / dpm) * 60;
-      const cloneExtraSec = (pct <= CLONE_TRIGGER_PCT) ? ((CLONE_MAX_HP / dpm) * 60) : 0;
-      // 開局非 100% 時，從 20:00 扣掉「已略過王血」所需時間；
-      // 若開局 <= 70% ，額外把分身 6000w 所需時間加回去。
-      const sec = Math.ceil(COUNTDOWN_BASE_SEC - missingBossSec + cloneExtraSec);
+      const skippedBossDpm = dpm * 1.5; // 略過的王血以 150% 傷害倍率計算
+      const missingBossSec = (missingBossHp / skippedBossDpm) * 60;
+      const cloneElapsedSec = (pct <= CLONE_TRIGGER_PCT) ? ((CLONE_MAX_HP / dpm) * 60) : 0;
+      // DPM 是每分鐘輸出。
+      // 開局非 100% 時，從 20:00 扣掉「已略過王血（150%）」與「已略過分身（100%）」所需時間。
+      const sec = Math.ceil(COUNTDOWN_BASE_SEC - missingBossSec - cloneElapsedSec);
       return clamp(sec, 10, 24 * 3600);
     }
     function refreshModeDescriptionLabels() {
-      const clockStart = gameModeStartPct('clock');
-      const timeStart = gameModeStartPct('time');
-      const cloneStart = gameModeStartPct('clone');
-      const waterStart = gameModeStartPct('water');
-      const redStart = gameModeStartPct('red');
-      const rageStart = gameModeStartPct('rageRed');
-      if (modeFullLabel) modeFullLabel.textContent = `完整模式（起始血量 100%）`;
-      if (modeClockLabel) modeClockLabel.textContent = `控時模式（起始血量 ${formatPctText(clockStart)}%，時鐘機制 ${formatPctText(CLOCK_MECHANIC_TRIGGER_PCT)}%觸發，小怪 ${formatPctText(MOB_WAVE_TRIGGER_PCT)}%出現）`;
-      if (modeTimeLabel) modeTimeLabel.textContent = `黑球模式（起始血量 ${formatPctText(timeStart)}%，黑球 ${formatPctText(ORB_PHASE_TRIGGER_PCT)}%出現）`;
-      if (modeCloneLabel) modeCloneLabel.textContent = `分身模式（起始血量 ${formatPctText(cloneStart)}%，分身 ${formatPctText(CLONE_TRIGGER_PCT)}%觸發）`;
-      if (modeWaterLabel) modeWaterLabel.textContent = `黑水模式（起始血量 ${formatPctText(waterStart)}%，黑水 ${formatPctText(BLACK_WATER_HP_THRESHOLD_PCT)}%觸發）`;
-      if (modeRedLabel) modeRedLabel.textContent = `紅鬧鐘模式（起始血量 ${formatPctText(redStart)}%，紅鬧鐘 ${formatPctText(RED_CLOCK_HP_THRESHOLD_PCT)}%觸發）`;
-      if (modeRageRedLabel) modeRageRedLabel.textContent = `狂暴紅鬧鐘（起始血量 ${formatPctText(rageStart)}%，狂暴 ${formatPctText(RED_BURST_HP_THRESHOLD_PCT)}%觸發）`;
+      if (modeKillBossLabel) {
+        modeKillBossLabel.textContent = `擊殺王（可調整 Boss 開場血量，目前 ${formatPctText(configuredBossStartPct)}%）`;
+      }
+      if (modeRageSurvivalLabel) {
+        modeRageSurvivalLabel.textContent = `狂暴紅鬧鐘存活挑戰（王血固定 ${formatPctText(SPECIAL_RAGE_RED_LOCKED_PCT)}%）`;
+      }
     }
     function isClockMechanicActive() {
+      if (isSpecialTimeLockedMode()) return false;
       return bossPct() <= CLOCK_MECHANIC_TRIGGER_PCT;
     }
     function readSelectedGameMode() {
       const picked = document.querySelector('input[name="gameMode"]:checked');
-      return picked ? String(picked.value || 'full') : 'full';
+      return picked ? String(picked.value || 'killBoss') : 'killBoss';
     }
     function syncGameModeInputs() {
-      const mode = String(selectedGameMode || 'full');
+      const mode = String(selectedGameMode || 'killBoss');
       const radios = setupModeList ? setupModeList.querySelectorAll('input[name="gameMode"]') : [];
       radios.forEach((r) => { r.checked = (r.value === mode); });
+      if (setupSpecialControlTime) setupSpecialControlTime.checked = !!specialModeTimeControlEnabled;
+      updateSpecialModeOptionVisibility();
+      updateBossStartPctInputState();
       updateStartTimeInputState();
     }
     function updateStartTimeInputState() {
       if (!setupStartTimeMin) return;
       const mode = readSelectedGameMode();
-      const disabledByMode = (mode === 'full' || mode === 'clock');
+      const specialNoTimeControl = isSpecialRageRedMode(mode) && !(setupSpecialControlTime ? !!setupSpecialControlTime.checked : specialModeTimeControlEnabled);
+      const disabledByMode = specialNoTimeControl;
       const disabled = setupReadOnlyMode || disabledByMode;
       setupStartTimeMin.disabled = disabled;
-      if (disabledByMode) setupStartTimeMin.value = formatStartClockText(GAME_START_MINUTES);
+      if (specialNoTimeControl) setupStartTimeMin.value = formatStartClockText(SPECIAL_LOCKED_CLOCK_MINUTES);
+      updateSpecialModeOptionVisibility();
+      updateBossStartPctInputState();
     }
     function setSetupReadonlyMode(readonly) {
       setupReadOnlyMode = !!readonly;
@@ -3296,12 +3532,16 @@
       shootDamage = Math.max(0, parseFloat(setupShootDamage ? setupShootDamage.value : '1') || 0);
       wrathDamage = Math.max(0, parseFloat(setupWrathDamage ? setupWrathDamage.value : '2') || 0);
       invSkillZeroCdEnabled = !!(setupInvSkillZeroCd && setupInvSkillZeroCd.checked);
+      specialModeTimeControlEnabled = !!(setupSpecialControlTime ? setupSpecialControlTime.checked : specialModeTimeControlEnabled);
       MOB_MAX_HP = Math.max(0.1, readNum(setupMobMaxHp ? setupMobMaxHp.value : MOB_MAX_HP, MOB_MAX_HP));
       ORB_MOB_HP = Math.max(0.1, readNum(setupOrbMobHp ? setupOrbMobHp.value : ORB_MOB_HP, ORB_MOB_HP));
       setBgmVolumeByPercent(setupBgmVolume ? setupBgmVolume.value : (bgmVolume * 100));
       selectedGameMode = readSelectedGameMode();
-      if (selectedGameMode === 'full' || selectedGameMode === 'clock') {
-        configuredStartMinutes = GAME_START_MINUTES;
+      if (!isSpecialRageRedMode(selectedGameMode)) {
+        configuredBossStartPct = clamp(readInt(setupBossStartPct ? setupBossStartPct.value : configuredBossStartPct, configuredBossStartPct), 1, 100);
+      }
+      if (isSpecialTimeLockedMode(selectedGameMode)) {
+        configuredStartMinutes = SPECIAL_LOCKED_CLOCK_MINUTES;
       } else {
         configuredStartMinutes = parseStartClockText(setupStartTimeMin ? setupStartTimeMin.value : formatStartClockText(GAME_START_MINUTES), configuredStartMinutes);
       }
@@ -3343,6 +3583,8 @@
       if (setupMobMaxHp) setupMobMaxHp.value = String(MOB_MAX_HP);
       if (setupOrbMobHp) setupOrbMobHp.value = String(ORB_MOB_HP);
       if (setupStartTimeMin) setupStartTimeMin.value = formatStartClockText(configuredStartMinutes);
+      if (setupBossStartPct) setupBossStartPct.value = String(Math.round(clamp(configuredBossStartPct, 1, 100)));
+      if (setupSpecialControlTime) setupSpecialControlTime.checked = !!specialModeTimeControlEnabled;
       if (setupMageDelay) setupMageDelay.value = formatDelaySecText(mageCommandDelayMs);
       if (setupMageAutoPickDelay) setupMageAutoPickDelay.value = formatDelaySecText(mageCommandAutoPickDelayMs);
       if (setupMageIgnoreRate) setupMageIgnoreRate.value = String(mageIgnorePct);
@@ -3355,6 +3597,7 @@
       refreshTeamCommandInfoText();
       refreshBindButtons();
       syncGameModeInputs();
+      updateSpecialModeOptionVisibility();
       refreshModeDescriptionLabels();
       normalizeNumberInputs(setupModal);
     }
@@ -3480,6 +3723,20 @@
         setBgmVolumeByPercent(setupBgmVolume.value);
       });
     }
+    if (setupBossStartPct) {
+      setupBossStartPct.addEventListener('input', () => {
+        const pct = clamp(readNum(setupBossStartPct.value, configuredBossStartPct), 1, 100);
+        configuredBossStartPct = pct;
+        updateSetupBossStartHpPreview(pct);
+        refreshModeDescriptionLabels();
+      });
+      setupBossStartPct.addEventListener('change', () => {
+        const pct = clamp(readNum(setupBossStartPct.value, configuredBossStartPct), 1, 100);
+        configuredBossStartPct = pct;
+        updateSetupBossStartHpPreview(pct);
+        refreshModeDescriptionLabels();
+      });
+    }
     setupNumberInputs.forEach((input) => {
       input.addEventListener('blur', () => {
         normalizeNumberInputValue(input);
@@ -3492,8 +3749,15 @@
       const modeRadios = setupModeList.querySelectorAll('input[name="gameMode"]');
       modeRadios.forEach((r) => {
         r.addEventListener('change', () => {
+          updateSpecialModeOptionVisibility();
+          updateBossStartPctInputState();
           updateStartTimeInputState();
         });
+      });
+    }
+    if (setupSpecialControlTime) {
+      setupSpecialControlTime.addEventListener('change', () => {
+        updateStartTimeInputState();
       });
     }
     if (setupStartBtn) {
@@ -3533,10 +3797,14 @@
       });
     }
     if (setupStartTimeMin) setupStartTimeMin.value = formatStartClockText(configuredStartMinutes);
+    if (setupBossStartPct) setupBossStartPct.value = String(Math.round(clamp(configuredBossStartPct, 1, 100)));
     refreshBindButtons();
     updateMageCmdTitle();
     syncBossParamInputs();
     setBossSubTab('orb');
+    updateSetupBossStartHpPreview(configuredBossStartPct);
+    updateSpecialModeOptionVisibility();
+    updateBossStartPctInputState();
     updateStartTimeInputState();
     updateSafePointRecordInfo();
     updateMagicDefenseBuffUI();
@@ -3546,6 +3814,7 @@
 
     function restartToSetup() {
       if (gameOverModal) gameOverModal.classList.remove('show');
+      if (restartConfirmModal) restartConfirmModal.classList.remove('show');
       setGameEndedVisual(false);
       gameActive = false;
       syncTeammateVisibility();
@@ -3593,6 +3862,24 @@
       openSetupModal(false);
     }
 
+    function closeRestartConfirmModal() {
+      if (!restartConfirmModal) return;
+      restartConfirmModal.classList.remove('show');
+    }
+    function openRestartConfirmModal() {
+      if (!restartConfirmModal) {
+        restartToSetup();
+        return;
+      }
+      if (gameActive && !gamePaused) setPauseState(true);
+      const canResume = gameActive;
+      if (restartConfirmResumeBtn) {
+        restartConfirmResumeBtn.disabled = !canResume;
+        restartConfirmResumeBtn.style.opacity = canResume ? '1' : '0.55';
+      }
+      restartConfirmModal.classList.add('show');
+    }
+
     restartBtn.addEventListener('click', () => { restartToSetup(); });
     if (pauseBtn) {
       pauseBtn.addEventListener('click', () => {
@@ -3609,7 +3896,30 @@
     if (hudRestartBtn) {
       hudRestartBtn.addEventListener('click', () => {
         if (isSetupOpen()) return;
+        openRestartConfirmModal();
+      });
+    }
+    if (restartConfirmResumeBtn) {
+      restartConfirmResumeBtn.addEventListener('click', () => {
+        closeRestartConfirmModal();
+        if (gameActive) setPauseState(false);
+      });
+    }
+    if (restartConfirmSettleBtn) {
+      restartConfirmSettleBtn.addEventListener('click', () => {
+        closeRestartConfirmModal();
+        if (gameActive) endGame('已手動結束遊戲');
+      });
+    }
+    if (restartConfirmToSetupBtn) {
+      restartConfirmToSetupBtn.addEventListener('click', () => {
+        closeRestartConfirmModal();
         restartToSetup();
+      });
+    }
+    if (restartConfirmModal) {
+      restartConfirmModal.addEventListener('click', (e) => {
+        if (e.target === restartConfirmModal) closeRestartConfirmModal();
       });
     }
     document.addEventListener('visibilitychange', () => {
@@ -3638,6 +3948,9 @@
       if (side === 'right') return '清右半';
       return '不清';
     }
+    function isValidMageCommand(side) {
+      return side === 'left' || side === 'right' || side === 'none';
+    }
     function syncMageCmdSelectionUI() {
       if (!cmdLeftBtn || !cmdRightBtn || !cmdNoneBtn) return;
       cmdLeftBtn.classList.toggle('selected', selectedMageCommand === 'left');
@@ -3646,7 +3959,20 @@
     }
     function setMageCommandSelection(side) {
       if (!gameActive) return;
-      selectedMageCommand = (side === 'left' || side === 'right' || side === 'none') ? side : '';
+      selectedMageCommand = isValidMageCommand(side) ? side : '';
+      const nowPerf = performance.now();
+      const hasOrbActive = orbMobsSpawned && orbMobs.length > 0;
+      const autoPickPending = mageCommandPickTimer > 0;
+
+      // 黑球已出現且仍在自動隨機等待期間：玩家手動下令即視為「已收到指令」。
+      // 取消 5 秒後自動隨機，並改為手動指令延遲生效。
+      if (hasOrbActive && autoPickPending && isValidMageCommand(selectedMageCommand)) {
+        const waitMs = Math.max(2000, Math.floor(mageCommandDelayMs || 0));
+        mageCommandPickTimer = 0;
+        mageCommandPlannedPick = selectedMageCommand;
+        mageCommandResolveTimer = nowPerf + waitMs;
+      }
+
       if (
         (selectedMageCommand === 'left' || selectedMageCommand === 'right')
         && mageCommandPlannedPick === 'none'
@@ -3756,12 +4082,25 @@
       }
       if (mageCommandPickTimer > 0 && nowPerf >= mageCommandPickTimer) {
         mageCommandPickTimer = 0;
-        const options = ['left', 'right', 'none'];
-        mageCommandPlannedPick = options[Math.floor(Math.random() * options.length)];
-        const autoPickNote = `法師沒通知到：隨機選擇 ${mageCommandLabel(mageCommandPlannedPick)}（1.5 秒後生效）`;
-        showOrbWarn(autoPickNote);
-        pushTimeline(autoPickNote, 'orb');
-        mageCommandResolveTimer = nowPerf + 1500;
+        const hasManualCommand =
+          isValidMageCommand(mageCommandPlannedPick)
+          || isValidMageCommand(selectedMageCommand)
+          || mageCommandResolveTimer > 0;
+        if (!hasManualCommand) {
+          const options = ['left', 'right', 'none'];
+          mageCommandPlannedPick = options[Math.floor(Math.random() * options.length)];
+          const autoPickNote = `法師沒通知到：隨機選擇 ${mageCommandLabel(mageCommandPlannedPick)}（1.5 秒後生效）`;
+          showOrbWarn(autoPickNote);
+          pushTimeline(autoPickNote, 'orb');
+          mageCommandResolveTimer = nowPerf + 1500;
+        } else if (mageCommandResolveTimer <= 0) {
+          // 保險：有手動指令但尚未排入生效計時時，補上手動延遲。
+          const waitMs = Math.max(2000, Math.floor(mageCommandDelayMs || 0));
+          if (!isValidMageCommand(mageCommandPlannedPick)) {
+            mageCommandPlannedPick = isValidMageCommand(selectedMageCommand) ? selectedMageCommand : 'none';
+          }
+          mageCommandResolveTimer = nowPerf + waitMs;
+        }
       }
       if (mageCommandResolveTimer > 0 && nowPerf >= mageCommandResolveTimer) {
         mageCommandResolveTimer = 0;
@@ -4089,10 +4428,13 @@
     let bossAntiShieldUntil = 0;
     let bossNextAntiShieldAt = 0;
     let bossActionUntil = 0;
+    let bossActionIdleUntil = 0;
     let bossActionType = '';
     let bossBlueClockNextAt = 0;
     let bossBlackWaterNextAt = 0;
     let bossRedClockNextAt = 0;
+    let bossGroundSlamNextAt = 0;
+    let bossGroundSlamCastAt = 0;
     let playerBombNextAt = 0;
     let bossCloneActive = false;
     let bossCloneHp = 0;
@@ -4109,6 +4451,7 @@
     let bossCloneMoveMode = 'stop';
     let bossCloneMoveModeUntil = 0;
     let bossCloneForcedMoveDir = 1;
+    const bossClockStretchEvents = [];
 
     let laserCastRemain = 0;
     let laserRestUntil = 0;
@@ -4124,6 +4467,8 @@
     const clockPillars = [];
     const blackWaters = [];
     const bossHandClocks = [];
+    const bossGroundSlamRanges = [];
+    let groundSlamStunUntil = 0;
     let debuffIconEl = null;
     const teammates = [];
     const playerBombs = [];
@@ -4355,6 +4700,7 @@
       if (replaySamples.length > 5000) replaySamples.shift();
     }
     function applyTimeDelta(deltaMinutes, reasonLabel, kind = 'time') {
+      if (isSpecialTimeLockedMode()) return;
       const delta = Number(deltaMinutes) || 0;
       if (delta === 0) return;
       const before = totalMinutes;
@@ -4363,6 +4709,7 @@
       pushTimeline(`${reasonLabel}（${sign}${delta} 分） ${formatHm(before)} -> ${formatHm(totalMinutes)}`, kind);
     }
     function applyTimeMultiply(multiplier, reasonLabel, kind = 'time') {
+      if (isSpecialTimeLockedMode()) return;
       const mul = Number(multiplier) || 1;
       const before = totalMinutes;
       totalMinutes = Math.floor(totalMinutes * mul);
@@ -4762,6 +5109,14 @@
     }
     function isBossAntiShieldActive(now = performance.now()) { return now < bossAntiShieldUntil; }
     function isBossActionBusy(now = performance.now()) { return now < bossActionUntil; }
+    function markBossAction(type, endAtPerf) {
+      const endAt = Number(endAtPerf) || 0;
+      bossActionType = type || '';
+      bossActionUntil = endAt;
+      if (endAt > 0) {
+        bossActionIdleUntil = Math.max(bossActionIdleUntil, endAt + BOSS_ACTION_IDLE_GAP_MS);
+      }
+    }
     function bossPct() { return clamp((bossHp / BOSS_MAX_HP) * 100, 0, 100); }
     function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
     function findNearestAliveTeammateCenterX(fromX, nowMs = Date.now()) {
@@ -4787,7 +5142,10 @@
       bossBlueClockNextAt = (pct <= BLUE_CLOCK_HP_THRESHOLD_PCT) ? (nowPerf + randInt(BLUE_CLOCK_CD_MIN_MS, BLUE_CLOCK_CD_MAX_MS)) : 0;
       bossRedClockNextAt = (pct <= RED_CLOCK_HP_THRESHOLD_PCT) ? (nowPerf + randInt(RED_CLOCK_CD_MIN_MS, RED_CLOCK_CD_MAX_MS)) : 0;
       bossBlackWaterNextAt = (pct <= BLACK_WATER_HP_THRESHOLD_PCT) ? (nowPerf + BLACK_WATER_CD_MS) : 0;
+      bossGroundSlamNextAt = (pct > BOSS_GROUND_SLAM_STOP_PCT) ? (nowPerf + randInt(BOSS_GROUND_SLAM_CD_MIN_MS, BOSS_GROUND_SLAM_CD_MAX_MS)) : 0;
+      bossGroundSlamCastAt = 0;
       playerBombNextAt = (pct <= PLAYER_BOMB_TRIGGER_PCT) ? (nowPerf + randInt(PLAYER_BOMB_CD_MIN_MS, PLAYER_BOMB_CD_MAX_MS)) : 0;
+      bossActionIdleUntil = nowPerf;
       if (pct < ORB_PHASE_TRIGGER_PCT) {
         bossNextAntiShieldAt = nowPerf + BOSS_ANTI_SHIELD_CD_MS;
       } else if (pct <= ORB_PHASE_TRIGGER_PCT) {
@@ -4908,11 +5266,12 @@
       const nowPerf = performance.now();
       const hasRedLaserDebuff = laserDebuffUntil.red > nowMs;
       const hasBlueLaserDebuff = laserDebuffUntil.blue > nowMs;
+      const hasGroundSlamStun = groundSlamStunUntil > nowMs;
       const hasLaserDebuff = hasRedLaserDebuff || hasBlueLaserDebuff;
       const hasSkillLock = isSkillLocked(nowMs, nowPerf);
       const hasLockWater = isLockWaterActive(nowMs, nowPerf);
       const hasZombie = isZombieActive(nowMs, nowPerf);
-      if (!hasLaserDebuff && !hasSkillLock && !hasLockWater && !hasZombie) {
+      if (!hasLaserDebuff && !hasGroundSlamStun && !hasSkillLock && !hasLockWater && !hasZombie) {
         debuffIconEl.style.display = 'none';
         debuffIconEl.textContent = '';
         debuffIconEl.classList.remove('red', 'blue');
@@ -4921,7 +5280,7 @@
       const tags = [];
       let hasRed = false;
       let hasBlue = false;
-      if (hasRedLaserDebuff) {
+      if (hasRedLaserDebuff || hasGroundSlamStun) {
         tags.push('暈眩');
         hasRed = true;
       }
@@ -4955,6 +5314,7 @@
     function clearDebuff(fullReset = false, clearCloneSkillLock = false) {
       laserDebuffUntil.red = 0;
       laserDebuffUntil.blue = 0;
+      groundSlamStunUntil = 0;
       if (clearCloneSkillLock) cloneSkillLockUntil = 0;
       if (fullReset) {
         cloneSkillLockUntil = 0;
@@ -4969,7 +5329,7 @@
       laserDebuffUntil[type] = Date.now() + LASER_DEBUFF_MS;
       updateDebuffIcon();
     }
-    function isStunnedDebuff(nowMs = Date.now()) { return laserDebuffUntil.red > nowMs; }
+    function isStunnedDebuff(nowMs = Date.now()) { return laserDebuffUntil.red > nowMs || groundSlamStunUntil > nowMs; }
     function isJumpLockedDebuff(nowMs = Date.now()) { return laserDebuffUntil.blue > nowMs; }
     function isPlayerInvincible(nowPerf = performance.now()) {
       return nowPerf < playerInvUntil || nowPerf < specialInvUntil;
@@ -5039,7 +5399,7 @@
 
     function clearBossSkillObjects() {
       clearMageCommandAutoTimer();
-      const all = [laserTelegraphs, laserBeams, clockTelegraphs, clockPillars, blackWaters, bossHandClocks];
+      const all = [laserTelegraphs, laserBeams, clockTelegraphs, clockPillars, blackWaters, bossHandClocks, bossGroundSlamRanges];
       for (const arr of all) {
         for (const o of arr) {
           if (o && o.el && o.el.isConnected) o.el.remove();
@@ -5054,6 +5414,7 @@
       redBurstRestUntil = 0;
       bossActionType = '';
       bossActionUntil = 0;
+      bossActionIdleUntil = 0;
       bossMoveMode = 'stop';
       bossMoveModeUntil = 0;
       bossForcedMoveDir = 1;
@@ -5063,22 +5424,64 @@
       bossBlueClockNextAt = 0;
       bossBlackWaterNextAt = 0;
       bossRedClockNextAt = 0;
+      bossGroundSlamNextAt = 0;
+      bossGroundSlamCastAt = 0;
       playerBombNextAt = 0;
       bossClockAlternateNext = 'red';
       bossCloneActive = false;
       bossCloneHp = 0;
       bossCloneNextCastAt = 0;
+      groundSlamStunUntil = 0;
       bossCloneUnlockAt = 0;
       bossCloneX = 0;
       bossCloneY = GROUND_Y - BOSS_SIZE;
       bossCloneVX = 0;
       teammateInvUntil = 0;
       bossNextAntiShieldAt = 0;
+      bossClockStretchEvents.length = 0;
       if (bossCloneEl && bossCloneEl.isConnected) {
         bossCloneEl.remove();
       }
       bossCloneEl = null;
       clearPlayerBombs();
+    }
+    function getLaserDynamicCountRange() {
+      const pct = bossPct();
+      const triggerPct = clamp(LASER_DYNAMIC_START_PCT, 0, 100);
+      const finalPct = SPECIAL_RAGE_RED_LOCKED_PCT;
+      const span = Math.max(1, triggerPct - finalPct);
+      const progress = clamp((triggerPct - pct) / span, 0, 1);
+      const topMin = Math.round(LASER_TOP_MIN_AT_START_PCT + (LASER_TOP_MIN_AT_19_PCT - LASER_TOP_MIN_AT_START_PCT) * progress);
+      const topMax = Math.round(LASER_TOP_MAX_AT_START_PCT + (LASER_TOP_MAX_AT_19_PCT - LASER_TOP_MAX_AT_START_PCT) * progress);
+      const groundMin = Math.round(LASER_GROUND_MIN_AT_START_PCT + (LASER_GROUND_MIN_AT_19_PCT - LASER_GROUND_MIN_AT_START_PCT) * progress);
+      const groundMax = Math.round(LASER_GROUND_MAX_AT_START_PCT + (LASER_GROUND_MAX_AT_19_PCT - LASER_GROUND_MAX_AT_START_PCT) * progress);
+      return {
+        topMin: Math.min(topMin, topMax),
+        topMax: Math.max(topMin, topMax),
+        groundMin: Math.min(groundMin, groundMax),
+        groundMax: Math.max(groundMin, groundMax),
+      };
+    }
+    function queueBossClockStretch(now) {
+      bossClockStretchEvents.push({
+        startAt: now + 500,
+        endAt: now + 1250,
+      });
+      if (bossClockStretchEvents.length > 24) {
+        bossClockStretchEvents.splice(0, bossClockStretchEvents.length - 24);
+      }
+    }
+    function isBossClockStretchActive(now) {
+      let active = false;
+      for (let i = bossClockStretchEvents.length - 1; i >= 0; i--) {
+        const e = bossClockStretchEvents[i];
+        if (!e || now >= e.endAt) {
+          bossClockStretchEvents.splice(i, 1);
+          continue;
+        }
+        if (now >= e.startAt) active = true;
+      }
+      return active;
     }
 
     function createLaserCast(now) {
@@ -5087,10 +5490,10 @@
         ...collidablePlats.filter(p => p && p.key !== 'ground')
       ];
       const groundSurface = { x: 0, y: GROUND_Y, w: WORLD_W };
+      const laserRange = getLaserDynamicCountRange();
 
-      const topCount = topSurfaces.length > 0 ? randInt(0, LASER_TOP_MAX) : 0;
-      const groundMin = LASER_GROUND_MAX > 0 ? 1 : 0;
-      const groundCount = randInt(groundMin, LASER_GROUND_MAX);
+      const topCount = topSurfaces.length > 0 ? randInt(laserRange.topMin, laserRange.topMax) : 0;
+      const groundCount = randInt(laserRange.groundMin, laserRange.groundMax);
       const total = topCount + groundCount;
       if (total <= 0) return;
 
@@ -5323,6 +5726,7 @@
     }
 
     function castBlueClock(now) {
+      queueBossClockStretch(now);
       const lockSurface = getPlayerLockSurface();
       createClockTele('blue', playerX + PLAYER_W / 2, lockSurface.y, now);
       const surfaces = [
@@ -5338,8 +5742,7 @@
         createClockTele('blue', xCenter, s.y, now);
       }
       spawnBossHandClocks(now);
-      bossActionType = 'blueClock';
-      bossActionUntil = now + CLOCK_CHARGE_MS + CLOCK_PILLAR_MS;
+      markBossAction('blueClock', now + CLOCK_CHARGE_MS + CLOCK_PILLAR_MS);
       bossBlueClockNextAt = now + randInt(BLUE_CLOCK_CD_MIN_MS, BLUE_CLOCK_CD_MAX_MS);
     }
 
@@ -5348,43 +5751,153 @@
       const blockRadius = Math.max(RED_CLOCK_SAFE_RADIUS, RED_CLOCK_SAFE_BLOCK_HALF_WIDTH);
       return RED_CLOCK_SAFE_POINTS.some((px) => Math.abs(xCenter - px) <= blockRadius);
     }
+    function isRedClockBlockedByPortalZone(xCenter, surfaceY) {
+      const y = Number(surfaceY) || GROUND_Y;
+      const isUpperPortalLayer = Math.abs(y - TOP_PLAT_Y) <= 40;
+      if (isUpperPortalLayer) {
+        const topLeftStart = TOP_PLAT_X - 10;
+        const topRightStart = TOP_PLAT_X + TOP_PLAT_W - PORTAL_ZONE_W + 10;
+        const inTopLeft = xCenter >= topLeftStart && xCenter <= (topLeftStart + PORTAL_ZONE_W);
+        const inTopRight = xCenter >= topRightStart && xCenter <= (topRightStart + PORTAL_ZONE_W);
+        return inTopLeft || inTopRight;
+      }
+      const inBottomLeft = xCenter >= 0 && xCenter <= PORTAL_ZONE_W;
+      const inBottomRight = xCenter >= (WORLD_W - PORTAL_ZONE_W) && xCenter <= WORLD_W;
+      return inBottomLeft || inBottomRight;
+    }
 
     function castRedClockWave(now) {
-      const topSurfaces = [
-        { x: TOP_PLAT_X, y: TOP_PLAT_Y, w: TOP_PLAT_W },
-        ...collidablePlats.filter(p => p && p.key !== 'ground')
-      ];
+      queueBossClockStretch(now);
+      const mainTop = { x: TOP_PLAT_X, y: TOP_PLAT_Y, w: TOP_PLAT_W };
+      const extraTopSurfaces = collidablePlats.filter(p => p && p.key !== 'ground' && p.key !== 'top');
       const ground = { x: 0, y: GROUND_Y, w: WORLD_W };
-      const remainingTotal = Math.max(0, RED_CLOCK_TOTAL);
-      const topCap = Math.min(RED_CLOCK_TOP_MAX, topSurfaces.length, remainingTotal);
-      const topCount = randInt(0, Math.max(0, topCap));
-      const groundCount = Math.min(Math.max(0, remainingTotal - topCount), RED_CLOCK_GROUND_MAX);
+      const waveTotal = randInt(RED_CLOCK_TOTAL, RED_CLOCK_TOTAL + 3); // 每波總數 9~12（預設）
+      let remainingTotal = Math.max(0, waveTotal);
 
-      function spawnOn(s) {
+      function spawnOn(s, maxTries = 24) {
         const minX = Math.round(s.x + 24);
         const maxX = Math.round(s.x + s.w - 24);
         if (maxX < minX) return false;
-        for (let tries = 0; tries < 24; tries++) {
+        for (let tries = 0; tries < maxTries; tries++) {
           const xCenter = Math.round(rand(minX, maxX));
-          const blocked = isRedClockBlockedBySafePoint(xCenter);
+          const blocked = isRedClockBlockedBySafePoint(xCenter) || isRedClockBlockedByPortalZone(xCenter, s.y);
           if (blocked) continue;
           createClockTele('red', xCenter, s.y, now);
           return true;
         }
         return false;
       }
-      for (let i = 0; i < topCount; i++) {
-        const s = topSurfaces[Math.floor(Math.random() * topSurfaces.length)];
-        spawnOn(s);
+
+      // 上層每次固定嘗試 1~4 個（主上平台優先）。
+      const mainTopMax = Math.min(4, remainingTotal);
+      const mainTopTarget = (mainTopMax > 0) ? randInt(1, mainTopMax) : 0;
+      let mainTopSpawned = 0;
+      for (let i = 0; i < mainTopTarget && remainingTotal > 0; i++) {
+        if (spawnOn(mainTop, 40)) {
+          mainTopSpawned++;
+          remainingTotal--;
+        }
       }
+
+      const extraTopCap = Math.min(
+        Math.max(0, RED_CLOCK_TOP_MAX - mainTopSpawned),
+        extraTopSurfaces.length,
+        remainingTotal
+      );
+      const extraTopCount = randInt(0, Math.max(0, extraTopCap));
+      for (let i = 0; i < extraTopCount && remainingTotal > 0; i++) {
+        const s = extraTopSurfaces[Math.floor(Math.random() * extraTopSurfaces.length)];
+        if (spawnOn(s)) remainingTotal--;
+      }
+
+      const groundCount = Math.min(remainingTotal, RED_CLOCK_GROUND_MAX);
       for (let i = 0; i < groundCount; i++) {
-        spawnOn(ground);
+        if (spawnOn(ground)) remainingTotal--;
       }
       spawnBossHandClocks(now);
+    }
+    function isBossGroundSlamHitSurface(surface) {
+      if (!surface) return false;
+      // 一樓與小平台都會中；只有樓上主平台（top）與空中不會中。
+      return surface.key !== 'top';
+    }
+    function getBossGroundSlamRangeRect() {
+      const centerX = bossX + BOSS_SIZE / 2;
+      const left = clamp(Math.round(centerX - BOSS_GROUND_SLAM_RANGE_HALF_WIDTH), 0, WORLD_W);
+      const right = clamp(Math.round(centerX + BOSS_GROUND_SLAM_RANGE_HALF_WIDTH), 0, WORLD_W);
+      const floorMini = collidablePlats.find((p) => p && p.key === 'floor1Mini');
+      const topY = floorMini ? Math.min(GROUND_Y, floorMini.y) : GROUND_Y;
+      const rawH = Math.max(32, Math.round((GROUND_Y - topY) + PLAYER_H + 16));
+      const boxH = Math.max(16, Math.round(rawH * 0.2)); // 方框高度 -60%
+      const boxTop = Math.max(0, Math.round(GROUND_Y - boxH)); // 方框底邊貼地
+      return {
+        x: left,
+        y: boxTop,
+        w: Math.max(1, right - left),
+        h: boxH,
+      };
+    }
+    function createBossGroundSlamRangeFx(rangeRect, now) {
+      const el = document.createElement('div');
+      el.className = 'bossGroundSlamRange';
+      el.style.left = `${Math.round(rangeRect.x)}px`;
+      el.style.top = `${Math.round(rangeRect.y)}px`;
+      el.style.width = `${Math.round(rangeRect.w)}px`;
+      el.style.height = `${Math.round(rangeRect.h)}px`;
+      world.appendChild(el);
+      bossGroundSlamRanges.push({ el, endAt: now + BOSS_GROUND_SLAM_PREVIEW_MS });
+    }
+    function updateBossGroundSlamRanges(now) {
+      for (let i = bossGroundSlamRanges.length - 1; i >= 0; i--) {
+        const s = bossGroundSlamRanges[i];
+        if (!s.el || !s.el.isConnected || now >= s.endAt) {
+          if (s.el && s.el.isConnected) s.el.remove();
+          bossGroundSlamRanges.splice(i, 1);
+        }
+      }
+    }
+    function applyGroundSlamStun() {
+      const until = Date.now() + BOSS_GROUND_SLAM_STUN_MS;
+      if (until > groundSlamStunUntil) {
+        groundSlamStunUntil = until;
+        updateDebuffIcon();
+      }
+    }
+    function castBossGroundSlam(now) {
+      const rangeRect = getBossGroundSlamRangeRect();
+      createBossGroundSlamRangeFx(rangeRect, now);
+      const canHitPlayer = Date.now() >= playerDeadUntil && !deathRespawnInvPending && !isPlayerInvincible(now);
+      if (canHitPlayer) {
+        const standingSurface = getStandingPlatform();
+        const onHitSurface = isBossGroundSlamHitSurface(standingSurface);
+        const inRange = (playerX + PLAYER_W > rangeRect.x) && (playerX < rangeRect.x + rangeRect.w);
+        if (onHitSurface && inRange) {
+          // 拍地板視為一般攻擊：受傷 + 擊退，再附加拍地板暈眩
+          const hitApplied = applyNormalHit(bossX + BOSS_SIZE / 2, 'half');
+          if (hitApplied && Date.now() >= playerDeadUntil) applyGroundSlamStun();
+        }
+      }
+      bossGroundSlamNextAt = now + randInt(BOSS_GROUND_SLAM_CD_MIN_MS, BOSS_GROUND_SLAM_CD_MAX_MS);
     }
 
     function updateBossPatterns(now) {
       const pct = bossPct();
+      if (pct <= BOSS_GROUND_SLAM_STOP_PCT) {
+        bossGroundSlamNextAt = 0;
+        if (bossGroundSlamCastAt > 0) {
+          bossGroundSlamCastAt = 0;
+          if (bossActionType === 'groundSlam') {
+            bossActionType = '';
+            bossActionUntil = 0;
+          }
+        }
+      } else if (bossGroundSlamNextAt <= 0) {
+        bossGroundSlamNextAt = now + randInt(BOSS_GROUND_SLAM_CD_MIN_MS, BOSS_GROUND_SLAM_CD_MAX_MS);
+      }
+      if (bossGroundSlamCastAt > 0 && now >= bossGroundSlamCastAt) {
+        castBossGroundSlam(now);
+        bossGroundSlamCastAt = 0;
+      }
       if (pct <= PLAYER_BOMB_TRIGGER_PCT && playerBombNextAt <= 0) {
         playerBombNextAt = now + randInt(PLAYER_BOMB_CD_MIN_MS, PLAYER_BOMB_CD_MAX_MS);
       }
@@ -5442,13 +5955,12 @@
             }
           }
         }
-      } else if (!isBossActionBusy(now)) {
+      } else if (!isBossActionBusy(now) && now >= bossActionIdleUntil) {
         if (pct <= BLACK_WATER_HP_THRESHOLD_PCT && now >= bossBlackWaterNextAt) {
           showOrbWarn('黑水');
           const targetName = createBlackWaterAtTeammateFoot(now);
           pushTimeline(`拉圖斯施放黑水（${targetName}腳下）`, 'boss');
-          bossActionType = 'blackWater';
-          bossActionUntil = now + BLACK_WATER_CAST_LOCK_MS;
+          markBossAction('blackWater', now + BLACK_WATER_CAST_LOCK_MS);
           bossBlackWaterNextAt = now + BLACK_WATER_CD_MS;
         } else if (pct <= PLAYER_BOMB_TRIGGER_PCT && now >= playerBombNextAt) {
           castPlayerBomb(now);
@@ -5459,16 +5971,14 @@
           redBurstCastTimes = [];
           for (let i = 0; i < RED_BURST_REPEAT_COUNT; i++) redBurstCastTimes.push(now + i * RED_BURST_INTERVAL_MS);
           redBurstRestUntil = 0;
-          bossActionType = 'redBurst';
-          bossActionUntil = now + RED_BURST_REPEAT_COUNT * RED_BURST_INTERVAL_MS + RED_BURST_REST_MS;
+          markBossAction('redBurst', now + RED_BURST_REPEAT_COUNT * RED_BURST_INTERVAL_MS + RED_BURST_REST_MS);
           if (laserCdPauseStartedAt <= 0) laserCdPauseStartedAt = now;
         } else if (pct <= RED_CLOCK_HP_THRESHOLD_PCT && pct > RED_BURST_HP_THRESHOLD_PCT) {
           // 50%~20%：紅藍鬧鐘固定交替
           if (bossClockAlternateNext === 'red') {
             if (now >= bossRedClockNextAt) {
               castRedClockWave(now);
-              bossActionType = 'redClock';
-              bossActionUntil = now + CLOCK_CHARGE_MS + CLOCK_PILLAR_MS;
+              markBossAction('redClock', now + CLOCK_CHARGE_MS + CLOCK_PILLAR_MS);
               bossRedClockNextAt = now + randInt(RED_CLOCK_CD_MIN_MS, RED_CLOCK_CD_MAX_MS);
               bossClockAlternateNext = 'blue';
             }
@@ -5480,18 +5990,25 @@
           }
         } else if (pct > RED_BURST_HP_THRESHOLD_PCT && pct <= BLUE_CLOCK_HP_THRESHOLD_PCT && now >= bossBlueClockNextAt) {
           castBlueClock(now);
+        } else if (pct > BOSS_GROUND_SLAM_STOP_PCT && now >= bossGroundSlamNextAt) {
+          bossGroundSlamCastAt = now + BOSS_GROUND_SLAM_CAST_DELAY_MS;
+          markBossAction('groundSlam', bossGroundSlamCastAt + BOSS_GROUND_SLAM_PREVIEW_MS);
         }
       }
 
       updateClocks(now);
       updateBlackWaters(now);
       updateBossHandClocks(now);
+      updateBossGroundSlamRanges(now);
     }
     function updateHud() {
       const countdown = formatCountdown(countdownSec);
       if (timeText) timeText.textContent = countdown.replace(':', ' : ');
       if (deathLimitText) deathLimitText.textContent = String(deathLimitRemain);
-      if (worldClockText) worldClockText.textContent = isClockMechanicActive() ? formatHm(totalMinutes) : '--:--';
+      if (worldClockText) {
+        if (isSpecialTimeLockedMode()) worldClockText.textContent = formatHm(SPECIAL_LOCKED_CLOCK_MINUTES);
+        else worldClockText.textContent = isClockMechanicActive() ? formatHm(totalMinutes) : '--:--';
+      }
       updateMagicDefenseBuffUI();
       const pct = bossPct();
       if (bossFill) {
@@ -5611,6 +6128,7 @@
 
     function endGame(msg) {
       gameActive = false;
+      if (restartConfirmModal) restartConfirmModal.classList.remove('show');
       setGameEndedVisual(true);
       syncTeammateVisibility();
       stopBgmLoop();
@@ -5658,8 +6176,17 @@
       }
       const totalPlaySec = totalPlayDurationSec;
       const clearRun = /通關|成功擊殺/.test(String(msg || ''));
-      const reasonText = clearRun ? `🏆 ${String(msg || '')}` : String(msg || '');
-      showResultNotifyFx(clearRun ? '成功擊殺通關' : '挑戰失敗', clearRun ? 'success' : 'fail');
+      const specialModeRun = isSpecialRageRedMode();
+      const manualEnd = /手動結束|遊戲結束/.test(String(msg || ''));
+      const deathExhausted = /死亡次數已耗盡/.test(String(msg || ''));
+      const specialGameEnded = specialModeRun && (manualEnd || deathExhausted);
+      const reasonText = clearRun
+        ? `🏆 ${String(msg || '')}`
+        : (specialGameEnded ? '遊戲結束' : String(msg || ''));
+      const resultNotifyText = clearRun
+        ? '成功擊殺通關'
+        : (specialGameEnded ? '遊戲結束' : '挑戰失敗');
+      showResultNotifyFx(resultNotifyText, clearRun ? 'success' : 'fail');
       const topStats = [
         { label: '開場王血', value: `${formatPctText(battleStartPct)}%` },
         { label: '當時隊伍 DPM', value: `${Math.floor(battleStartDpm).toLocaleString()}` },
@@ -5677,18 +6204,6 @@
         { label: invSkillZeroCdEnabled ? '無敵擋下時間爆炸（復活術 0CD）' : '無敵擋下時間爆炸', value: `${statExplosionBlockedByInvCount} 次` },
       ];
       if (gameOverMsg) {
-        const topStatsHtml = topStats
-          .map((s) => `<div class="goTopItem"><div class="goTopLabel">${s.label}</div><div class="goTopValue">${s.value}</div></div>`)
-          .join('');
-        const statsHtml = stats
-          .map((s) => `<div class="goStatItem"><span class="goStatLabel">${s.label}</span><span class="goStatValue">${s.value}</span></div>`)
-          .join('');
-        const groupedStatsHtml = `
-          <div class="goGroupBox">
-            <div class="goGroupTitle">時間與死亡統計</div>
-            <div class="goStatsGrid">${statsHtml}</div>
-          </div>
-        `;
         const timelineSvgHtml = buildUnifiedTimelineSvg();
         const timelineHtml = timelineReplay.length > 0
           ? timelineReplay
@@ -5700,22 +6215,63 @@
               .map((d) => `<div class="goReplayItem"><span class="goReplayAt">${formatReplayAt(d.at)}</span><span class="goReplayText">${escapeHtml(d.reason)}（-${d.cost} 次）</span></div>`)
               .join('')
           : `<div class="goReplayEmpty">本場沒有角色死亡紀錄。</div>`;
-        gameOverMsg.innerHTML = `
-          <div class="goReason">${escapeHtml(reasonText)}</div>
-          <div class="goTopGrid">${topStatsHtml}</div>
-          ${groupedStatsHtml}
-          ${timelineSvgHtml}
-          <div class="goReplayGrid">
-            <div class="goReplayPanel">
-              <div class="goReplayTitle">整場時間變化回放</div>
-              <div class="goReplayList">${timelineHtml}</div>
+
+        if (specialModeRun) {
+          const specialControlText = isSpecialTimeControlEnabled()
+            ? '有啟動控時'
+            : '未啟動控時（背後時間鎖定 06:00）';
+          gameOverMsg.innerHTML = `
+            <div class="goReason">${escapeHtml(reasonText)}</div>
+            <div class="goSpecialModeBox">
+              <div class="goSpecialModeTitle">特殊模式：狂暴紅鬧鐘存活挑戰</div>
+              <div class="goSpecialModeList">
+                <div class="goSpecialModeRow"><span class="label">是否啟動控時</span><span class="value">${escapeHtml(specialControlText)}</span></div>
+                <div class="goSpecialModeRow"><span class="label">存活了多久</span><span class="value">${formatDuration(playDurationSec)}</span></div>
+                <div class="goSpecialModeRow"><span class="label">剩餘死亡次數</span><span class="value">${deathLimitRemain}</span></div>
+              </div>
             </div>
-            <div class="goReplayPanel">
-              <div class="goReplayTitle">死亡回放</div>
-              <div class="goReplayList">${deathHtml}</div>
+            ${timelineSvgHtml}
+            <div class="goReplayGrid">
+              <div class="goReplayPanel">
+                <div class="goReplayTitle">整場時間變化回放</div>
+                <div class="goReplayList">${timelineHtml}</div>
+              </div>
+              <div class="goReplayPanel">
+                <div class="goReplayTitle">死亡回放</div>
+                <div class="goReplayList">${deathHtml}</div>
+              </div>
             </div>
-          </div>
-        `;
+          `;
+        } else {
+          const topStatsHtml = topStats
+            .map((s) => `<div class="goTopItem"><div class="goTopLabel">${s.label}</div><div class="goTopValue">${s.value}</div></div>`)
+            .join('');
+          const statsHtml = stats
+            .map((s) => `<div class="goStatItem"><span class="goStatLabel">${s.label}</span><span class="goStatValue">${s.value}</span></div>`)
+            .join('');
+          const groupedStatsHtml = `
+            <div class="goGroupBox">
+              <div class="goGroupTitle">時間與死亡統計</div>
+              <div class="goStatsGrid">${statsHtml}</div>
+            </div>
+          `;
+          gameOverMsg.innerHTML = `
+            <div class="goReason">${escapeHtml(reasonText)}</div>
+            <div class="goTopGrid">${topStatsHtml}</div>
+            ${groupedStatsHtml}
+            ${timelineSvgHtml}
+            <div class="goReplayGrid">
+              <div class="goReplayPanel">
+                <div class="goReplayTitle">整場時間變化回放</div>
+                <div class="goReplayList">${timelineHtml}</div>
+              </div>
+              <div class="goReplayPanel">
+                <div class="goReplayTitle">死亡回放</div>
+                <div class="goReplayList">${deathHtml}</div>
+              </div>
+            </div>
+          `;
+        }
         attachTimelineHoverInteractions();
       }
       if (gameOverModal) {
@@ -5783,6 +6339,11 @@
           targetX: WORLD_W / 2 + (i - 1) * 90,
           targetY: GROUND_Y - TEAMMATE_H,
           wanderSeed: Math.random() * Math.PI * 2,
+          stackOffset: (i - ((TEAMMATE_COUNT - 1) / 2)) * 16,
+          misplayNextAt: performance.now() + rand(1800, 4200),
+          misplayUntil: 0,
+          misplayDir: 1,
+          misplayPush: 0,
           deadUntil: 0,
         });
       }
@@ -5803,6 +6364,11 @@
         t.y = GROUND_Y - TEAMMATE_H;
         t.targetX = t.x;
         t.targetY = t.y;
+        t.stackOffset = (i - ((teammates.length - 1) / 2)) * 16;
+        t.misplayNextAt = performance.now() + rand(1600, 3800);
+        t.misplayUntil = 0;
+        t.misplayDir = Math.random() < 0.5 ? -1 : 1;
+        t.misplayPush = 0;
         if (t.el) {
           t.el.classList.remove('dead');
           t.el.style.left = `${Math.round(t.x)}px`;
@@ -5910,8 +6476,7 @@
       showOrbWarn('玩家炸彈');
       pushTimeline(`拉圖斯施放玩家炸彈：${bombOwnerName(bomb)}（5 秒後爆炸）`, 'boss');
       playerBombNextAt = nowPerf + randInt(PLAYER_BOMB_CD_MIN_MS, PLAYER_BOMB_CD_MAX_MS);
-      bossActionType = 'playerBomb';
-      bossActionUntil = nowPerf + 450;
+      markBossAction('playerBomb', nowPerf + 450);
     }
     function updatePlayerBombs(nowPerf) {
       for (let i = playerBombs.length - 1; i >= 0; i--) {
@@ -5943,11 +6508,21 @@
       const cloneFocus = bossCloneActive && bossCloneEl && bossCloneEl.isConnected;
       const hasPhysical = physicalKillQueue.length > 0 || physicalNextKillAt > 0;
       const runnerIdx = hasPhysical ? ((cloneFocus && teammates.length > 1) ? 1 : 0) : -1;
-      const hasActiveBomb = playerBombs.some((b) => b && !b.exploded);
-      const bombCenters = playerBombs
-        .filter((b) => b && !b.exploded)
+      const activeBombs = playerBombs.filter((b) => b && !b.exploded);
+      const hasActiveBomb = activeBombs.length > 0;
+      const bombCenters = activeBombs
         .map((b) => ({ bomb: b, head: getEntityHead(b.ownerKind, b.ownerId) }))
         .filter((v) => !!v.head);
+      const bombOwnerTeammateIds = new Set();
+      let playerHasBomb = false;
+      for (const b of activeBombs) {
+        if (!b) continue;
+        if (b.ownerKind === 'teammate') {
+          bombOwnerTeammateIds.add(Number(b.ownerId) || 0);
+        } else if (b.ownerKind === 'player') {
+          playerHasBomb = true;
+        }
+      }
 
       for (let i = 0; i < teammates.length; i++) {
         const t = teammates[i];
@@ -5960,123 +6535,149 @@
           continue;
         }
         t.el.classList.remove('dead');
-        t.el.classList.toggle('teammateShield', performance.now() < teammateInvUntil);
+        t.el.classList.toggle('teammateShield', nowPerf < teammateInvUntil);
+        const isRunner = hasPhysical && i === runnerIdx;
+        const isTeammateA = t.id === 1;
+        const stackOffset = Number.isFinite(t.stackOffset) ? t.stackOffset : ((i - ((teammates.length - 1) / 2)) * 16);
+        const slightWander = Math.sin((nowPerf / 740) + t.wanderSeed) * 4;
         let anchorCenter = bossCenter;
-        let baseOffset = (i - ((teammates.length - 1) / 2)) * 160;
-        if (cloneFocus) {
-          if (i === 0) {
-            anchorCenter = bossCenter; // 隊友 A 固定打本體
-            baseOffset = Math.sin((nowPerf / 760) + t.wanderSeed) * 55;
-          } else {
-            anchorCenter = cloneCenter; // 其餘隊友圍繞分身
-            const cloneSlot = i - 1;
-            const slotCenter = (teammates.length - 2) / 2;
-            baseOffset = (cloneSlot - slotCenter) * 132;
+        if (cloneFocus && isTeammateA) {
+          // 隊友 A：貼分身 > 貼王
+          anchorCenter = cloneCenter * 0.84 + bossCenter * 0.16;
+        }
+        let baseTargetX = clamp(anchorCenter - TEAMMATE_W / 2 + stackOffset + slightWander, 0, WORLD_W - TEAMMATE_W);
+        let baseTargetY = GROUND_Y - TEAMMATE_H;
+
+        if (!Number.isFinite(t.misplayNextAt) || t.misplayNextAt <= 0) {
+          t.misplayNextAt = nowPerf + rand(2000, 4600);
+        }
+        if (nowPerf >= t.misplayNextAt) {
+          if (Math.random() < 0.23) {
+            t.misplayUntil = nowPerf + rand(700, 1600);
+            t.misplayDir = Math.random() < 0.5 ? -1 : 1;
+            t.misplayPush = rand(150, 320);
           }
-        }
-        const wander = Math.sin((nowPerf / 520) + t.wanderSeed) * 55;
-        t.targetX = clamp(anchorCenter + baseOffset + wander - TEAMMATE_W / 2, 0, WORLD_W - TEAMMATE_W);
-        t.targetY = GROUND_Y - TEAMMATE_H;
-
-        if (hasPhysical && i === runnerIdx) {
-          t.targetX = clamp(TOP_PLAT_X + TOP_PLAT_W * 0.72 - TEAMMATE_W / 2, TOP_PLAT_X, TOP_PLAT_X + TOP_PLAT_W - TEAMMATE_W);
-          t.targetY = TOP_PLAT_Y - TEAMMATE_H;
+          t.misplayNextAt = nowPerf + rand(2600, 5600);
         }
 
+        // 一般：貼王 > 貼隊友；隊友A(有分身)：貼分身 > 貼王 > 貼隊友
+        let mateCenterSum = 0;
+        let mateCount = 0;
+        for (const other of teammates) {
+          if (!other || other.id === t.id) continue;
+          if (nowMs < other.deadUntil) continue;
+          mateCenterSum += other.x + TEAMMATE_W / 2;
+          mateCount++;
+        }
+        if (mateCount > 0) {
+          const mateCenter = mateCenterSum / mateCount;
+          const mateTargetX = clamp(mateCenter - TEAMMATE_W / 2 + stackOffset * 0.12, 0, WORLD_W - TEAMMATE_W);
+          const teamStickWeight = (cloneFocus && isTeammateA) ? 0.22 : 0.34;
+          baseTargetX = clamp(baseTargetX * (1 - teamStickWeight) + mateTargetX * teamStickWeight, 0, WORLD_W - TEAMMATE_W);
+        }
+
+        if (isRunner) {
+          baseTargetX = clamp(TOP_PLAT_X + TOP_PLAT_W * 0.72 - TEAMMATE_W / 2, TOP_PLAT_X, TOP_PLAT_X + TOP_PLAT_W - TEAMMATE_W);
+          baseTargetY = TOP_PLAT_Y - TEAMMATE_H;
+        }
+
+        t.targetX = baseTargetX;
+        t.targetY = baseTargetY;
+
+        let selfHasBomb = false;
         let bombEvadeForce = 0;
+        let ownerBombEvadeForce = 0;
         if (hasActiveBomb) {
+          selfHasBomb = bombOwnerTeammateIds.has(t.id);
+          const selfCx = t.x + TEAMMATE_W / 2;
+          const selfCy = t.y + 8;
+
+          // 有炸彈者優先主動遠離無炸彈者（優先於其他人的被動閃避）
+          if (selfHasBomb) {
+            const ownerAvoidR = PLAYER_BOMB_RADIUS + 240;
+            const ownerAvoidR2 = ownerAvoidR * ownerAvoidR;
+            const pHead = getEntityHead('player', 0);
+            if (pHead && !playerHasBomb) {
+              const dx = selfCx - pHead.x;
+              const dy = selfCy - pHead.y;
+              if ((dx * dx + dy * dy) <= ownerAvoidR2) {
+                ownerBombEvadeForce += dx >= 0 ? 760 : -760;
+              }
+            }
+            for (const other of teammates) {
+              if (!other || other.id === t.id) continue;
+              if (nowMs < other.deadUntil) continue;
+              if (bombOwnerTeammateIds.has(other.id)) continue;
+              const oth = getEntityHead('teammate', other.id);
+              if (!oth) continue;
+              const dx = selfCx - oth.x;
+              const dy = selfCy - oth.y;
+              if ((dx * dx + dy * dy) <= ownerAvoidR2) {
+                ownerBombEvadeForce += dx >= 0 ? 760 : -760;
+              }
+            }
+          }
+
           for (const info of bombCenters) {
             const b = info.bomb;
             const head = info.head;
             if (!head) continue;
-            const ownerIsSelf = (b.ownerKind === 'teammate' && b.ownerId === t.id);
-            if (ownerIsSelf) {
-              const ownerCx = t.x + TEAMMATE_W / 2;
-              const safeR = PLAYER_BOMB_RADIUS + 16;
-              const safeR2 = safeR * safeR;
-              let nearestThreatX = null;
-              let nearestThreatGap = Infinity;
-              const pHead = getEntityHead('player', 0);
-              if (pHead) {
-                const pdx = pHead.x - head.x;
-                const pdy = pHead.y - head.y;
-                if ((pdx * pdx + pdy * pdy) <= safeR2) {
-                  const gap = Math.abs(pHead.x - ownerCx);
-                  nearestThreatX = pHead.x;
-                  nearestThreatGap = gap;
-                }
-              }
-              for (const other of teammates) {
-                if (!other || other.id === t.id) continue;
-                if (Date.now() < other.deadUntil) continue;
-                const oth = getEntityHead('teammate', other.id);
-                if (!oth) continue;
-                const odx = oth.x - head.x;
-                const ody = oth.y - head.y;
-                if ((odx * odx + ody * ody) > safeR2) continue;
-                const gap = Math.abs(oth.x - ownerCx);
-                if (gap < nearestThreatGap) {
-                  nearestThreatGap = gap;
-                  nearestThreatX = oth.x;
-                }
-              }
-              let nearestWaterX = null;
-              let nearestWaterGap = Infinity;
-              for (const w of blackWaters) {
-                if (!w || !w.active || !w.el || !w.el.isConnected) continue;
-                const sameFloor = Math.abs((t.targetY + TEAMMATE_H) - (w.y + 20)) <= 44;
-                if (!sameFloor) continue;
-                const left = w.x - 24;
-                const right = w.x + w.w + 24;
-                if (ownerCx < left || ownerCx > right) continue;
-                const wx = w.x + w.w / 2;
-                const gap = Math.abs(wx - ownerCx);
-                if (gap < nearestWaterGap) {
-                  nearestWaterGap = gap;
-                  nearestWaterX = wx;
-                }
-              }
-              if (nearestThreatX == null && nearestWaterX == null) {
-                continue;
-              }
-              const dangerX = (nearestThreatX != null) ? nearestThreatX : nearestWaterX;
-              if (dangerX != null) {
-                const away = ownerCx < dangerX ? -620 : 620;
-                bombEvadeForce += away;
-              }
+            const ownerIsSelf = (b.ownerKind === 'teammate' && Number(b.ownerId) === t.id);
+            if (ownerIsSelf) continue;
+            if (
+              selfHasBomb
+              && ((b.ownerKind === 'player' && playerHasBomb) || (b.ownerKind === 'teammate' && bombOwnerTeammateIds.has(Number(b.ownerId) || 0)))
+            ) {
               continue;
             }
-            const tx = (t.x + TEAMMATE_W / 2) - head.x;
-            const ty = (t.y + 8) - head.y;
-            const avoidR = PLAYER_BOMB_RADIUS + 260;
+            const tx = selfCx - head.x;
+            const ty = selfCy - head.y;
+            const avoidR = PLAYER_BOMB_RADIUS + (selfHasBomb ? 280 : 250);
             if ((tx * tx + ty * ty) <= (avoidR * avoidR)) {
-              const push = tx >= 0 ? 560 : -560;
-              bombEvadeForce += push;
+              const push = tx >= 0 ? (selfHasBomb ? 700 : 560) : (selfHasBomb ? -700 : -560);
+              if (selfHasBomb) ownerBombEvadeForce += push;
+              else bombEvadeForce += push;
             }
           }
         }
-        if (bombEvadeForce !== 0) {
-          const dir = bombEvadeForce > 0 ? 1 : -1;
-          t.targetX = clamp(t.targetX + dir * 620, 0, WORLD_W - TEAMMATE_W);
-        }
+        const finalBombEvadeForce = selfHasBomb
+          ? ownerBombEvadeForce
+          : bombEvadeForce;
 
         let waterEvadeForce = 0;
-        for (const w of blackWaters) {
-          if (!w || !w.el || !w.el.isConnected) continue;
-          const sameFloor = Math.abs((t.targetY + TEAMMATE_H) - (w.y + 20)) <= 44;
-          if (!sameFloor) continue;
-          const left = w.x - 180;
-          const right = w.x + w.w + 180;
-          const cx = t.x + TEAMMATE_W / 2;
-          if (cx >= left && cx <= right) {
-            const push = (cx < (w.x + w.w / 2)) ? -520 : 520;
-            waterEvadeForce += push;
+        if (finalBombEvadeForce === 0) {
+          for (const w of blackWaters) {
+            if (!w || !w.el || !w.el.isConnected) continue;
+            const sameFloor = Math.abs((t.targetY + TEAMMATE_H) - (w.y + 20)) <= 44;
+            if (!sameFloor) continue;
+            const left = w.x - 180;
+            const right = w.x + w.w + 180;
+            const cx = t.x + TEAMMATE_W / 2;
+            if (cx >= left && cx <= right) {
+              const push = (cx < (w.x + w.w / 2)) ? -520 : 520;
+              waterEvadeForce += push;
+            }
           }
         }
-        if (waterEvadeForce !== 0) {
+
+        if (finalBombEvadeForce !== 0) {
+          const dir = finalBombEvadeForce > 0 ? 1 : -1;
+          const bombPushDistance = selfHasBomb ? 760 : 620;
+          t.targetX = clamp(t.x + dir * bombPushDistance, 0, WORLD_W - TEAMMATE_W);
+        } else if (waterEvadeForce !== 0) {
           const dir = waterEvadeForce > 0 ? 1 : -1;
-          const extra = (bombEvadeForce === 0) ? 520 : 320;
-          t.targetX = clamp(t.targetX + dir * extra, 0, WORLD_W - TEAMMATE_W);
+          t.targetX = clamp(t.x + dir * 520, 0, WORLD_W - TEAMMATE_W);
+        }
+
+        const canMisplayRun = (
+          finalBombEvadeForce === 0
+          && waterEvadeForce === 0
+          && !isRunner
+          && nowPerf < (Number(t.misplayUntil) || 0)
+        );
+        if (canMisplayRun) {
+          const push = (Number(t.misplayPush) || 220) * (t.misplayDir < 0 ? -1 : 1);
+          t.targetX = clamp(t.targetX + push, 0, WORLD_W - TEAMMATE_W);
         }
 
         const dx = t.targetX - t.x;
@@ -6097,7 +6698,7 @@
       world.appendChild(bossEl);
       bossEl.style.left = bossX + 'px';
       bossEl.style.top = bossY + 'px';
-      bossEl.style.transform = 'scaleX(-1)';
+      bossEl.style.transform = 'scale(-1, 1)';
     }
     function ensureBossClone() {
       if (bossCloneEl) return;
@@ -6117,7 +6718,7 @@
       bossCloneY = bossY;
       bossCloneVX = 0;
       bossCloneMoveMode = 'stop';
-      bossCloneMoveModeUntil = now + rand(900, 1800);
+      bossCloneMoveModeUntil = now + rand(380, 820);
       bossCloneForcedMoveDir = Math.random() < 0.5 ? -1 : 1;
       if (bossCloneEl) {
         bossCloneEl.style.left = `${Math.round(bossCloneX)}px`;
@@ -6208,27 +6809,35 @@
       clearMobs();
       const waveId = ++mobWaveSeq;
       statMobWaveCount++;
+      const spawnNow = performance.now();
       currentMobWave = {
         id: waveId,
         spawned: [],
         killed: [],
         active: true,
-        autoEndAt: performance.now() + rand(MOB_AUTO_DIE_MIN_MS, MOB_AUTO_DIE_MAX_MS),
+        autoEndAt: spawnNow + rand(MOB_AUTO_DIE_MIN_MS, MOB_AUTO_DIE_MAX_MS),
       };
       const spawnCount = 4;
       const leftBound = TOP_PLAT_X + MOB_EDGE_PADDING;
       const rightBound = TOP_PLAT_X + TOP_PLAT_W - MOB_W - MOB_EDGE_PADDING;
-      const spawnCenterX = TOP_PLAT_X + (TOP_PLAT_W - MOB_W) / 2;
+      const spawnCenterX = Math.round(TOP_PLAT_X + (TOP_PLAT_W - MOB_W) / 2);
       const usableWidth = Math.max(0, rightBound - leftBound);
-      const spreadGap = spawnCount > 1 ? Math.min(78, usableWidth / (spawnCount - 1)) : 0;
+      const spreadGap = spawnCount > 1 ? Math.min(110, usableWidth / (spawnCount - 1)) : 0;
       const effects = [];
       const waveKind = Math.random() < 0.5 ? 'demon' : 'weasel'; // 每波次 50% 決定整波種類
+      const slowScatterWave = Math.random() < 0.1; // 10% 波次會慢分散
       for (let i = 0; i < spawnCount; i++) {
         const [val, label] = MOB_EFFECT_ITEMS[Math.floor(Math.random() * MOB_EFFECT_ITEMS.length)];
-        const offset = (i - ((spawnCount - 1) / 2)) * spreadGap;
-        const spawnX = Math.round(clamp(spawnCenterX + offset, leftBound, rightBound));
-        const outwardDir = offset < 0 ? -1 : (offset > 0 ? 1 : ((i % 2 === 0) ? -1 : 1));
-        const mob = spawnMob(spawnX, val, label, outwardDir, waveId, waveKind);
+        const slotOffset = (i - ((spawnCount - 1) / 2)) * spreadGap;
+        const jitter = rand(-14, 14);
+        const scatterTargetX = Math.round(clamp(spawnCenterX + slotOffset + jitter, leftBound, rightBound));
+        const outwardDir = scatterTargetX < spawnCenterX ? -1 : (scatterTargetX > spawnCenterX ? 1 : ((i % 2 === 0) ? -1 : 1));
+        const scatterMs = slowScatterWave ? rand(1000, 3000) : rand(320, 900);
+        const mob = spawnMob(spawnCenterX, val, label, outwardDir, waveId, waveKind, {
+          scatterTargetX,
+          scatterUntil: spawnNow + scatterMs,
+          scatterSpeed: rand(MOB_BASE_SPEED * 1.15, MOB_BASE_SPEED * 1.75),
+        });
         const timelineLabel = getMobTimelineLabel(mob);
         effects.push(timelineLabel);
         currentMobWave.spawned.push(timelineLabel);
@@ -6241,7 +6850,7 @@
       });
       pushTimeline(`小怪波次#${waveId} 重生（覆蓋時間 ${formatHm(totalMinutes)}）：${effects.join('、')}`, 'mob');
     }
-    function spawnMob(x, effectVal, effectLabel, outwardDir = 1, waveId = 0, kind = 'demon') {
+    function spawnMob(x, effectVal, effectLabel, outwardDir = 1, waveId = 0, kind = 'demon', opts = null) {
       const mobKind = (kind === 'weasel') ? 'weasel' : 'demon';
       const el = document.createElement('div');
       el.className = `mob ${mobKind === 'weasel' ? 'mobWeasel' : 'mobDemon'}`;
@@ -6259,16 +6868,31 @@
       const hptext = document.createElement('div'); hptext.className = 'hptext'; hptext.textContent = `${formatCombatNum(MOB_MAX_HP)}/${formatCombatNum(MOB_MAX_HP)}`;
       hpbar.appendChild(hpfill); hpbar.appendChild(hptext); el.appendChild(hpbar);
       const y = TOP_PLAT_Y - MOB_H;
+      const leftBound = TOP_PLAT_X + MOB_EDGE_PADDING;
+      const rightBound = TOP_PLAT_X + TOP_PLAT_W - MOB_W - MOB_EDGE_PADDING;
+      const spawnX = clamp(Math.round(x), leftBound, rightBound);
+      const now = performance.now();
+      const scatterTargetX = clamp(
+        Number.isFinite(opts && opts.scatterTargetX) ? opts.scatterTargetX : spawnX,
+        leftBound,
+        rightBound
+      );
+      const scatterUntil = Number.isFinite(opts && opts.scatterUntil) ? opts.scatterUntil : (now + rand(320, 900));
+      const scatterSpeed = Math.max(
+        MOB_BASE_SPEED,
+        Number.isFinite(opts && opts.scatterSpeed) ? opts.scatterSpeed : (MOB_BASE_SPEED * 1.35)
+      );
       world.appendChild(el);
       const dir = outwardDir >= 0 ? 1 : -1;
       const mob = {
         id: mobIdSeq++,
-        el, x, y, vx: dir * MOB_BASE_SPEED, hp: MOB_MAX_HP,
-        mode: 'move', modeUntil: performance.now() + rand(MOB_MOVE_MIN, MOB_MOVE_MAX),
+        el, x: spawnX, y, vx: dir * MOB_BASE_SPEED, hp: MOB_MAX_HP,
+        mode: 'move', modeUntil: scatterUntil + rand(MOB_MOVE_MIN, MOB_MOVE_MAX),
         chaseUntil: 0, knockUntil: 0, effectVal, effectLabel: String(effectLabel),
         kind: mobKind,
-        respawnRunUntil: performance.now() + 3000,
-        respawnRunDir: dir,
+        respawnScatterUntil: scatterUntil,
+        respawnScatterTargetX: scatterTargetX,
+        respawnScatterSpeed: scatterSpeed,
         waveId,
         timelineLabel: '',
         _killMarked: false,
@@ -6440,8 +7064,7 @@
       showOrbWarn('黑球即將出現！');
       pushTimeline('黑球預告：1.5 秒後出現', 'orb');
       orbSpawnTimer = now + 1500;
-      bossActionType = 'antiShield';
-      bossActionUntil = now + 1500 + BOSS_ANTI_SHIELD_DURATION_MS;
+      markBossAction('antiShield', now + 1500 + BOSS_ANTI_SHIELD_DURATION_MS);
       bossNextAntiShieldAt = now + BOSS_ANTI_SHIELD_CD_MS;
       return true;
     }
@@ -6470,9 +7093,13 @@
 
         if (leftMs <= 0) {
           statOrbExplosionCount++;
-          statOrbExplosionMinutesLoss += ORB_MOB_PENALTY_MIN;
-          applyTimeDelta(-ORB_MOB_PENALTY_MIN, `黑球爆炸（累計扣時 ${statOrbExplosionMinutesLoss} 分）`, 'orb');
-          showMsg('');
+          if (!isSpecialTimeLockedMode()) {
+            statOrbExplosionMinutesLoss += ORB_MOB_PENALTY_MIN;
+            applyTimeDelta(-ORB_MOB_PENALTY_MIN, `黑球爆炸（累計扣時 ${statOrbExplosionMinutesLoss} 分）`, 'orb');
+            showMsg('');
+          } else {
+            pushTimeline('黑球爆炸（特殊模式未啟動控時：不影響背後時間）', 'orb');
+          }
           o.el.remove();
           orbMobs.splice(i, 1);
           updateHud();
@@ -7170,6 +7797,10 @@
         laserDebuffUntil.blue = 0;
         laserDebuffChanged = true;
       }
+      if (groundSlamStunUntil > 0 && now >= groundSlamStunUntil) {
+        groundSlamStunUntil = 0;
+        laserDebuffChanged = true;
+      }
       if (laserDebuffChanged) {
         updateDebuffIcon();
       }
@@ -7391,8 +8022,15 @@
 
       for (const mob of mobs) {
         if (now < mob.knockUntil) {}
-        else if (now < mob.respawnRunUntil) {
-          mob.vx = mob.respawnRunDir * MOB_BASE_SPEED;
+        else if (now < (Number(mob.respawnScatterUntil) || 0)) {
+          const targetX = Number.isFinite(mob.respawnScatterTargetX) ? mob.respawnScatterTargetX : mob.x;
+          const dx = targetX - mob.x;
+          if (Math.abs(dx) <= 1.2) {
+            mob.vx = 0;
+          } else {
+            const scatterSpeed = Math.max(MOB_BASE_SPEED, Number(mob.respawnScatterSpeed) || (MOB_BASE_SPEED * 1.35));
+            mob.vx = clamp(dx, -scatterSpeed, scatterSpeed);
+          }
         }
         else if (now < mob.chaseUntil) { const dir = playerX < mob.x ? -1 : 1; mob.vx = dir * MOB_CHASE_SPEED; }
         else {
@@ -7421,7 +8059,11 @@
     }
     function tickGameLogic() {
       if (!gameActive || gamePaused) return;
-      clockTickCount++; countdownSec = Math.max(0, countdownSec - 1);
+      const specialModeRun = isSpecialRageRedMode();
+      clockTickCount++;
+      if (specialModeRun) countdownSec = Math.max(0, countdownSec + 1);
+      else countdownSec = Math.max(0, countdownSec - 1);
+      if (isSpecialTimeLockedMode()) totalMinutes = SPECIAL_LOCKED_CLOCK_MINUTES;
       const clockActive = isClockMechanicActive();
       if (clockActive && !clockMechanicStarted) {
         clockMechanicStarted = true;
@@ -7450,20 +8092,22 @@
         if (bossCloneHp <= 0) {
           destroyBossClone('隊伍輸出擊破分身');
         }
-      } else {
+      } else if (!specialModeRun) {
         bossHp -= (effectiveDpm / 60);
       }
+      if (specialModeRun) bossHp = getSpecialLockedBossHp();
       if (clockActive && totalMinutes <= 0) { killPlayerForTimeExplosion('時間低於或等於 00:00，觸發爆炸（死亡 10 秒）', 1, 'low'); }
       if (clockActive && totalMinutes >= 720) {
         killPlayerForTimeExplosion('時間高於或等於 12:00，觸發爆炸（死亡 10 秒）', 1, 'high');
       }
       processPhysicalKillQueue(performance.now());
       recordReplaySample();
-      if (!bossCloneActive && bossHp <= 0) { bossHp = 0; updateHud(); endGame('成功擊殺通關'); return; }
+      if (!specialModeRun && !bossCloneActive && bossHp <= 0) { bossHp = 0; updateHud(); endGame('成功擊殺通關'); return; }
       updateHud(); tickOrbMobs();
     }
     function startGame() {
       if (gameOverModal) gameOverModal.classList.remove('show');
+      if (restartConfirmModal) restartConfirmModal.classList.remove('show');
       setGameEndedVisual(false);
       stopSafePointRecording(false);
       closeSetupModal();
@@ -7473,14 +8117,16 @@
       playBgmLoop();
       totalMinutes = configuredStartMinutes;
       const startPct = gameModeStartPct(selectedGameMode);
+      const specialModeRun = isSpecialRageRedMode();
+      if (specialModeRun && isSpecialTimeLockedMode()) totalMinutes = SPECIAL_LOCKED_CLOCK_MINUTES;
       battleStartPct = startPct;
-      bossHp = BOSS_MAX_HP * (startPct / 100);
+      bossHp = specialModeRun ? getSpecialLockedBossHp() : (BOSS_MAX_HP * (startPct / 100));
       battleStartDpm = getEffectiveTeamDpmNow();
-      cloneSummonAllowed = startPct >= CLONE_TRIGGER_PCT;
+      cloneSummonAllowed = specialModeRun ? false : (startPct >= CLONE_TRIGGER_PCT);
       clockTickCount = 0;
       syncHudSupportVisibility();
       setPauseState(false);
-      countdownSec = computeStartCountdownSec(startPct, baseDpm);
+      countdownSec = specialModeRun ? 0 : computeStartCountdownSec(startPct, baseDpm);
       playerDeadUntil = 0; timeExplosionLockUntil = 0;
       deathRespawnInvPending = false;
       deathLimitRemain = 10; deathUsed = 0;
@@ -7554,7 +8200,7 @@
         bossVX = 1.2;
         bossFacing = 1;
         bossMoveMode = 'stop';
-        bossMoveModeUntil = performance.now() + rand(900, 1800);
+        bossMoveModeUntil = performance.now() + rand(500, 1100);
         bossForcedMoveDir = Math.random() < 0.5 ? -1 : 1;
         bossCloneMoveMode = 'stop';
         bossCloneMoveModeUntil = 0;
@@ -7564,7 +8210,7 @@
         bossEl.classList.remove('antiShield', 'clockCast');
         bossEl.style.left = bossX + 'px';
         bossEl.style.top = bossY + 'px';
-        bossEl.style.transform = 'scaleX(-1)';
+        bossEl.style.transform = 'scale(-1, 1)';
       }
       if (bossCloneEl && bossCloneEl.isConnected) bossCloneEl.remove();
       bossCloneEl = null;
@@ -7579,7 +8225,10 @@
       if (logicTimer) clearInterval(logicTimer); logicTimer = setInterval(tickGameLogic, 1000);
       if (orbTimer) clearInterval(orbTimer);
       orbTimer = null;
-      pushTimeline(`戰鬥開始：${gameModeLabel(selectedGameMode)}，時間 ${formatHm(totalMinutes)}，王血 ${startPct}%`, 'system');
+      const startTimelineText = specialModeRun
+        ? `戰鬥開始：${gameModeLabel(selectedGameMode)}，控時 ${isSpecialTimeControlEnabled() ? '啟用' : '停用'}，背後時間 ${formatHm(totalMinutes)}，王血固定 ${formatPctText(SPECIAL_RAGE_RED_LOCKED_PCT)}%`
+        : `戰鬥開始：${gameModeLabel(selectedGameMode)}，時間 ${formatHm(totalMinutes)}，王血 ${startPct}%`;
+      pushTimeline(startTimelineText, 'system');
       recordReplaySample(replayStartAt);
       updateHud(); showMsg('');
     }
@@ -7592,37 +8241,44 @@
       const antiShieldActive = isBossAntiShieldActive();
       bossEl.classList.toggle('antiShield', antiShieldActive);
       const bossBusy = isBossActionBusy(now);
-      const clockCasting = bossBusy && (bossActionType === 'blueClock' || bossActionType === 'redClock' || bossActionType === 'redBurst');
+      const clockCasting = bossBusy && (bossActionType === 'blueClock' || bossActionType === 'redClock' || bossActionType === 'redBurst' || bossActionType === 'groundSlam');
       bossEl.classList.toggle('clockCast', clockCasting);
+      const groundSlamCharging = (bossActionType === 'groundSlam' && bossGroundSlamCastAt > now);
+      const hasGroundSlamRange = bossGroundSlamRanges.some((s) => s && s.el && s.el.isConnected && now < s.endAt);
+      const clockStretching = isBossClockStretchActive(now);
+      let bossScaleY = 1;
+      if (clockStretching) bossScaleY = 1.15; // 紅/藍鬧鐘施放後 0.5 秒開始，高度 +15%，持續 0.75 秒
+      if (groundSlamCharging) bossScaleY = 1.2; // 拍地板出招前高度 +20%
+      if (hasGroundSlamRange) bossScaleY = 0.7; // 方框存在時高度 -30%
 
         if (!antiShieldActive && !bossBusy) {
           const leftBound = 120;
           const rightBound = WORLD_W - 120 - BOSS_SIZE;
           if (now >= bossMoveModeUntil) {
-          const roll = Math.random();
-          if (roll < 0.6) {
-            bossMoveMode = 'stop';
-            const stopMs = rand(650, 1800);
-            bossStopUntil = now + stopMs;
-            bossMoveModeUntil = now + stopMs;
-          } else if (roll < 0.84) {
-            bossMoveMode = 'follow';
-            bossMoveModeUntil = now + rand(700, 1600);
-          } else {
-            bossMoveMode = 'forced';
-            bossForcedMoveDir = Math.random() < 0.5 ? -1 : 1;
-            bossMoveModeUntil = now + rand(900, 1900);
-          }
+            const roll = Math.random() * BOSS_MOVE_WEIGHT_TOTAL;
+            if (roll < BOSS_IDLE_WEIGHT) {
+              bossMoveMode = 'stop';
+              const stopMs = rand(350, 900);
+              bossStopUntil = now + stopMs;
+              bossMoveModeUntil = now + stopMs;
+            } else if (roll < BOSS_IDLE_WEIGHT + BOSS_FOLLOW_WEIGHT) {
+              bossMoveMode = 'follow';
+              bossMoveModeUntil = now + rand(500, 1100);
+            } else {
+              bossMoveMode = 'forced';
+              bossForcedMoveDir = Math.random() < 0.5 ? -1 : 1;
+              bossMoveModeUntil = now + rand(520, 1200);
+            }
         }
 
         if (bossMoveMode === 'forced') {
-          bossX += bossForcedMoveDir * 2.8;
+          bossX += bossForcedMoveDir * 3.4;
         } else if (bossMoveMode === 'follow' && nowMs >= bossStopUntil) {
           const bossCenterX = bossX + BOSS_SIZE / 2;
           const followTargetX = findNearestAliveTeammateCenterX(bossCenterX, nowMs) - BOSS_SIZE / 2;
           const dx = followTargetX - bossX;
-          if (Math.abs(dx) > 3) {
-            bossX += clamp(dx, -2.1, 2.1);
+          if (Math.abs(dx) > 2) {
+            bossX += clamp(dx, -2.8, 2.8);
           }
         }
 
@@ -7642,7 +8298,7 @@
       }
       bossEl.style.left = bossX + 'px';
       bossEl.style.top = bossY + 'px';
-      bossEl.style.transform = `scaleX(${-bossFacing})`;
+      bossEl.style.transform = `scale(${-bossFacing}, ${clamp(bossScaleY, 0.7, 1.2)})`;
       if (bossCloneActive) {
         ensureBossClone();
         if (bossCloneEl) {
@@ -7650,26 +8306,26 @@
           const rightBound = WORLD_W - 120 - BOSS_SIZE;
           if (now >= bossCloneMoveModeUntil) {
             const roll = Math.random();
-            if (roll < 0.66) {
+            if (roll < 0.34) {
               bossCloneMoveMode = 'stop';
-              bossCloneMoveModeUntil = now + rand(700, 1900);
-            } else if (roll < 0.87) {
+              bossCloneMoveModeUntil = now + rand(320, 880);
+            } else if (roll < 0.68) {
               bossCloneMoveMode = 'follow';
-              bossCloneMoveModeUntil = now + rand(760, 1650);
+              bossCloneMoveModeUntil = now + rand(480, 1050);
             } else {
               bossCloneMoveMode = 'forced';
               bossCloneForcedMoveDir = Math.random() < 0.5 ? -1 : 1;
-              bossCloneMoveModeUntil = now + rand(950, 1950);
+              bossCloneMoveModeUntil = now + rand(500, 1150);
             }
           }
           if (bossCloneMoveMode === 'forced') {
-            bossCloneX += bossCloneForcedMoveDir * 2.6;
+            bossCloneX += bossCloneForcedMoveDir * 3.2;
           } else if (bossCloneMoveMode === 'follow') {
             const cloneCenterX = bossCloneX + BOSS_SIZE / 2;
             const followTargetX = findNearestAliveTeammateCenterX(cloneCenterX, nowMs) - BOSS_SIZE / 2;
             const dx = followTargetX - bossCloneX;
-            if (Math.abs(dx) > 3) {
-              bossCloneX += clamp(dx, -2.0, 2.0);
+            if (Math.abs(dx) > 2) {
+              bossCloneX += clamp(dx, -2.6, 2.6);
             }
           }
 
