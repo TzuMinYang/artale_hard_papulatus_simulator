@@ -2033,6 +2033,10 @@
       </div>
 
       <div id="teamInfoColumn">
+        <div id="hitRuleInfoPanel" class="chip teamInfoCard">
+          <div class="teamInfoTitle">受擊規則</div>
+          <div class="teamInfoBody">每次受擊：有魔心傷害減半（HP/MP 各扣一半）；沒魔心會直接死亡。</div>
+        </div>
         <div id="teamRedClockInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">隊友紅鬧鐘</div>
           <div class="teamInfoBody">隊友對紅鬧鐘、黑水、彼此的玩家炸彈無敵。</div>
@@ -2736,6 +2740,7 @@
       bossCloneUnlockAt = shiftFuturePerf(bossCloneUnlockAt, deltaPerf);
       redBurstRestUntil = shiftFuturePerf(redBurstRestUntil, deltaPerf);
       laserRestUntil = shiftFuturePerf(laserRestUntil, deltaPerf);
+      laserCdPauseStartedAt = shiftFuturePerf(laserCdPauseStartedAt, deltaPerf);
       orbSpawnTimer = shiftFuturePerf(orbSpawnTimer, deltaPerf);
       mageCommandPickTimer = shiftFuturePerf(mageCommandPickTimer, deltaPerf);
       mageCommandResolveTimer = shiftFuturePerf(mageCommandResolveTimer, deltaPerf);
@@ -2832,11 +2837,12 @@
     }
     function refreshTeamCommandInfoText() {
       const autoPickSecText = formatDelaySecText(mageCommandAutoPickDelayMs);
+      const manualDelaySecText = formatDelaySecText(Math.max(2000, Math.floor(mageCommandDelayMs || 0)));
       if (mageAutoPickInfoBody) {
-        mageAutoPickInfoBody.textContent = `黑球出現後若未通知，${autoPickSecText} 秒後隨機選清左/清右/不清，1.5 秒後生效。`;
+        mageAutoPickInfoBody.textContent = `黑球出現後若未通知，${autoPickSecText} 秒後隨機選清左/清右/不清，1.5 秒後生效。若隨機選到不清，仍可補下清左/清右，會重新等待 ${manualDelaySecText} 秒才執行。`;
       }
       if (setupTeamNote) {
-        setupTeamNote.innerHTML = `黑球出現時若未先指揮法師清球，系統會在 ${autoPickSecText} 秒後隨機選擇「清左 / 清右 / 不清」，並於 1.5 秒後生效。<br>沒聽 call 可能出現：選錯、順序錯誤、打錯或不打。<br>提示雜訊為獨立提示層，可能和王技能提示同時出現。`;
+        setupTeamNote.innerHTML = `黑球出現時若未先指揮法師清球，系統會在 ${autoPickSecText} 秒後隨機選擇「清左 / 清右 / 不清」，並於 1.5 秒後生效。若隨機選到不清，仍可補下清左 / 清右，會重新等待 ${manualDelaySecText} 秒才執行。<br>沒聽 call 可能出現：選錯、順序錯誤、打錯或不打。<br>提示雜訊為獨立提示層，可能和王技能提示同時出現。`;
       }
     }
     function ensureBgmAudio() {
@@ -3641,6 +3647,18 @@
     function setMageCommandSelection(side) {
       if (!gameActive) return;
       selectedMageCommand = (side === 'left' || side === 'right' || side === 'none') ? side : '';
+      if (
+        (selectedMageCommand === 'left' || selectedMageCommand === 'right')
+        && mageCommandPlannedPick === 'none'
+        && mageCommandResolveTimer > 0
+      ) {
+        const waitMs = Math.max(2000, Math.floor(mageCommandDelayMs || 0));
+        mageCommandPlannedPick = selectedMageCommand;
+        mageCommandResolveTimer = performance.now() + waitMs;
+        const patchNote = `法師原本選擇不清，補下 ${mageCommandLabel(selectedMageCommand)}（${formatDelaySecText(waitMs)} 秒後生效）`;
+        showOrbWarn(patchNote);
+        pushTimeline(patchNote, 'orb');
+      }
       syncMageCmdSelectionUI();
       showHint(`法師預選：${mageCommandLabel(selectedMageCommand || 'none')}（下令後 ${formatDelaySecText(mageCommandDelayMs)} 秒生效，超過時機無效）`);
     }
@@ -4094,6 +4112,7 @@
 
     let laserCastRemain = 0;
     let laserRestUntil = 0;
+    let laserCdPauseStartedAt = 0;
 
     const laserDebuffUntil = { red: 0, blue: 0 };
     let cloneSkillLockUntil = 0;
@@ -4734,6 +4753,9 @@
       if (totalMinutes >= 360) return 1 + (totalMinutes - 360) / 360;
       return Math.max(0, totalMinutes / 360);
     }
+    function getEffectiveTeamDpmNow() {
+      return Math.max(0, baseDpm * getTimeMultiplier());
+    }
     function getDropAmountMinutes() {
       const p = (bossHp / BOSS_MAX_HP) * 100;
       if (p <= 20) return 60; if (p <= 50) return 50; if (p <= 70) return 40; if (p <= 85) return 30; return 20;
@@ -4977,7 +4999,10 @@
         const nextHp = playerHp - halfHpDamage;
         const nextMp = playerMp - halfMpDamage;
         if (nextHp <= 0 || nextMp <= 0) {
-          killPlayer('受到非藍鬧鐘攻擊後血量或魔量歸零，角色死亡 10 秒', 1);
+          const deathReason = lockWaterNow
+            ? '鎖水且HPMP沒有都>50%，角色死亡 10 秒'
+            : '受到非藍鬧鐘攻擊後血量或魔量歸零，角色死亡 10 秒';
+          killPlayer(deathReason, 1);
           return true;
         }
         setVitalsNow(nextHp, nextMp);
@@ -5023,6 +5048,7 @@
       }
       laserCastRemain = 0;
       laserRestUntil = 0;
+      laserCdPauseStartedAt = 0;
       redBurstActive = false;
       redBurstCastTimes = [];
       redBurstRestUntil = 0;
@@ -5373,8 +5399,12 @@
         }
       }
 
-      // 雷射（不計入王招鎖定）
-      if (pct <= LASER_HP_THRESHOLD_PCT) {
+      if (redBurstActive && laserCdPauseStartedAt <= 0) {
+        laserCdPauseStartedAt = now;
+      }
+
+      // 雷射（不計入王招鎖定）；狂暴紅鬧鐘期間改為每波同步觸發，並暫停自身 CD 計算
+      if (pct <= LASER_HP_THRESHOLD_PCT && !redBurstActive) {
         const laserBusy = laserTelegraphs.length > 0 || laserBeams.length > 0;
         if (!laserBusy) {
           if (laserCastRemain <= 0 && now >= laserRestUntil) {
@@ -5393,6 +5423,7 @@
       if (redBurstActive) {
         while (redBurstCastTimes.length > 0 && now >= redBurstCastTimes[0]) {
           castRedClockWave(now);
+          createLaserCast(now);
           redBurstCastTimes.shift();
         }
         if (redBurstCastTimes.length === 0) {
@@ -5404,6 +5435,11 @@
             bossActionUntil = 0;
             bossRedClockNextAt = now + RED_BURST_POST_REST_CD_MS;
             bossClockAlternateNext = 'red';
+            if (laserCdPauseStartedAt > 0) {
+              const pausedMs = Math.max(0, now - laserCdPauseStartedAt);
+              if (laserRestUntil > laserCdPauseStartedAt) laserRestUntil += pausedMs;
+              laserCdPauseStartedAt = 0;
+            }
           }
         }
       } else if (!isBossActionBusy(now)) {
@@ -5425,6 +5461,7 @@
           redBurstRestUntil = 0;
           bossActionType = 'redBurst';
           bossActionUntil = now + RED_BURST_REPEAT_COUNT * RED_BURST_INTERVAL_MS + RED_BURST_REST_MS;
+          if (laserCdPauseStartedAt <= 0) laserCdPauseStartedAt = now;
         } else if (pct <= RED_CLOCK_HP_THRESHOLD_PCT && pct > RED_BURST_HP_THRESHOLD_PCT) {
           // 50%~20%：紅藍鬧鐘固定交替
           if (bossClockAlternateNext === 'red') {
@@ -5625,7 +5662,7 @@
       showResultNotifyFx(clearRun ? '成功擊殺通關' : '挑戰失敗', clearRun ? 'success' : 'fail');
       const topStats = [
         { label: '開場王血', value: `${formatPctText(battleStartPct)}%` },
-        { label: '隊伍 DPM', value: `${Math.floor(battleStartDpm).toLocaleString()}` },
+        { label: '當時隊伍 DPM', value: `${Math.floor(battleStartDpm).toLocaleString()}` },
         { label: '本次遊玩時間', value: `${formatDuration(playDurationSec)}` },
         { label: '總遊玩時間', value: `${formatDuration(totalPlaySec)}` },
         { label: '剩餘死亡次數', value: `${deathLimitRemain}` },
@@ -7147,6 +7184,9 @@
       }
       if (cloneLockWaterUntil > 0 && !isLockWaterActive(now, nowPerf)) {
         cloneLockWaterUntil = 0;
+        if (gameActive && now >= playerDeadUntil && !deathRespawnInvPending) {
+          vitalsRecoverAt = Math.max(vitalsRecoverAt, now + 1000);
+        }
         updateDebuffIcon();
       }
       if (cloneZombieUntil > 0 && !isZombieActive(now, nowPerf)) {
@@ -7404,14 +7444,14 @@
       const timeMul = getTimeMultiplier();
       statMultiplierSum += timeMul;
       statMultiplierSamples++;
-      const effectiveDpm = isBossAntiShieldActive() ? 0 : baseDpm;
+      const effectiveDpm = isBossAntiShieldActive() ? 0 : getEffectiveTeamDpmNow();
       if (bossCloneActive) {
-        bossCloneHp -= (effectiveDpm / 60) * timeMul;
+        bossCloneHp -= (effectiveDpm / 60);
         if (bossCloneHp <= 0) {
           destroyBossClone('隊伍輸出擊破分身');
         }
       } else {
-        bossHp -= (effectiveDpm / 60) * timeMul;
+        bossHp -= (effectiveDpm / 60);
       }
       if (clockActive && totalMinutes <= 0) { killPlayerForTimeExplosion('時間低於或等於 00:00，觸發爆炸（死亡 10 秒）', 1, 'low'); }
       if (clockActive && totalMinutes >= 720) {
@@ -7434,8 +7474,8 @@
       totalMinutes = configuredStartMinutes;
       const startPct = gameModeStartPct(selectedGameMode);
       battleStartPct = startPct;
-      battleStartDpm = baseDpm;
       bossHp = BOSS_MAX_HP * (startPct / 100);
+      battleStartDpm = getEffectiveTeamDpmNow();
       cloneSummonAllowed = startPct >= CLONE_TRIGGER_PCT;
       clockTickCount = 0;
       syncHudSupportVisibility();
