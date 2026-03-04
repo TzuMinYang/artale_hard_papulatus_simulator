@@ -14,7 +14,7 @@
       --border: rgba(255,255,255,0.18);
       --shadow: rgba(0,0,0,0.65);
       --hud-top-h: 56px;
-      --hud-bottom-h: 262px;
+      --hud-bottom-h: 330px;
     }
 
     * { box-sizing: border-box; }
@@ -49,13 +49,38 @@
       border-bottom: 1px solid rgba(255,255,255,0.08);
       z-index: 50;
     }
+    .versionBadge {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      color: rgba(225,236,255,0.94);
+      border: 1px solid rgba(170,205,255,0.42);
+      background: rgba(12,22,42,0.78);
+      border-radius: 999px;
+      padding: 4px 10px;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    #hudVersionBadge {
+      position: fixed;
+      right: 12px;
+      bottom: 8px;
+      z-index: 60;
+    }
+    .cardVersionBadge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      z-index: 2;
+    }
 
     #hudBottom {
       position: relative;
       height: var(--hud-bottom-h);
       padding: var(--hud-pad);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(250px, 320px);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) minmax(210px, 260px);
       grid-template-rows: auto 1fr;
       gap: 8px 10px;
       background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.18));
@@ -1183,7 +1208,7 @@
 
     #gameOverModal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: #000; z-index: 200; padding: 18px; }
     #gameOverModal.show { display: flex; }
-    #gameOverCard { width: min(980px, 96vw); max-height: 92vh; overflow: auto; border-radius: 16px; border: 1px solid rgba(255,255,255,0.18); background: rgb(15,18,28); box-shadow: 0 22px 50px rgba(0,0,0,0.7); padding: 16px 16px 14px; }
+    #gameOverCard { position: relative; width: min(980px, 96vw); max-height: 92vh; overflow: auto; border-radius: 16px; border: 1px solid rgba(255,255,255,0.18); background: rgb(15,18,28); box-shadow: 0 22px 50px rgba(0,0,0,0.7); padding: 16px 16px 14px; }
     #gameOverTitle { font-size: 18px; font-weight: 900; margin-bottom: 10px; letter-spacing: 0.3px; }
     #gameOverMsg { opacity: 0.92; line-height: 1.5; margin-bottom: 14px; font-weight: 700; }
     #gameOverActions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -1482,6 +1507,7 @@
     #setupModal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.72); z-index: 220; padding: 18px; }
     #setupModal.show { display: flex; }
     #setupCard {
+      position: relative;
       width: min(920px, 96vw);
       max-height: 92vh;
       overflow: auto;
@@ -1886,21 +1912,27 @@
     }
     #commandPanel {
       display: grid;
-      grid-template-columns: minmax(338px, 0.81fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr);
       align-items: stretch;
       justify-content: start;
       gap: 10px;
-      width: 75%;
+      width: 100%;
       min-width: 0;
       grid-column: 1;
       grid-row: 2;
       margin-top: 6px;
+      justify-self: stretch;
+    }
+    #commandPanel.hasPhysical {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
     #mageCmd {
       grid-column: 1;
       grid-row: 1;
       margin-top: 0 !important;
       height: 100%;
+      width: 100%;
+      justify-self: stretch;
     }
     #mageInfoStack {
       grid-column: 1;
@@ -1909,25 +1941,37 @@
       flex-direction: column;
       gap: 6px;
       min-width: 0;
+      width: 100%;
+      justify-self: stretch;
     }
     #physicalCmd {
       grid-column: 2;
-      grid-row: 1;
+      grid-row: 1 / span 2;
       height: 100%;
+      width: 100%;
+      justify-self: stretch;
     }
     #teamInfoColumn {
-      grid-column: 1;
+      grid-column: 2;
       grid-row: 2;
-      align-self: start;
-      justify-self: end;
-      width: 25%;
-      min-width: 220px;
-      margin-top: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      align-self: stretch;
+      justify-self: stretch;
+      width: 100%;
+      min-width: 0;
+      margin-top: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: row;
+      align-content: start;
+      min-height: 0;
+      overflow: visible;
+      gap: 8px;
     }
     .teamInfoCard {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
       font-size: 14px;
       line-height: 1.5;
       font-weight: 800;
@@ -1952,20 +1996,24 @@
       color: rgba(205,226,255,0.9);
     }
     #rightHudColumn {
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 2;
       width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
+      align-items: stretch;
+      min-height: 0;
+      overflow: hidden;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 0;
     }
     #rightControlPanel {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      flex: 0 0 auto;
       gap: 6px;
     }
     .supportHeartBtn {
@@ -2037,6 +2085,7 @@
     #physicalCmd {
       display: none;
       width: 100%;
+      max-width: 100%;
       min-width: 0;
       margin-top: 0 !important;
       padding: 6px;
@@ -2098,11 +2147,16 @@
         min-width: 0;
         grid-template-columns: 1fr;
       }
+      #mageInfoStack {
+        width: 100%;
+        justify-self: stretch;
+      }
       #teamInfoColumn {
-        grid-column: 1;
-        grid-row: 3;
         width: 100%;
         margin-top: 0;
+        grid-template-columns: 1fr;
+        max-height: none;
+        overflow: visible;
       }
       #rightHudColumn {
         grid-column: 1;
@@ -2181,8 +2235,8 @@
       </div>
 
       <div class="chip" id="commandPanel">
-        <div id="mageCmd" aria-label="指揮法師">
-          <div style="font-weight:900; font-size:18px; margin-bottom:6px;">指揮法師（可提前下指令）</div>
+        <div id="mageCmd" aria-label="指揮法師清球">
+          <div style="font-weight:900; font-size:18px; margin-bottom:6px;">指揮法師清球（可提前下指令）</div>
           <div id="mageCmdOptions">
             <button class="btn" id="cmdLeftBtn">清左半</button>
             <button class="btn" id="cmdRightBtn">清右半</button>
@@ -2211,15 +2265,23 @@
       <div id="teamInfoColumn">
         <div id="hitRuleInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">受擊規則</div>
-          <div class="teamInfoBody">每次受擊：有魔心傷害減半（HP/MP 各扣一半）；沒魔心會直接死亡。</div>
+          <div class="teamInfoBody">每次受擊：有魔心HP/MP 各扣一半；沒魔心會直接死亡。</div>
+        </div>
+        <div id="healRuleInfoPanel" class="chip teamInfoCard">
+          <div class="teamInfoTitle">補血規則</div>
+          <div class="teamInfoBody">鎖水期間以外，受擊後 1 秒自動補滿；鎖水期間要自己靠櫻桃派補血。</div>
+        </div>
+        <div id="redClockSafePointInfoPanel" class="chip teamInfoCard">
+          <div class="teamInfoTitle">紅鬧鐘安全點</div>
+          <div class="teamInfoBody">因此地圖大小與遊戲不完全相同，所以安全點不一定正確。可在設定中自行錄製與調整安全點。</div>
         </div>
         <div id="teamRedClockInfoPanel" class="chip teamInfoCard">
-          <div class="teamInfoTitle">隊友紅鬧鐘</div>
+          <div class="teamInfoTitle">隊友無敵</div>
           <div class="teamInfoBody">隊友對紅鬧鐘、黑水、彼此的玩家炸彈無敵。</div>
         </div>
-        <div id="callIgnoreInfoPanel" class="chip teamInfoCard">
-          <div class="teamInfoTitle">不聽 Call</div>
-          <div class="teamInfoBody">可能選錯、打錯怪、順序錯誤或沒打。</div>
+        <div id="clonePullInfoPanel" class="chip teamInfoCard">
+          <div class="teamInfoTitle">分身拉位</div>
+          <div class="teamInfoBody">隊友不會刻意把分身拉離開，因為本體藍鬧鐘沒有設定距離限制。</div>
         </div>
         <div id="hintNoiseInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">提示雜訊</div>
@@ -2240,6 +2302,7 @@
         </div>
       </div>
     </div>
+    <div id="hudVersionBadge" class="versionBadge">v0.0.10</div>
   </div>
 
   <div id="pauseScreen" aria-hidden="true"><div class="text">已暫停</div></div>
@@ -2256,6 +2319,7 @@
 
   <div id="gameOverModal" role="dialog" aria-modal="true" aria-label="遊戲結算">
     <div id="gameOverCard">
+      <div id="gameOverVersionBadge" class="versionBadge cardVersionBadge">v0.0.10</div>
       <div id="gameOverTitle">遊戲結束</div>
       <div id="gameOverMsg">—</div>
       <div id="gameOverActions">
@@ -2279,6 +2343,7 @@
 
   <div id="setupModal" role="dialog" aria-modal="true" aria-label="說明與設定">
     <div id="setupCard">
+      <div id="setupVersionBadge" class="versionBadge cardVersionBadge">v0.0.10</div>
       <h2>困難拉圖斯控時練習：說明與設定</h2>
       <p>這個程式用來練習困難拉圖斯的控時、走位、招式辨識與失誤處理，也可單純用來練習走位躲紅鬧鐘。先設定你的技能與鍵位，再開始遊玩。</p>
       <div class="setupTabs">
@@ -2465,8 +2530,8 @@
             <div class="setupField"><label for="setupLaserDebuffMs">雷射 Debuff 持續（秒）</label><input id="setupLaserDebuffMs" type="number" step="0.1" min="0" value="30" /></div>
             <div class="setupField"><label for="setupLaserChargeMs">雷射預警延遲（秒）</label><input id="setupLaserChargeMs" type="number" step="0.1" min="0" value="1.5" /></div>
             <div class="setupField"><label for="setupLaserFireMs">雷射噴射持續（ms）</label><input id="setupLaserFireMs" type="number" step="1" min="1" value="650" /></div>
-            <div class="setupField"><label for="setupLaserTopMax">雷射上層最多（個）</label><input id="setupLaserTopMax" type="number" step="1" min="1" value="6" /></div>
-            <div class="setupField"><label for="setupLaserGroundMax">雷射一樓最多（個）</label><input id="setupLaserGroundMax" type="number" step="1" min="1" value="10" /></div>
+            <div class="setupField"><label for="setupLaserTopMax">雷射上層最多（個）</label><input id="setupLaserTopMax" type="number" step="1" min="1" value="4" /></div>
+            <div class="setupField"><label for="setupLaserGroundMax">雷射一樓最多（個）</label><input id="setupLaserGroundMax" type="number" step="1" min="1" value="8" /></div>
             <div class="setupField"><label for="setupLaserChainMin">雷射連發最少（次）</label><input id="setupLaserChainMin" type="number" step="1" min="1" value="1" /></div>
             <div class="setupField"><label for="setupLaserChainMax">雷射連發最多（次）</label><input id="setupLaserChainMax" type="number" step="1" min="1" value="3" /></div>
             <div class="setupField"><label for="setupLaserRestMinMs">雷射休息最短（秒）</label><input id="setupLaserRestMinMs" type="number" step="0.1" min="0" value="6" /></div>
@@ -2489,17 +2554,18 @@
         <div id="setupBossSubRedClockPane" class="bossSubPane">
           <div class="setupGrid">
             <div class="setupField"><label for="setupRedClockHpPct">紅鬧鐘啟用血量（%）</label><input id="setupRedClockHpPct" type="number" step="0.1" min="0" max="100" value="50" /></div>
-            <div class="setupField"><label for="setupRedClockTopMax">紅鬧鐘上層最多（個）</label><input id="setupRedClockTopMax" type="number" step="1" min="0" value="5" /></div>
-            <div class="setupField"><label for="setupRedClockGroundMax">紅鬧鐘一樓最多（個）</label><input id="setupRedClockGroundMax" type="number" step="1" min="0" value="9" /></div>
-            <div class="setupField"><label for="setupRedClockTotal">紅鬧鐘總數（個）</label><input id="setupRedClockTotal" type="number" step="1" min="1" value="14" /></div>
+            <div class="setupField"><label for="setupRedClockTopMax">紅鬧鐘上層最多（個）</label><input id="setupRedClockTopMax" type="number" step="1" min="0" value="4" /></div>
+            <div class="setupField"><label for="setupRedClockGroundMax">紅鬧鐘一樓最多（個）</label><input id="setupRedClockGroundMax" type="number" step="1" min="0" value="7" /></div>
+            <div class="setupField"><label for="setupRedClockTotal">紅鬧鐘總數（個）</label><input id="setupRedClockTotal" type="number" step="1" min="1" value="10" /></div>
             <div class="setupField"><label for="setupRedClockCdMinMs">紅鬧鐘 CD 最短（秒）</label><input id="setupRedClockCdMinMs" type="number" step="0.1" min="0" value="9" /></div>
-            <div class="setupField"><label for="setupRedClockCdMaxMs">紅鬧鐘 CD 最長（秒）</label><input id="setupRedClockCdMaxMs" type="number" step="0.1" min="0" value="14" /></div>
+            <div class="setupField"><label for="setupRedClockCdMaxMs">紅鬧鐘 CD 最長（秒）</label><input id="setupRedClockCdMaxMs" type="number" step="0.1" min="0" value="12" /></div>
 
             <div class="setupField"><label for="setupRedBurstHpPct">紅鬧鐘連發啟用血量（%）</label><input id="setupRedBurstHpPct" type="number" step="0.1" min="0" max="100" value="20" /></div>
             <div class="setupField"><label for="setupRedBurstRepeat">紅鬧鐘連發次數</label><input id="setupRedBurstRepeat" type="number" step="1" min="1" value="6" /></div>
             <div class="setupField"><label for="setupRedBurstIntervalMs">紅鬧鐘連發間隔（ms）</label><input id="setupRedBurstIntervalMs" type="number" step="1" min="1" value="1000" /></div>
             <div class="setupField"><label for="setupRedBurstRestMs">紅鬧鐘連發後休息（秒）</label><input id="setupRedBurstRestMs" type="number" step="0.1" min="0" value="3" /></div>
             <div class="setupField"><label for="setupRedBurstPostCdMs">紅鬧鐘連發後額外 CD（秒）</label><input id="setupRedBurstPostCdMs" type="number" step="0.1" min="0" value="3" /></div>
+            <div class="setupField"><label for="setupRedClockSafeRadiusAdjustPx">安全點半徑微調（px，負值縮小）</label><input id="setupRedClockSafeRadiusAdjustPx" type="number" step="1" min="-80" max="80" value="-8" /></div>
             <div class="setupField"><label for="setupRedClockSafePoints">安全點 X 座標（錄製結果）</label><input id="setupRedClockSafePoints" type="text" value="" placeholder="請按下方錄製按鈕後用 Ctrl 紀錄" readonly disabled /></div>
           </div>
           <div class="safePointTools">
@@ -2553,8 +2619,8 @@
         </div>
       </div>
       <div id="setupActions">
-        <button class="btn" id="setupExportJsonBtn" type="button">匯出 JSON</button>
-        <button class="btn" id="setupImportJsonBtn" type="button">匯入 JSON</button>
+        <button class="btn" id="setupExportJsonBtn" type="button">匯出設定</button>
+        <button class="btn" id="setupImportJsonBtn" type="button">匯入設定</button>
         <input id="setupImportJsonInput" type="file" accept=".json,application/json" style="display:none" />
         <button class="btn primary" id="setupStartBtn">開始遊玩</button>
       </div>
@@ -2565,8 +2631,8 @@
     // =============================
     // 參數設定
     // =============================
-    // 地圖左右尺寸縮小 20%；高度在壓縮後回調
-    const WORLD_W = 2560;
+    // 世界地圖寬度縮小為原本 80%，並與一樓地板同寬
+    const WORLD_W = 2048;
     const WORLD_H = 1052;
     const CAMERA_ZOOM = 1.43;
 
@@ -2577,6 +2643,39 @@
     const TOP_PLAT_W = 1217;
     const TOP_PLAT_X = Math.floor((WORLD_W - TOP_PLAT_W) / 2);
     const TOP_PLAT_H = 18;
+    // 一樓地板與世界同寬；小平台往中心內縮 20%
+    const FLOOR1_SIDE_SHRINK_RATIO = 0.20;
+    const FLOOR1_INWARD_SCALE = 1 - FLOOR1_SIDE_SHRINK_RATIO;
+    const FLOOR1_CENTER_X = WORLD_W / 2;
+    const FLOOR1_GROUND_W = WORLD_W;
+    const FLOOR1_GROUND_X = 0;
+    function scaleFloor1X(x) {
+      return Math.round(FLOOR1_CENTER_X + (Number(x) - FLOOR1_CENTER_X) * FLOOR1_INWARD_SCALE);
+    }
+    const FLOOR1_STEP_W = 180;
+    const FLOOR1_STEP_GAP = 30;
+    const FLOOR1_MINI_W = Math.round((WORLD_W / 7) * 0.5);
+    const FLOOR1_MINI_X = scaleFloor1X(Math.round((WORLD_W / 7) * 2));
+    // 左側平台再往左，並保證兩平台不重疊
+    const FLOOR1_LEFT_STEP_SHIFT_X = -230;
+    // 左側兩平台再各自分散：第一個往左 50px、第二個往右 50px
+    const FLOOR1_LEFT_STEP_SPREAD_PX = 50;
+    const FLOOR1_LEFT_STEP_MIN_GAP = 24;
+    const FLOOR1_LEFT_STEP1_X = scaleFloor1X(300) + FLOOR1_LEFT_STEP_SHIFT_X - FLOOR1_LEFT_STEP_SPREAD_PX;
+    const FLOOR1_LEFT_STEP2_X_RAW = scaleFloor1X(550) + FLOOR1_LEFT_STEP_SHIFT_X + FLOOR1_LEFT_STEP_SPREAD_PX;
+    const FLOOR1_LEFT_STEP2_X = Math.max(
+      FLOOR1_LEFT_STEP2_X_RAW,
+      FLOOR1_LEFT_STEP1_X + FLOOR1_STEP_W + FLOOR1_LEFT_STEP_MIN_GAP
+    );
+    const FLOOR1_RIGHT_CLUSTER_BASE_X = WORLD_W - (FLOOR1_STEP_W * 4 + FLOOR1_STEP_GAP * 3) - 80;
+    // 右側平台整組往右 +125px
+    const FLOOR1_RIGHT_STEP_SHIFT_X = 125;
+    const FLOOR1_RIGHT_STEP_R2L_X = scaleFloor1X(FLOOR1_RIGHT_CLUSTER_BASE_X + 0 * (FLOOR1_STEP_W + FLOOR1_STEP_GAP)) - 40 + FLOOR1_RIGHT_STEP_SHIFT_X;
+    const FLOOR1_RIGHT_STEP_R2_X = scaleFloor1X(FLOOR1_RIGHT_CLUSTER_BASE_X + 1 * (FLOOR1_STEP_W + FLOOR1_STEP_GAP)) - 12 + FLOOR1_RIGHT_STEP_SHIFT_X;
+    const FLOOR1_RIGHT_STEP_R1L_X = scaleFloor1X(FLOOR1_RIGHT_CLUSTER_BASE_X + 2 * (FLOOR1_STEP_W + FLOOR1_STEP_GAP)) + 12 + FLOOR1_RIGHT_STEP_SHIFT_X;
+    const FLOOR1_RIGHT_STEP_R1_X = scaleFloor1X(FLOOR1_RIGHT_CLUSTER_BASE_X + 3 * (FLOOR1_STEP_W + FLOOR1_STEP_GAP)) + 40 + FLOOR1_RIGHT_STEP_SHIFT_X;
+    const FLOOR1_LEFT_ROPE_X = FLOOR1_LEFT_STEP2_X + Math.round(FLOOR1_STEP_W / 2);
+    const FLOOR1_RIGHT_ROPE_X = FLOOR1_RIGHT_STEP_R2L_X + FLOOR1_STEP_W - 12;
 
     const PLAYER_W = 42;
     const PLAYER_H = 56;
@@ -2613,8 +2712,8 @@
     let MOB_RESPAWN_MAX_MS = 10000;
     let MOB_AUTO_DIE_MIN_MS = 45000;
     let MOB_AUTO_DIE_MAX_MS = 50000;
-    const MOB_BASE_SPEED = 0.9 * 0.7 * 1.15 * 0.85; // 小怪移動速度 -15%
-    const MOB_CHASE_SPEED = 1.6 * 0.7 * 1.15 * 0.85 * 0.75; // 小怪追擊速度再 -25%
+    const MOB_BASE_SPEED = 0.9 * 0.7 * 1.15 * 0.85 * 1.15; // 時間小怪移動速度 +15%
+    const MOB_CHASE_SPEED = 1.6 * 0.7 * 1.15 * 0.85 * 0.75 * 1.15; // 時間小怪追擊速度 +15%
     const MOB_IDLE_MIN = 1200; // 停留更久
     const MOB_IDLE_MAX = 2600;
     const MOB_MOVE_MIN = 420;
@@ -2692,9 +2791,47 @@
     let RED_BURST_INTERVAL_MS = 1000;
     let RED_BURST_REST_MS = 3000;
     let RED_BURST_POST_REST_CD_MS = 3000;
+    let RED_CLOCK_SAFE_RADIUS_ADJUST_PX = -8;
     const RED_CLOCK_SAFE_RADIUS = 10;
     const RED_CLOCK_SAFE_BLOCK_HALF_WIDTH = 35;
-    let RED_CLOCK_SAFE_POINTS = [];
+    const SAFE_POINT_GUIDE_TEXT = '安全點錄製中：按 Ctrl 設定或取消安全點，按 Esc 結束';
+    function buildDefaultRedClockSafePoints() {
+      const groundLeftEdge = 0;
+      const groundRightEdge = WORLD_W;
+      const leftMostSmallRightEdge = FLOOR1_LEFT_STEP1_X + FLOOR1_STEP_W;
+      const leftRopeX = FLOOR1_LEFT_ROPE_X;
+      const leftThirdSmallQuarterX = FLOOR1_MINI_X + Math.round(FLOOR1_MINI_W * 0.25);
+      const clockLeftThirdX = Math.round((WORLD_W * 0.5) - (529 / 6)); // 中央時鐘左邊 1/3 處（由左邊界往右 1/3）
+      const clockRightX = Math.round((WORLD_W * 0.5) + 120); // 中央時鐘右側
+      const rightFirstMidX = FLOOR1_RIGHT_STEP_R2L_X + Math.round(FLOOR1_STEP_W * 0.5);
+      const rightSecondOneSixthX = FLOOR1_RIGHT_STEP_R2_X + Math.round(FLOOR1_STEP_W / 6);
+      const rightSecondRightEdgeX = FLOOR1_RIGHT_STEP_R2_X + FLOOR1_STEP_W;
+      const rightThirdTwoThirdX = FLOOR1_RIGHT_STEP_R1L_X + Math.round(FLOOR1_STEP_W * (2 / 3));
+
+      const pts = [
+        groundLeftEdge,                  // 一樓最左邊緣
+        groundRightEdge,                 // 一樓最右邊緣
+        Math.round(leftMostSmallRightEdge), // 最左邊小平台右邊緣
+        Math.round(leftRopeX),           // 左邊繩子
+        Math.round(leftThirdSmallQuarterX), // 左邊第三個小平台左邊 1/4 處
+        Math.round(clockLeftThirdX),     // 中央時鐘左邊 1/3 處
+        Math.round(clockRightX),         // 中央時鐘右側
+        Math.round(rightFirstMidX),      // 右邊由左數第 1 個小平台中間
+        Math.round(rightSecondOneSixthX),// 右邊由左數第 2 個小平台 1/6 處
+        Math.round(rightSecondRightEdgeX),// 右邊由左數第 2 個小平台右側
+        Math.round(rightThirdTwoThirdX), // 右邊由左數第 3 個小平台 2/3 處
+      ];
+      return Array.from(new Set(
+        pts.map((x) => Math.max(0, Math.min(WORLD_W, Math.round(Number(x) || 0))))
+      )).sort((a, b) => a - b);
+    }
+    function normalizeRedClockSafePoints(points) {
+      const src = Array.isArray(points) ? points : [];
+      return Array.from(new Set(
+        src.map((x) => Math.max(0, Math.min(WORLD_W, Math.round(Number(x) || 0))))
+      )).sort((a, b) => a - b);
+    }
+    let RED_CLOCK_SAFE_POINTS = normalizeRedClockSafePoints(buildDefaultRedClockSafePoints());
 
     let BLACK_WATER_DELAY_MS = 2000;
     let BLACK_WATER_LIFE_MS = 40000;
@@ -2902,6 +3039,7 @@
     const setupRedClockTotal = document.getElementById('setupRedClockTotal');
     const setupRedClockCdMinMs = document.getElementById('setupRedClockCdMinMs');
     const setupRedClockCdMaxMs = document.getElementById('setupRedClockCdMaxMs');
+    const setupRedClockSafeRadiusAdjustPx = document.getElementById('setupRedClockSafeRadiusAdjustPx');
     const setupRedBurstHpPct = document.getElementById('setupRedBurstHpPct');
     const setupRedBurstRepeat = document.getElementById('setupRedBurstRepeat');
     const setupRedBurstIntervalMs = document.getElementById('setupRedBurstIntervalMs');
@@ -2928,6 +3066,7 @@
     const cmdLeftBtn = document.getElementById('cmdLeftBtn');
     const cmdRightBtn = document.getElementById('cmdRightBtn');
     const cmdNoneBtn = document.getElementById('cmdNoneBtn');
+    const commandPanel = document.getElementById('commandPanel');
     const physicalCmd = document.getElementById('physicalCmd');
     const physicalMobList = document.getElementById('physicalMobList');
     const physicalCmdQueue = document.getElementById('physicalCmdQueue');
@@ -3125,7 +3264,7 @@
     }
     function updateMageCmdTitle() {
       if (!mageCmdTitle) return;
-      mageCmdTitle.textContent = '指揮法師（可提前下指令）';
+      mageCmdTitle.textContent = '指揮法師清球（可提前下指令）';
     }
     function refreshTeamCommandInfoText() {
       const autoPickSecText = formatDelaySecText(mageCommandAutoPickDelayMs);
@@ -3281,7 +3420,7 @@
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
-        showHint('設定已匯出為 JSON');
+        showHint('設定已匯出');
       } catch (_err) {
         showHint('匯出失敗');
       }
@@ -3320,10 +3459,9 @@
         }
       }
       if (Array.isArray(settings.safePoints)) {
-        RED_CLOCK_SAFE_POINTS = Array.from(new Set(
-          settings.safePoints
-            .map((x) => Math.round(clamp(readNum(x, 0), 0, WORLD_W)))
-        )).sort((a, b) => a - b);
+        RED_CLOCK_SAFE_POINTS = normalizeRedClockSafePoints(
+          settings.safePoints.map((x) => Math.round(clamp(readNum(x, 0), 0, WORLD_W)))
+        );
         if (setupRedClockSafePoints) setupRedClockSafePoints.value = RED_CLOCK_SAFE_POINTS.join(', ');
       }
       applySetupSettings();
@@ -3338,9 +3476,9 @@
         const text = await file.text();
         const payload = JSON.parse(text);
         applyImportedSetup(payload);
-        showHint('設定 JSON 匯入完成');
+        showHint('設定匯入完成');
       } catch (_err) {
-        showHint('匯入失敗：請確認 JSON 格式');
+        showHint('匯入失敗：請確認設定檔格式');
       } finally {
         if (setupImportJsonInput) setupImportJsonInput.value = '';
       }
@@ -3551,7 +3689,7 @@
       if (!safePointRecordInfo) return;
       document.body.classList.toggle('safe-point-recording', !!safePointRecording);
       if (safePointRecording) {
-        safePointRecordInfo.textContent = '錄製中：按 Ctrl 記錄目前位置（Esc 結束）';
+        safePointRecordInfo.textContent = '錄製中：按 Ctrl 設定或取消安全點（Esc 結束）';
       } else {
         safePointRecordInfo.textContent = `已設定 ${RED_CLOCK_SAFE_POINTS.length} 個安全點`;
       }
@@ -3581,31 +3719,48 @@
     }
     function recordSafePointX(xInput) {
       const x = Math.round(clamp(readNum(xInput, 0), 0, WORLD_W));
-      const prevCount = RED_CLOCK_SAFE_POINTS.length;
-      RED_CLOCK_SAFE_POINTS.push(x);
-      RED_CLOCK_SAFE_POINTS = Array.from(new Set(RED_CLOCK_SAFE_POINTS)).sort((a, b) => a - b);
+      const hitRadius = Math.max(1, RED_CLOCK_SAFE_RADIUS);
+      const idx = RED_CLOCK_SAFE_POINTS.findIndex((px) => Math.abs(px - x) <= hitRadius);
+      if (idx >= 0) RED_CLOCK_SAFE_POINTS.splice(idx, 1);
+      else RED_CLOCK_SAFE_POINTS.push(x);
+      RED_CLOCK_SAFE_POINTS = normalizeRedClockSafePoints(RED_CLOCK_SAFE_POINTS);
       if (setupRedClockSafePoints) setupRedClockSafePoints.value = RED_CLOCK_SAFE_POINTS.join(', ');
       renderSafePointMarkers();
-      if (RED_CLOCK_SAFE_POINTS.length === prevCount) {
-        showOrbWarn(`安全點已存在 X=${x}`);
-      } else {
-        showOrbWarn(`已錄製安全點 X=${x}`);
+      if (safePointGuideRestoreTimer) {
+        clearTimeout(safePointGuideRestoreTimer);
+        safePointGuideRestoreTimer = null;
       }
+      showOrbWarn(idx >= 0 ? `已取消安全點 X=${x}` : `已設定安全點 X=${x}`, 850);
+      safePointGuideRestoreTimer = setTimeout(() => {
+        safePointGuideRestoreTimer = null;
+        if (safePointRecording) showOrbWarn(SAFE_POINT_GUIDE_TEXT, 0);
+      }, 900);
     }
     function stopSafePointRecording(openSetup = false) {
       if (!safePointRecording) return;
       safePointRecording = false;
+      if (safePointGuideRestoreTimer) {
+        clearTimeout(safePointGuideRestoreTimer);
+        safePointGuideRestoreTimer = null;
+      }
+      hideOrbWarn();
       if (startSafePointRecordBtn) startSafePointRecordBtn.textContent = '錄製安全點（Ctrl 紀錄）';
       updateSafePointRecordInfo();
       if (openSetup) openSetupModal(gameActive);
     }
     function startSafePointRecording() {
       safePointRecording = true;
+      stopClimb();
+      playerY = GROUND_Y - PLAYER_H;
+      playerVY = 0;
+      isJumping = false;
+      syncPlayerUI();
+      updateCamera();
       if (startSafePointRecordBtn) startSafePointRecordBtn.textContent = '錄製中（按 Esc 結束）';
       updateSafePointRecordInfo();
       closeSetupModal();
       if (gameActive) setPauseState(false);
-      showOrbWarn('安全點錄製中：按 Ctrl 記錄目前位置，按 Esc 結束');
+      showOrbWarn(SAFE_POINT_GUIDE_TEXT, 0);
     }
     function syncBossParamInputs() {
       if (setupBossAntiShieldMs) setupBossAntiShieldMs.value = formatDelaySecText(BOSS_ANTI_SHIELD_DURATION_MS);
@@ -3635,6 +3790,7 @@
       if (setupRedClockTotal) setupRedClockTotal.value = String(RED_CLOCK_TOTAL);
       if (setupRedClockCdMinMs) setupRedClockCdMinMs.value = formatDelaySecText(RED_CLOCK_CD_MIN_MS);
       if (setupRedClockCdMaxMs) setupRedClockCdMaxMs.value = formatDelaySecText(RED_CLOCK_CD_MAX_MS);
+      if (setupRedClockSafeRadiusAdjustPx) setupRedClockSafeRadiusAdjustPx.value = String(RED_CLOCK_SAFE_RADIUS_ADJUST_PX);
       if (setupRedBurstHpPct) setupRedBurstHpPct.value = String(RED_BURST_HP_THRESHOLD_PCT);
       if (setupRedBurstRepeat) setupRedBurstRepeat.value = String(RED_BURST_REPEAT_COUNT);
       if (setupRedBurstIntervalMs) setupRedBurstIntervalMs.value = String(RED_BURST_INTERVAL_MS);
@@ -3690,12 +3846,20 @@
       const redClockCdMaxSec = Math.max(redClockCdMinSec, readNum(setupRedClockCdMaxMs ? setupRedClockCdMaxMs.value : (RED_CLOCK_CD_MAX_MS / 1000), RED_CLOCK_CD_MAX_MS / 1000));
       RED_CLOCK_CD_MIN_MS = Math.round(redClockCdMinSec * 1000);
       RED_CLOCK_CD_MAX_MS = Math.round(redClockCdMaxSec * 1000);
+      RED_CLOCK_SAFE_RADIUS_ADJUST_PX = clamp(
+        readInt(
+          setupRedClockSafeRadiusAdjustPx ? setupRedClockSafeRadiusAdjustPx.value : RED_CLOCK_SAFE_RADIUS_ADJUST_PX,
+          RED_CLOCK_SAFE_RADIUS_ADJUST_PX
+        ),
+        -80,
+        80
+      );
       RED_BURST_HP_THRESHOLD_PCT = clamp(readNum(setupRedBurstHpPct ? setupRedBurstHpPct.value : RED_BURST_HP_THRESHOLD_PCT, RED_BURST_HP_THRESHOLD_PCT), 0, 100);
       RED_BURST_REPEAT_COUNT = Math.max(1, readInt(setupRedBurstRepeat ? setupRedBurstRepeat.value : RED_BURST_REPEAT_COUNT, RED_BURST_REPEAT_COUNT));
       RED_BURST_INTERVAL_MS = Math.max(1, readInt(setupRedBurstIntervalMs ? setupRedBurstIntervalMs.value : RED_BURST_INTERVAL_MS, RED_BURST_INTERVAL_MS));
       RED_BURST_REST_MS = Math.max(0, Math.round(readNum(setupRedBurstRestMs ? setupRedBurstRestMs.value : (RED_BURST_REST_MS / 1000), RED_BURST_REST_MS / 1000) * 1000));
       RED_BURST_POST_REST_CD_MS = Math.max(0, Math.round(readNum(setupRedBurstPostCdMs ? setupRedBurstPostCdMs.value : (RED_BURST_POST_REST_CD_MS / 1000), RED_BURST_POST_REST_CD_MS / 1000) * 1000));
-      RED_CLOCK_SAFE_POINTS = Array.from(new Set(RED_CLOCK_SAFE_POINTS.map((x) => Math.round(clamp(x, 0, WORLD_W))))).sort((a, b) => a - b);
+      RED_CLOCK_SAFE_POINTS = normalizeRedClockSafePoints(RED_CLOCK_SAFE_POINTS.map((x) => Math.round(clamp(x, 0, WORLD_W))));
       BLACK_WATER_HP_THRESHOLD_PCT = clamp(readNum(setupBlackWaterHpPct ? setupBlackWaterHpPct.value : BLACK_WATER_HP_THRESHOLD_PCT, BLACK_WATER_HP_THRESHOLD_PCT), 0, 100);
       BLACK_WATER_DELAY_MS = Math.max(0, Math.round(readNum(setupBlackWaterDelayMs ? setupBlackWaterDelayMs.value : (BLACK_WATER_DELAY_MS / 1000), BLACK_WATER_DELAY_MS / 1000) * 1000));
       BLACK_WATER_LIFE_MS = Math.max(1, Math.round(readNum(setupBlackWaterLifeMs ? setupBlackWaterLifeMs.value : (BLACK_WATER_LIFE_MS / 1000), BLACK_WATER_LIFE_MS / 1000) * 1000));
@@ -3872,6 +4036,11 @@
       setupModal.classList.add('show');
       captureBindAction = '';
       safePointRecording = false;
+      if (safePointGuideRestoreTimer) {
+        clearTimeout(safePointGuideRestoreTimer);
+        safePointGuideRestoreTimer = null;
+      }
+      hideOrbWarn();
       if (startSafePointRecordBtn) startSafePointRecordBtn.textContent = '錄製安全點（Ctrl 紀錄）';
       setSetupTab('basic');
       refreshBindButtons();
@@ -3927,8 +4096,8 @@
     }
     if (clearSafePointsBtn) {
       clearSafePointsBtn.addEventListener('click', () => {
-        RED_CLOCK_SAFE_POINTS = [];
-        if (setupRedClockSafePoints) setupRedClockSafePoints.value = '';
+        RED_CLOCK_SAFE_POINTS = normalizeRedClockSafePoints(buildDefaultRedClockSafePoints());
+        if (setupRedClockSafePoints) setupRedClockSafePoints.value = RED_CLOCK_SAFE_POINTS.join(', ');
         renderSafePointMarkers();
       });
     }
@@ -4214,11 +4383,15 @@
       mageCommandPickTimer = 0;
       mageCommandResolveTimer = 0;
       mageCommandPlannedPick = '';
+      mageCommandPlanSource = '';
     }
     function mageCommandLabel(side) {
       if (side === 'left') return '清左半';
       if (side === 'right') return '清右半';
       return '不清';
+    }
+    function mageCommandSourceLabel(source) {
+      return source === 'autoRandom' ? '沒指揮到自行隨機' : '我們指揮';
     }
     function isValidMageCommand(side) {
       return side === 'left' || side === 'right' || side === 'none';
@@ -4242,6 +4415,7 @@
         const waitMs = Math.max(2000, Math.floor(mageCommandDelayMs || 0));
         mageCommandPickTimer = 0;
         mageCommandPlannedPick = selectedMageCommand;
+        mageCommandPlanSource = 'manual';
         mageCommandResolveTimer = nowPerf + waitMs;
       }
 
@@ -4252,6 +4426,7 @@
       ) {
         const waitMs = Math.max(2000, Math.floor(mageCommandDelayMs || 0));
         mageCommandPlannedPick = selectedMageCommand;
+        mageCommandPlanSource = 'manual';
         mageCommandResolveTimer = performance.now() + waitMs;
         const patchNote = `法師原本選擇不清，補下 ${mageCommandLabel(selectedMageCommand)}（${formatDelaySecText(waitMs)} 秒後生效）`;
         showOrbWarn(patchNote);
@@ -4260,9 +4435,14 @@
       syncMageCmdSelectionUI();
       showHint(`法師預選：${mageCommandLabel(selectedMageCommand || 'none')}（下令後 ${formatDelaySecText(mageCommandDelayMs)} 秒生效，超過時機無效）`);
     }
-    function executeMageCommandClear(side) {
+    function executeMageCommandClear(side, opts = null) {
       if (!gameActive || orbMobs.length <= 0) return 0;
       if (side !== 'left' && side !== 'right') return 0;
+      const sourceLabel = String((opts && opts.sourceLabel) || '我們指揮');
+      const extraPrefix = String((opts && opts.extraPrefix) || '').trim();
+      const prefix = extraPrefix
+        ? `黑球期間法師執行結果（${sourceLabel}）：${extraPrefix}，${mageCommandLabel(side)}`
+        : `黑球期間法師執行結果（${sourceLabel}）：${mageCommandLabel(side)}`;
       const now = Date.now();
       const leftCut = WORLD_W * 0.40;
       const rightCut = WORLD_W * 0.60;
@@ -4285,11 +4465,9 @@
           removed++;
         }
       }
-      if (removed > 0) {
-        pushTimeline(`指揮法師${mageCommandLabel(side)}：清除黑球 ${removed} 顆`, 'orb');
-      } else {
-        pushTimeline(`指揮法師${mageCommandLabel(side)}：本次未清到黑球`, 'orb');
-      }
+      const clearResultText = removed > 0 ? '有清到黑球' : '沒有清到黑球';
+      pushTimeline(`${prefix}（${clearResultText}）`, 'orb');
+      showOrbWarn(prefix);
       if (removed > 0) {
         renderPhysicalMobList();
         updatePhysicalQueueText();
@@ -4321,7 +4499,7 @@
     }
     function resolveMageCommandForOrbSpawn(pickedInput = '', opts = null) {
       if (!gameActive || orbMobs.length <= 0) return;
-      const suppressExecuteWarn = !!(opts && opts.suppressExecuteWarn);
+      const planSource = String((opts && opts.planSource) || mageCommandPlanSource || 'manual');
       let picked = pickedInput;
       if (picked !== 'left' && picked !== 'right' && picked !== 'none') {
         picked = selectedMageCommand;
@@ -4329,21 +4507,29 @@
       if (picked !== 'left' && picked !== 'right' && picked !== 'none') {
         picked = 'none';
       }
+      const sourceLabel = mageCommandSourceLabel(planSource);
       const obeyResult = applyMageIgnoreCall(picked);
       const finalPick = obeyResult.picked;
-      if (obeyResult.ignored) {
-        if (!suppressExecuteWarn) showOrbWarn(obeyResult.note);
-        pushTimeline(obeyResult.note, 'orb');
-      } else {
-        if (!suppressExecuteWarn) showOrbWarn(`指揮法師執行：${mageCommandLabel(finalPick)}`);
-      }
+      const intendedLabel = mageCommandLabel(picked);
       if (finalPick === 'left' || finalPick === 'right') {
-        executeMageCommandClear(finalPick);
+        executeMageCommandClear(finalPick, {
+          sourceLabel: obeyResult.ignored ? '沒聽 call' : sourceLabel,
+          extraPrefix: obeyResult.ignored ? `原指令 ${intendedLabel}，實際` : '',
+        });
       } else {
-        pushTimeline('指揮法師選擇不清黑球', 'orb');
+        if (obeyResult.ignored) {
+          const line = `黑球期間法師執行結果（沒聽 call）：原指令 ${intendedLabel}，實際不清`;
+          showOrbWarn(line);
+          pushTimeline(line, 'orb');
+        } else {
+          const line = `黑球期間法師執行結果（${sourceLabel}）：選擇不清黑球`;
+          showOrbWarn(line);
+          pushTimeline(line, 'orb');
+        }
       }
       selectedMageCommand = '';
       mageCommandPlannedPick = '';
+      mageCommandPlanSource = '';
       syncMageCmdSelectionUI();
     }
     function processTeamCommandSchedules(nowPerf = performance.now()) {
@@ -4361,6 +4547,7 @@
         if (!hasManualCommand) {
           const options = ['left', 'right', 'none'];
           mageCommandPlannedPick = options[Math.floor(Math.random() * options.length)];
+          mageCommandPlanSource = 'autoRandom';
           const autoPickNote = `法師沒通知到：隨機選擇 ${mageCommandLabel(mageCommandPlannedPick)}（1.5 秒後生效）`;
           showOrbWarn(autoPickNote);
           pushTimeline(autoPickNote, 'orb');
@@ -4371,13 +4558,14 @@
           if (!isValidMageCommand(mageCommandPlannedPick)) {
             mageCommandPlannedPick = isValidMageCommand(selectedMageCommand) ? selectedMageCommand : 'none';
           }
+          mageCommandPlanSource = 'manual';
           mageCommandResolveTimer = nowPerf + waitMs;
         }
       }
       if (mageCommandResolveTimer > 0 && nowPerf >= mageCommandResolveTimer) {
         mageCommandResolveTimer = 0;
         const plannedPick = mageCommandPlannedPick;
-        resolveMageCommandForOrbSpawn(plannedPick || selectedMageCommand, { suppressExecuteWarn: !!plannedPick });
+        resolveMageCommandForOrbSpawn(plannedPick || selectedMageCommand, { planSource: mageCommandPlanSource });
       }
     }
     function syncMageCmdVisibility() {
@@ -4549,6 +4737,7 @@
       } else {
         physicalCmd.style.display = 'none';
       }
+      if (commandPanel) commandPanel.classList.toggle('hasPhysical', gameActive);
       renderPhysicalMobList();
     }
     function processPhysicalKillQueue(nowPerf = performance.now()) {
@@ -4635,6 +4824,7 @@
     let logicTimer = null, orbTimer = null;
     let orbSpawnTimer = 0;
     let orbWarnHideTimer = null;
+    let safePointGuideRestoreTimer = null;
     let noiseWarnUntil = 0;
     let noiseHintLastIndex = -1;
     let timeExplosionFxTimer = null;
@@ -4684,6 +4874,7 @@
     let mageCommandPickTimer = 0;
     let mageCommandResolveTimer = 0;
     let mageCommandPlannedPick = '';
+    let mageCommandPlanSource = ''; // manual | autoRandom
     let physicalKillQueue = [];
     let physicalNextKillAt = 0;
 
@@ -4860,15 +5051,20 @@
         hideNoiseWarn();
       }
     }
-    function showOrbWarn(txt) {
+    function showOrbWarn(txt, durationMs = 3000) {
       if (!orbWarnBox) return;
       orbWarnBox.textContent = txt || '黑球即將出現！';
       orbWarnBox.classList.add('show');
       if (orbWarnHideTimer) clearTimeout(orbWarnHideTimer);
-      orbWarnHideTimer = setTimeout(() => {
+      const d = Math.max(0, Math.floor(Number(durationMs) || 0));
+      if (d > 0) {
+        orbWarnHideTimer = setTimeout(() => {
+          orbWarnHideTimer = null;
+          hideOrbWarn();
+        }, d);
+      } else {
         orbWarnHideTimer = null;
-        hideOrbWarn();
-      }, 3000);
+      }
     }
     function formatCountdown(sec) {
       const s = Math.max(0, Math.floor(sec));
@@ -4925,6 +5121,36 @@
         ? Math.max(0, Math.floor(snapSecRaw))
         : getReplayClockSecAt(atMs);
       return formatCountdown(sec);
+    }
+    function shouldShowInTimeChangeReplay(ev) {
+      if (!ev) return false;
+      const text = String(ev.text || '').trim();
+      if (!text) return false;
+      if (String(ev.kind || '') === 'orb') {
+        return /黑球爆炸/.test(text);
+      }
+      return true;
+    }
+    function summarizeMageOrbActionText(text) {
+      const raw = String(text || '').trim();
+      if (!raw) return '';
+      const m = raw.match(/^黑球期間法師執行結果（([^）]+)）：(.+)$/);
+      if (!m) return raw;
+      const sourceRaw = String(m[1] || '');
+      const detail = String(m[2] || '');
+      const source = sourceRaw === '我們指揮'
+        ? '指揮'
+        : (sourceRaw === '沒指揮到自行隨機'
+            ? '隨機'
+            : (sourceRaw === '沒聽 call' ? '沒聽' : sourceRaw));
+      let action = '不清';
+      if (/清左半/.test(detail)) action = '清左';
+      if (/清右半/.test(detail)) action = '清右';
+      if (/不清黑球|實際不清|選擇不清/.test(detail)) action = '不清';
+      let clearState = '';
+      if (/有清到黑球/.test(detail)) clearState = '有清到';
+      else if (/沒有清到黑球/.test(detail)) clearState = '沒清到';
+      return `法師${source}:${action}${clearState ? `(${clearState})` : ''}`;
     }
     function pushTimeline(text, kind = 'general') {
       if (!text) return;
@@ -5102,6 +5328,7 @@
       let mobKillDots = '';
       let orbBands = '';
       let orbExplosionDots = '';
+      let mageActionMarks = '';
       const mobKillEvents = (mobCoverageReplay || [])
         .filter((e) => e && e.action === 'kill')
         .slice()
@@ -5131,6 +5358,22 @@
         const x = xAt(ev.at);
         orbExplosionDots += `<circle cx="${x}" cy="${orbTrackY + trackH / 2}" r="4.8" fill="rgba(212,120,255,0.95)" stroke="rgba(66,20,90,0.92)" stroke-width="1.2" />`;
       }
+      const mageActionEventsSorted = (replayEvents || [])
+        .filter((e) => e && e.kind === 'orb' && /^黑球期間法師執行結果/.test(String(e.text || '')))
+        .slice()
+        .sort((a, b) => a.at - b.at);
+      const orbSpawnEventsSorted = (replayEvents || [])
+        .filter((e) => e && e.kind === 'orb' && /^黑球出現：/.test(String(e.text || '')))
+        .slice()
+        .sort((a, b) => a.at - b.at);
+      for (let i = 0; i < mageActionEventsSorted.length; i++) {
+        const ev = mageActionEventsSorted[i];
+        const x = xAt(ev.at);
+        const dotY = orbTrackY + trackH / 2;
+        const textY = orbTrackY - 7 - ((i % 2) * 12);
+        mageActionMarks += `<line x1="${x}" y1="${dotY - 2}" x2="${x}" y2="${textY + 2}" stroke="rgba(255,236,170,0.78)" stroke-width="1" />`;
+        mageActionMarks += `<circle cx="${x}" cy="${dotY}" r="3.2" fill="rgba(255,236,170,0.98)" stroke="rgba(75,52,0,0.9)" stroke-width="1" />`;
+      }
 
       let ticks = '';
       for (let i = 0; i <= 4; i++) {
@@ -5151,6 +5394,8 @@
           .slice()
           .sort((a, b) => a.at - b.at),
         orbExplosionEvents: orbExplosionEventsSorted,
+        orbSpawnEvents: orbSpawnEventsSorted,
+        mageActionEvents: mageActionEventsSorted.map((e) => ({ ...e, summary: summarizeMageOrbActionText(e.text) })),
       };
 
       return `
@@ -5174,6 +5419,7 @@
               <rect x="${left}" y="${orbTrackY}" width="${innerW}" height="${trackH}" rx="3" fill="rgba(0,0,0,0)" stroke="rgba(255,255,255,0.12)" />
               ${orbBands}
               ${orbExplosionDots}
+              ${mageActionMarks}
               ${ticks}
               <text x="${left + 8}" y="${top + 14}" text-anchor="start" fill="rgba(150,225,255,0.95)" font-size="12" font-weight="900">時鐘機制</text>
               <text x="${left - 8}" y="${top + 4}" text-anchor="end" fill="rgba(120,225,255,0.95)" font-size="11">12:00</text>
@@ -5249,6 +5495,36 @@
         .filter((ev) => Math.abs(ev.at - atMs) <= 700);
       const orbCount = orbExplosions.length;
       const orbLoss = orbCount * ORB_MOB_PENALTY_MIN;
+      let stateSample = samples[0];
+      for (let i = 1; i < samples.length; i++) {
+        if (samples[i].at > atMs) break;
+        stateSample = samples[i];
+      }
+      const orbsAliveNow = Math.max(0, Number(stateSample && stateSample.orbs) || 0);
+      const mageEvents = timelineHoverData.mageActionEvents || [];
+      const orbSpawnEvents = timelineHoverData.orbSpawnEvents || [];
+      let lastMageAction = null;
+      for (let i = 0; i < mageEvents.length; i++) {
+        const ev = mageEvents[i];
+        if ((Number(ev && ev.at) || 0) > atMs) break;
+        lastMageAction = ev;
+      }
+      let lastOrbSpawnAt = 0;
+      for (let i = 0; i < orbSpawnEvents.length; i++) {
+        const ev = orbSpawnEvents[i];
+        const at = Number(ev && ev.at) || 0;
+        if (at > atMs) break;
+        lastOrbSpawnAt = at;
+      }
+      let mageActionText = '';
+      if (lastMageAction) {
+        const actionAt = Number(lastMageAction.at) || 0;
+        const inCurrentOrbWave = !lastOrbSpawnAt || actionAt >= lastOrbSpawnAt;
+        const afterAction = atMs >= actionAt;
+        if (inCurrentOrbWave && afterAction && orbsAliveNow > 0) {
+          mageActionText = String(lastMageAction.summary || summarizeMageOrbActionText(lastMageAction.text || '') || '');
+        }
+      }
       const clockTime = formatHmCompact(nearest.totalMinutes);
       const aliveMobTimeText = aliveCarryTimes.length > 0
         ? aliveCarryTimes.join('、')
@@ -5260,6 +5536,7 @@
         mobKillText: killCarryTimes.length > 0 ? killCarryTimes.join('、') : '無',
         mobTimeText: clockTime,
         orbText: orbCount > 0 ? `${orbCount} 顆（-${orbLoss} 分）` : '無',
+        mageActionText,
       };
     }
     function attachTimelineHoverInteractions() {
@@ -5300,7 +5577,8 @@
           <div>小怪類型：${escapeHtml(info.mobTypeText)}</div>
           <div>存活小怪時間：${escapeHtml(info.mobAliveTimeText)}</div>
           <div>擊殺小怪時間：${escapeHtml(info.mobKillText)}</div>
-          <div>黑球：${escapeHtml(info.orbText)}</div>
+          <div>黑球爆炸：${escapeHtml(info.orbText)}</div>
+          ${info.mageActionText ? `<div>法師執行：${escapeHtml(info.mageActionText)}</div>` : ''}
         `;
         const gap = 12;
         let tipLeft = chartX + gap;
@@ -6077,7 +6355,10 @@
 
     function isRedClockBlockedBySafePoint(xCenter) {
       if (!Array.isArray(RED_CLOCK_SAFE_POINTS) || RED_CLOCK_SAFE_POINTS.length <= 0) return false;
-      const blockRadius = Math.max(RED_CLOCK_SAFE_RADIUS, RED_CLOCK_SAFE_BLOCK_HALF_WIDTH);
+      // 安全點需覆蓋「紅鬧鐘柱寬 + 角色寬」的一半，避免站在安全點仍被掃到。
+      const minSafeHalfBase = Math.ceil((CLOCK_PILLAR_W + PLAYER_W) / 2) + 8;
+      const minSafeHalf = Math.max(1, Math.round(minSafeHalfBase + RED_CLOCK_SAFE_RADIUS_ADJUST_PX));
+      const blockRadius = Math.max(RED_CLOCK_SAFE_RADIUS, RED_CLOCK_SAFE_BLOCK_HALF_WIDTH, minSafeHalf);
       return RED_CLOCK_SAFE_POINTS.some((px) => Math.abs(xCenter - px) <= blockRadius);
     }
     function isRedClockBlockedByPortalZone(xCenter, surfaceY) {
@@ -6546,8 +6827,9 @@
       ];
       if (gameOverMsg) {
         const timelineSvgHtml = buildUnifiedTimelineSvg();
-        const timelineHtml = timelineReplay.length > 0
-          ? timelineReplay
+        const timelineRows = timelineReplay.filter((r) => shouldShowInTimeChangeReplay(r));
+        const timelineHtml = timelineRows.length > 0
+          ? timelineRows
               .map((r) => `<div class="goReplayItem"><span class="goReplayAt">${formatReplayAt(r)}</span><span class="goReplayText">${escapeHtml(r.text)}</span></div>`)
               .join('')
           : `<div class="goReplayEmpty">本場沒有可回放的時間事件。</div>`;
@@ -7130,7 +7412,8 @@
       playerEl.style.top = playerY + 'px';
       playerEl.classList.toggle('face-right', playerFacing === 1);
       playerEl.classList.toggle('face-left', playerFacing === -1);
-      const crouching = gameActive && keyState.down && !isClimbing && isOnGround() && Date.now() >= playerDeadUntil;
+      const safePointMoveMode = safePointRecording && !gameActive;
+      const crouching = (gameActive || safePointMoveMode) && keyState.down && !isClimbing && isOnGround() && Date.now() >= playerDeadUntil;
       playerEl.classList.toggle('crouch', crouching);
       const pnow = performance.now();
       playerEl.classList.toggle('inv', (pnow < playerInvUntil) && !(pnow < specialInvUntil));
@@ -7353,15 +7636,15 @@
 
       // 2) 一樓 + 小平台共 25 顆：依平台寬度分配，並在各平台內均勻排列
       const surfaces = [
-        { key:'ground', x:0, y:GROUND_Y, w:WORLD_W },
+        { key:'ground', x:FLOOR1_GROUND_X, y:GROUND_Y, w:FLOOR1_GROUND_W },
         // 右左階梯與左側階梯、小平台（若未來有調整，這裡只要保持 key 與座標一致即可）
-        { key:'stepL1', x:300, y:GROUND_Y - 170, w:180 },
-        { key:'stepL2', x:550, y:GROUND_Y - 200, w:180 },
-        { key:'stepR2L', x:(WORLD_W - (180*4 + 30*3)) - 80 + 0*(180+30), y:GROUND_Y - 210, w:180 },
-        { key:'stepR2',  x:(WORLD_W - (180*4 + 30*3)) - 80 + 1*(180+30), y:GROUND_Y - 190, w:180 },
-        { key:'stepR1L', x:(WORLD_W - (180*4 + 30*3)) - 80 + 2*(180+30), y:GROUND_Y - 150, w:180 },
-        { key:'stepR1',  x:(WORLD_W - (180*4 + 30*3)) - 80 + 3*(180+30), y:GROUND_Y - 170, w:180 },
-        { key:'floor1Mini', x:Math.round((WORLD_W/7)*2), y:GROUND_Y - 140, w:Math.round((WORLD_W/7)*0.5) },
+        { key:'stepL1', x:FLOOR1_LEFT_STEP1_X, y:GROUND_Y - 170, w:FLOOR1_STEP_W },
+        { key:'stepL2', x:FLOOR1_LEFT_STEP2_X, y:GROUND_Y - 200, w:FLOOR1_STEP_W },
+        { key:'stepR2L', x:FLOOR1_RIGHT_STEP_R2L_X, y:GROUND_Y - 210, w:FLOOR1_STEP_W },
+        { key:'stepR2',  x:FLOOR1_RIGHT_STEP_R2_X, y:GROUND_Y - 190, w:FLOOR1_STEP_W },
+        { key:'stepR1L', x:FLOOR1_RIGHT_STEP_R1L_X, y:GROUND_Y - 150, w:FLOOR1_STEP_W },
+        { key:'stepR1',  x:FLOOR1_RIGHT_STEP_R1_X, y:GROUND_Y - 170, w:FLOOR1_STEP_W },
+        { key:'floor1Mini', x:FLOOR1_MINI_X, y:GROUND_Y - 140, w:FLOOR1_MINI_W },
       ];
 
       const counts = distributeCountByWidth(surfaces, ORB_MOB_GROUND_COUNT);
@@ -7393,8 +7676,10 @@
       const hasPreset = (selectedMageCommand === 'left' || selectedMageCommand === 'right' || selectedMageCommand === 'none');
       if (hasPreset) {
         mageCommandPlannedPick = selectedMageCommand;
+        mageCommandPlanSource = 'manual';
         mageCommandResolveTimer = performance.now() + Math.max(2000, Math.floor(mageCommandDelayMs || 0));
       } else {
+        mageCommandPlanSource = '';
         mageCommandPickTimer = performance.now() + Math.max(0, Math.floor(mageCommandAutoPickDelayMs || 0));
       }
     }
@@ -7424,6 +7709,7 @@
       if (!gameActive) return;
       const now = Date.now();
       let changed = false;
+      let explodedCount = 0;
 
       for (let i = orbMobs.length - 1; i >= 0; i--) {
         const o = orbMobs[i];
@@ -7433,19 +7719,24 @@
         // 倒數文字已移除（仍保留內部倒數機制）
 
         if (leftMs <= 0) {
-          statOrbExplosionCount++;
-          if (!isSpecialTimeLockedMode()) {
-            statOrbExplosionMinutesLoss += ORB_MOB_PENALTY_MIN;
-            applyTimeDelta(-ORB_MOB_PENALTY_MIN, `黑球爆炸（累計扣時 ${statOrbExplosionMinutesLoss} 分）`, 'orb');
-            showMsg('');
-          } else {
-            pushTimeline('黑球爆炸（特殊模式未啟動控時：不影響背後時間）', 'orb');
-          }
+          explodedCount++;
           o.el.remove();
           orbMobs.splice(i, 1);
-          updateHud();
           changed = true;
         }
+      }
+      if (explodedCount > 0) {
+        statOrbExplosionCount += explodedCount;
+        if (!isSpecialTimeLockedMode()) {
+          const totalDelta = -ORB_MOB_PENALTY_MIN * explodedCount;
+          statOrbExplosionMinutesLoss += Math.abs(totalDelta);
+          applyTimeDelta(totalDelta, `黑球爆炸（${explodedCount} 顆）`, 'orb');
+          showMsg('');
+        } else {
+          pushTimeline(`黑球爆炸（${explodedCount} 顆，特殊模式未啟動控時：不影響背後時間）`, 'orb');
+        }
+        showOrbWarn('黑球爆炸');
+        updateHud();
       }
       if (orbMobsSpawned && orbMobs.length === 0) {
         orbMobsSpawned = false;
@@ -7521,10 +7812,11 @@
       if (safePointMoveMode) {
         if (isBindHit('jump', e.code)) {
           e.preventDefault();
-          if (isOnGround()) {
-            playerVY = -JUMP_V0;
-            isJumping = true;
-          }
+          tryJump();
+        }
+        if (isBindHit('teleport', e.code)) {
+          e.preventDefault();
+          tryTeleport();
         }
         return;
       }
@@ -7544,7 +7836,7 @@
     });
     viewport.addEventListener('click', (e) => {
       if (!safePointRecording) return;
-      showOrbWarn('安全點錄製請按 Ctrl（不是滑鼠點擊）');
+      showOrbWarn(SAFE_POINT_GUIDE_TEXT, 0);
     });
 
     function inBottomPortalZone() {
@@ -7592,11 +7884,14 @@
     }
     // Override: support drop/jump and platform-aware teleport behavior for small platforms.
     function tryJump() {
-      if (!gameActive) return;
-      if (Date.now() < playerDeadUntil) return;
-      if (Date.now() < attackLockedUntil) return;
-      if (isStunnedDebuff()) return;
-      if (isJumpLockedDebuff()) return;
+      const safePointMoveMode = safePointRecording && !gameActive;
+      if (!gameActive && !safePointMoveMode) return;
+      if (!safePointMoveMode) {
+        if (Date.now() < playerDeadUntil) return;
+        if (Date.now() < attackLockedUntil) return;
+        if (isStunnedDebuff()) return;
+        if (isJumpLockedDebuff()) return;
+      }
       if (isClimbing) {
         const hDir = keyState.left && !keyState.right ? -1 : (keyState.right && !keyState.left ? 1 : 0);
         if (hDir === 0) return;
@@ -7646,11 +7941,14 @@
 
     // Override: teleport requires direction key and supports vertical/horizontal movement between small platforms.
     function tryTeleport() {
-      if (!gameActive) return;
-      if (Date.now() < playerDeadUntil) return;
-      if (Date.now() < teleportLockedUntil || Date.now() - lastTeleportAt < TELEPORT_CD_MS) return;
-      if (isStunnedDebuff()) return;
-      if (isSkillLocked()) return;
+      const safePointMoveMode = safePointRecording && !gameActive;
+      if (!gameActive && !safePointMoveMode) return;
+      if (!safePointMoveMode) {
+        if (Date.now() < playerDeadUntil) return;
+        if (Date.now() < teleportLockedUntil || Date.now() - lastTeleportAt < TELEPORT_CD_MS) return;
+        if (isStunnedDebuff()) return;
+        if (isSkillLocked()) return;
+      }
       if (!isOnGround()) return;
       if (isClimbing) return;
 
@@ -7737,7 +8035,7 @@
     // =============================
     // Attack D Logic
     // =============================
-    const ATTACK_RANGE_HALF = 546;
+    const ATTACK_RANGE_HALF = Math.round(546 * 0.85); // 天怒寬度 -15%
     
     function getAttackSurfaceForPlayer() {
       const onTopY = Math.abs((playerY + PLAYER_H) - TOP_PLAT_Y) <= 0.5;
@@ -8125,14 +8423,10 @@
       if (safePointMoveMode) {
         if (keyState.left && !keyState.right) { playerFacing = -1; playerX = clamp(playerX - MOVE_SPEED, 0, WORLD_W - PLAYER_W); }
         else if (keyState.right && !keyState.left) { playerFacing = 1; playerX = clamp(playerX + MOVE_SPEED, 0, WORLD_W - PLAYER_W); }
-        if (isOnGround() && playerVY >= 0) {
-          playerVY = 0;
-        } else {
-          playerVY = Math.min(MAX_FALL_SPEED, playerVY + GRAVITY);
-        }
-        const prevBottom = playerY + PLAYER_H;
-        playerY += playerVY;
-        resolvePlatforms(prevBottom);
+        stopClimb();
+        playerY = GROUND_Y - PLAYER_H;
+        playerVY = 0;
+        isJumping = false;
         syncPlayerUI();
         return;
       }
@@ -8736,41 +9030,26 @@ function loop(now) {
       collidablePlats = [];
       
       // 地板
-      createPlatform(0, GROUND_Y, WORLD_W, GROUND_H, 'ground');
+      createPlatform(FLOOR1_GROUND_X, GROUND_Y, FLOOR1_GROUND_W, GROUND_H, 'ground');
       // 上方平台（可下跳）
       createPlatform(TOP_PLAT_X, TOP_PLAT_Y, TOP_PLAT_W, TOP_PLAT_H, 'topPlat', { collidable: false, dropThrough: true });
       
-      // 新增：下方左右階梯平台 (參考圖片)
-      // 左側階梯：前兩個平台往右 +200px
-      createPlatform(300, GROUND_Y - 170, 180, 18, 'stepL1', { dropThrough: true });
-      createPlatform(550, GROUND_Y - 200, 180, 18, 'stepL2', { dropThrough: true });
-      // 右側階梯：確保平台左右不重疊，並保留些微間距
-      // 由左至右排列：stepR2L、stepR2、stepR1L、stepR1（每個平台寬 180px，間距 30px）
-      const STEP_W = 180;
-      const STEP_GAP = 30;
-      const rightClusterStart = WORLD_W - (STEP_W * 4 + STEP_GAP * 3) - 80; // 右半部平台全體往左 80px
-
-      const stepR2LX = rightClusterStart + 0 * (STEP_W + STEP_GAP);
-      const stepR2X  = rightClusterStart + 1 * (STEP_W + STEP_GAP);
-      const stepR1LX = rightClusterStart + 2 * (STEP_W + STEP_GAP);
-      const stepR1X  = rightClusterStart + 3 * (STEP_W + STEP_GAP);
-
-      createPlatform(stepR2LX, GROUND_Y - 210, STEP_W, 18, 'stepR2L', { dropThrough: true });
-      createPlatform(stepR2X,  GROUND_Y - 190, STEP_W, 18, 'stepR2', { dropThrough: true });
-      createPlatform(stepR1LX, GROUND_Y - 150, STEP_W, 18, 'stepR1L', { dropThrough: true });
-      createPlatform(stepR1X,  GROUND_Y - 170, STEP_W, 18, 'stepR1', { dropThrough: true });
+      // 新增：下方左右階梯平台（左右分散且不重疊）
+      createPlatform(FLOOR1_LEFT_STEP1_X, GROUND_Y - 170, FLOOR1_STEP_W, 18, 'stepL1', { dropThrough: true });
+      createPlatform(FLOOR1_LEFT_STEP2_X, GROUND_Y - 200, FLOOR1_STEP_W, 18, 'stepL2', { dropThrough: true });
+      // 由左至右排列：stepR2L、stepR2、stepR1L、stepR1
+      createPlatform(FLOOR1_RIGHT_STEP_R2L_X, GROUND_Y - 210, FLOOR1_STEP_W, 18, 'stepR2L', { dropThrough: true });
+      createPlatform(FLOOR1_RIGHT_STEP_R2_X,  GROUND_Y - 190, FLOOR1_STEP_W, 18, 'stepR2', { dropThrough: true });
+      createPlatform(FLOOR1_RIGHT_STEP_R1L_X, GROUND_Y - 150, FLOOR1_STEP_W, 18, 'stepR1L', { dropThrough: true });
+      createPlatform(FLOOR1_RIGHT_STEP_R1_X,  GROUND_Y - 170, FLOOR1_STEP_W, 18, 'stepR1', { dropThrough: true });
 // 新增：一樓小平台（依照圖片：左三右四）
       // 將整張地圖寬度視為 7 等分，平台放在「第 3 格」（左側 3 格、右側 4 格）
-      const F1_UNIT = WORLD_W / 7;
-      // 左邊第三個平台寬度 -50%
-      const F1_SMALL_W = Math.round(F1_UNIT * 0.5);
-      const F1_SMALL_X = Math.round(F1_UNIT * 2);
       const F1_SMALL_Y = GROUND_Y - 140;
-      createPlatform(F1_SMALL_X, F1_SMALL_Y, F1_SMALL_W, 18, 'floor1Mini', { dropThrough: true });
+      createPlatform(FLOOR1_MINI_X, F1_SMALL_Y, FLOOR1_MINI_W, 18, 'floor1Mini', { dropThrough: true });
 
       // 繩子：左側第 2 個小平台中央、右側第 1 個小平台右緣
-      createRope(550 + 90, GROUND_Y - 200, GROUND_Y - 30, 'ropeLeftSecond');
-      createRope(stepR2LX + STEP_W - 12, GROUND_Y - 210, GROUND_Y - 30, 'ropeRightFirst');
+      createRope(FLOOR1_LEFT_ROPE_X, GROUND_Y - 200, GROUND_Y - 30, 'ropeLeftSecond');
+      createRope(FLOOR1_RIGHT_ROPE_X, GROUND_Y - 210, GROUND_Y - 30, 'ropeRightFirst');
 
       const pL = document.createElement('div'); pL.className = 'portalUp'; pL.style.left = '0px'; pL.style.top = (GROUND_Y-120)+'px'; world.appendChild(pL);
       const pR = document.createElement('div'); pR.className = 'portalUp'; pR.style.left = (WORLD_W-PORTAL_ZONE_W)+'px'; pR.style.top = (GROUND_Y-120)+'px'; world.appendChild(pR);
