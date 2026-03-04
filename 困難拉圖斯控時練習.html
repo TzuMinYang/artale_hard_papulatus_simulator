@@ -1495,6 +1495,9 @@
       background: rgba(255,255,255,0.05);
       padding: 8px;
     }
+    .setupField.fullRow {
+      grid-column: 1 / -1;
+    }
     .setupField label {
       display: block;
       font-weight: 900;
@@ -1822,9 +1825,16 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
       font-weight: 900;
       font-size: 0.8em;
       padding: 8px 10px !important;
+    }
+    .githubLinkBtn .githubIcon {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+      flex: 0 0 auto;
     }
     .supportHeartBtn .heart {
       color: #36f07a;
@@ -1838,6 +1848,27 @@
     }
     .controlBtns.two {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    #rightControlPanel .controlBtns {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    #rightControlPanel .controlBtns > .btn {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+    }
+    #rightControlPanel .supportHeartBtn,
+    #rightControlPanel .githubLinkBtn {
+      min-height: 32px;
+      font-size: 12px;
+      padding: 6px 7px !important;
+    }
+    #rightControlPanel .githubLinkBtn .githubIcon {
+      width: 12px;
+      height: 12px;
     }
     #physicalCmd {
       display: none;
@@ -2008,7 +2039,7 @@
         </div>
         <div id="mageAutoPickInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">法師隨機選</div>
-          <div class="teamInfoBody">黑球出現後若未通知，2 秒後隨機選清左/清右/不清，1.5 秒後生效。</div>
+          <div class="teamInfoBody" id="mageAutoPickInfoBody">黑球出現後若未通知，會在設定秒數後隨機選清左/清右/不清，1.5 秒後生效。</div>
         </div>
         <div id="callIgnoreInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">不聽 Call</div>
@@ -2023,14 +2054,12 @@
       <div id="rightHudColumn">
         <div id="rightControlPanel" class="chip">
           <div class="controlBtns">
-            <button class="btn" id="openSetupBtn">設定</button>
-            <a id="hudGithubBtn" class="btn githubLinkBtn" href="https://github.com/TzuMinYang/artale_hard_papulatus_simulator" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a id="hudGithubBtn" class="btn githubLinkBtn" href="https://github.com/TzuMinYang/artale_hard_papulatus_simulator" target="_blank" rel="noopener noreferrer"><svg class="githubIcon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.95-.82-1.14-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.5 7.5 0 0 1 8 4.74c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
             <a id="hudSupportBtn" class="btn supportHeartBtn" href="https://portaly.cc/tmyang/support" target="_blank" rel="noopener noreferrer"><span class="heart">❤</span><span>贊助連結</span></a>
-          </div>
-          <div class="controlBtns">
             <button class="btn" id="pauseBtn">暫停</button>
             <button class="btn" id="hudRestartBtn">重新開始</button>
             <button class="btn" id="endBtn">遊戲結束</button>
+            <button class="btn" id="openSetupBtn">設定</button>
           </div>
         </div>
       </div>
@@ -2054,6 +2083,7 @@
       <div id="gameOverTitle">遊戲結束</div>
       <div id="gameOverMsg">—</div>
       <div id="gameOverActions">
+        <a class="btn githubLinkBtn" href="https://github.com/TzuMinYang/artale_hard_papulatus_simulator" target="_blank" rel="noopener noreferrer"><svg class="githubIcon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.95-.82-1.14-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.5 7.5 0 0 1 8 4.74c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
         <a class="btn supportHeartBtn" href="https://portaly.cc/tmyang/support" target="_blank" rel="noopener noreferrer"><span class="heart">❤</span><span>贊助連結</span></a>
         <button class="btn primary" id="restartBtn">重新開始</button>
       </div>
@@ -2075,7 +2105,7 @@
       </div>
       <div id="setupTabBasicPane" class="setupTabPane show">
         <div class="setupGrid">
-          <div class="setupField">
+          <div class="setupField fullRow">
             <label for="setupBgmVolume">背景音樂音量（%）</label>
             <input id="setupBgmVolume" type="range" min="0" max="100" step="1" value="20" />
             <div class="setupFieldHint" id="setupBgmVolumeText">20%</div>
@@ -2102,12 +2132,12 @@
       <div id="setupTabCombatPane" class="setupTabPane">
         <div class="setupGrid">
           <div class="setupField">
-            <label for="setupShootDamage">天箭傷害（可小數）</label>
-            <input id="setupShootDamage" type="number" step="0.1" value="1.0" />
+            <label for="setupShootDamage">天箭傷害</label>
+            <input id="setupShootDamage" type="number" step="0.1" value="1" />
           </div>
           <div class="setupField">
-            <label for="setupWrathDamage">天怒傷害（可小數）</label>
-            <input id="setupWrathDamage" type="number" step="0.1" value="2.0" />
+            <label for="setupWrathDamage">天怒傷害</label>
+            <input id="setupWrathDamage" type="number" step="0.1" value="2" />
           </div>
           <div class="setupField">
             <label for="setupMobMaxHp">時間小怪血量</label>
@@ -2117,13 +2147,38 @@
             <label for="setupOrbMobHp">黑球血量</label>
             <input id="setupOrbMobHp" type="number" step="0.1" min="0.1" value="6" />
           </div>
+          <div class="setupField">
+            <label for="setupInvSkillZeroCd">復甦之光（復活術）0 CD</label>
+            <input id="setupInvSkillZeroCd" type="checkbox" />
+            <div class="setupFieldHint">勾選後可重複施放，不受整場一次限制。</div>
+          </div>
         </div>
       </div>
       <div id="setupTabTeamPane" class="setupTabPane">
         <div class="setupGrid">
           <div class="setupField">
             <label for="setupMageDelay">指揮法師清球延遲（秒）</label>
-            <input id="setupMageDelay" type="number" step="0.1" min="2" value="2.0" />
+            <input id="setupMageDelay" type="number" step="0.1" min="2" value="2" />
+          </div>
+          <div class="setupField">
+            <label for="setupMageAutoPickDelay">黑球未下指令自動決定延遲（秒）</label>
+            <input id="setupMageAutoPickDelay" type="number" step="0.1" min="0" value="2" />
+          </div>
+          <div class="setupField">
+            <label for="setupMageIgnoreRate">法師黑球沒聽 call 機率（%）</label>
+            <input id="setupMageIgnoreRate" type="number" step="0.1" min="0" max="100" value="0" />
+          </div>
+          <div class="setupField">
+            <label for="setupPhysicalDelay">指揮物理控時延遲（秒）</label>
+            <input id="setupPhysicalDelay" type="number" step="0.1" min="0" value="3" />
+          </div>
+          <div class="setupField">
+            <label for="setupPhysicalIntervalSec">物理控時每隻間隔（秒）</label>
+            <input id="setupPhysicalIntervalSec" type="number" step="0.1" min="0" value="2" />
+          </div>
+          <div class="setupField">
+            <label for="setupPhysicalIgnoreRate">物理控時沒聽 call 機率（%）</label>
+            <input id="setupPhysicalIgnoreRate" type="number" step="0.1" min="0" max="100" value="0" />
           </div>
           <div class="setupField">
             <label for="setupDpm">每分鐘傷害（DPM）</label>
@@ -2134,27 +2189,11 @@
             <input id="setupTeammateDeathRate" type="number" step="0.1" min="0" max="100" value="0" />
           </div>
           <div class="setupField">
-            <label for="setupMageIgnoreRate">法師黑球沒聽 call 機率（%）</label>
-            <input id="setupMageIgnoreRate" type="number" step="0.1" min="0" max="100" value="0" />
-          </div>
-          <div class="setupField">
-            <label for="setupPhysicalIgnoreRate">物理控時沒聽 call 機率（%）</label>
-            <input id="setupPhysicalIgnoreRate" type="number" step="0.1" min="0" max="100" value="0" />
-          </div>
-          <div class="setupField">
-            <label for="setupPhysicalDelay">指揮物理控時延遲（秒）</label>
-            <input id="setupPhysicalDelay" type="number" step="0.1" min="0" value="3.0" />
-          </div>
-          <div class="setupField">
-            <label for="setupPhysicalIntervalSec">物理控時每隻間隔（秒）</label>
-            <input id="setupPhysicalIntervalSec" type="number" step="0.1" min="0" value="2.0" />
-          </div>
-          <div class="setupField">
             <label for="setupHintNoiseRate">提示雜訊機率（每秒 %）</label>
             <input id="setupHintNoiseRate" type="number" step="0.1" min="0" max="100" value="5" />
           </div>
         </div>
-        <div class="setupNote">黑球出現時若未先指揮法師清球，系統會在 2 秒後隨機選擇「清左 / 清右 / 不清」，並於 1.5 秒後生效。<br>沒聽 call 可能出現：選錯、順序錯誤、打錯或不打。<br>提示雜訊為獨立提示層，可能和王技能提示同時出現。</div>
+        <div class="setupNote" id="setupTeamNote">黑球出現時若未先指揮法師清球，系統會在設定秒數後隨機選擇「清左 / 清右 / 不清」，並於 1.5 秒後生效。<br>沒聽 call 可能出現：選錯、順序錯誤、打錯或不打。<br>提示雜訊為獨立提示層，可能和王技能提示同時出現。</div>
       </div>
       <div id="setupTabKeyPane" class="setupTabPane">
         <div id="keyBindList">
@@ -2327,7 +2366,7 @@
 
     const SHOOT_CD_MS = 810;
     const SHOOT_MOVE_LOCK_MS = 260;
-    const ARROW_SPEED = 2.6 * 1.5; // 天使之箭飛行速度 +50%
+    const ARROW_SPEED = 2.6 * 1.3; // 天使之箭飛行速度 +30%
     const ARROW_RANGE = 180;
 
     const TELEPORT_DIST = 150;
@@ -2535,6 +2574,7 @@
     const setupBossSubMobPane = document.getElementById('setupBossSubMobPane');
     const setupShootDamage = document.getElementById('setupShootDamage');
     const setupWrathDamage = document.getElementById('setupWrathDamage');
+    const setupInvSkillZeroCd = document.getElementById('setupInvSkillZeroCd');
     const setupBgmVolume = document.getElementById('setupBgmVolume');
     const setupBgmVolumeText = document.getElementById('setupBgmVolumeText');
     const setupStartTimeMin = document.getElementById('setupStartTimeMin');
@@ -2549,6 +2589,7 @@
     const modeRageRedLabel = document.getElementById('modeRageRedLabel');
     const setupModeList = document.getElementById('setupModeList');
     const setupMageDelay = document.getElementById('setupMageDelay');
+    const setupMageAutoPickDelay = document.getElementById('setupMageAutoPickDelay');
     const setupTeammateDeathRate = document.getElementById('setupTeammateDeathRate');
     const setupMageIgnoreRate = document.getElementById('setupMageIgnoreRate');
     const setupPhysicalIgnoreRate = document.getElementById('setupPhysicalIgnoreRate');
@@ -2556,6 +2597,8 @@
     const setupPhysicalIntervalSec = document.getElementById('setupPhysicalIntervalSec');
     const setupHintNoiseRate = document.getElementById('setupHintNoiseRate');
     const setupDpm = document.getElementById('setupDpm');
+    const mageAutoPickInfoBody = document.getElementById('mageAutoPickInfoBody');
+    const setupTeamNote = document.getElementById('setupTeamNote');
     const setupBossAntiShieldMs = document.getElementById('setupBossAntiShieldMs');
     const setupBossAntiShieldCdMs = document.getElementById('setupBossAntiShieldCdMs');
     const setupBossOrbLifeSec = document.getElementById('setupBossOrbLifeSec');
@@ -2601,6 +2644,7 @@
     const setupMobAutoDieMaxSec = document.getElementById('setupMobAutoDieMaxSec');
     const setupMobRespawnMinSec = document.getElementById('setupMobRespawnMinSec');
     const setupMobRespawnMaxSec = document.getElementById('setupMobRespawnMaxSec');
+    const setupNumberInputs = setupModal ? Array.from(setupModal.querySelectorAll('input[type="number"]')) : [];
     const keyBindBtns = Array.from(document.querySelectorAll('.keyBindBtn'));
 
     const mageCmd = document.getElementById('mageCmd');
@@ -2622,7 +2666,9 @@
     let magicDefenseRestoreAt = 0;
     let safePointRecording = false;
     let safePointMarkers = [];
+    let invSkillZeroCdEnabled = false;
     let mageCommandDelayMs = 2000;
+    let mageCommandAutoPickDelayMs = 2000;
     let physicalCommandDelayMs = PHYSICAL_KILL_START_DELAY_MS;
     let teammateMistakeDeathChance = 0; // 每秒觸發機率，0~1
     let teammateMageIgnoreChance = 0;
@@ -2767,9 +2813,31 @@
       if (Math.abs(sec - Math.round(sec)) < 0.000001) return String(Math.round(sec));
       return sec.toFixed(3).replace(/\.?0+$/, '');
     }
+    function normalizeNumberInputValue(input) {
+      if (!input || input.tagName !== 'INPUT' || input.type !== 'number') return;
+      const raw = String(input.value == null ? '' : input.value).trim();
+      if (!raw) return;
+      const n = Number(raw);
+      if (!Number.isFinite(n)) return;
+      input.value = Object.is(n, -0) ? '0' : String(n);
+    }
+    function normalizeNumberInputs(scope = setupModal) {
+      if (!scope || typeof scope.querySelectorAll !== 'function') return;
+      const inputs = scope.querySelectorAll('input[type="number"]');
+      for (const input of inputs) normalizeNumberInputValue(input);
+    }
     function updateMageCmdTitle() {
       if (!mageCmdTitle) return;
       mageCmdTitle.textContent = `指揮法師（可提前下指令；下令後 ${formatDelaySecText(mageCommandDelayMs)} 秒生效，超過時機無效）`;
+    }
+    function refreshTeamCommandInfoText() {
+      const autoPickSecText = formatDelaySecText(mageCommandAutoPickDelayMs);
+      if (mageAutoPickInfoBody) {
+        mageAutoPickInfoBody.textContent = `黑球出現後若未通知，${autoPickSecText} 秒後隨機選清左/清右/不清，1.5 秒後生效。`;
+      }
+      if (setupTeamNote) {
+        setupTeamNote.innerHTML = `黑球出現時若未先指揮法師清球，系統會在 ${autoPickSecText} 秒後隨機選擇「清左 / 清右 / 不清」，並於 1.5 秒後生效。<br>沒聽 call 可能出現：選錯、順序錯誤、打錯或不打。<br>提示雜訊為獨立提示層，可能和王技能提示同時出現。`;
+      }
     }
     function ensureBgmAudio() {
       if (bgmAudio) return bgmAudio;
@@ -2913,6 +2981,7 @@
           el.value = String(value == null ? '' : value);
         }
       }
+      normalizeNumberInputs(setupModal);
       if (settings.keybinds && typeof settings.keybinds === 'object') {
         for (const key of Object.keys(keybinds)) {
           const bindValue = settings.keybinds[key];
@@ -3220,6 +3289,7 @@
     function applySetupSettings() {
       shootDamage = Math.max(0, parseFloat(setupShootDamage ? setupShootDamage.value : '1') || 0);
       wrathDamage = Math.max(0, parseFloat(setupWrathDamage ? setupWrathDamage.value : '2') || 0);
+      invSkillZeroCdEnabled = !!(setupInvSkillZeroCd && setupInvSkillZeroCd.checked);
       MOB_MAX_HP = Math.max(0.1, readNum(setupMobMaxHp ? setupMobMaxHp.value : MOB_MAX_HP, MOB_MAX_HP));
       ORB_MOB_HP = Math.max(0.1, readNum(setupOrbMobHp ? setupOrbMobHp.value : ORB_MOB_HP, ORB_MOB_HP));
       setBgmVolumeByPercent(setupBgmVolume ? setupBgmVolume.value : (bgmVolume * 100));
@@ -3235,6 +3305,12 @@
         10
       );
       mageCommandDelayMs = Math.round(mageDelaySec * 1000);
+      const mageAutoPickDelaySec = clamp(
+        parseFloat(setupMageAutoPickDelay ? setupMageAutoPickDelay.value : formatDelaySecText(mageCommandAutoPickDelayMs)) || 0,
+        0,
+        20
+      );
+      mageCommandAutoPickDelayMs = Math.round(mageAutoPickDelaySec * 1000);
       const pct = clamp(parseFloat(setupTeammateDeathRate ? setupTeammateDeathRate.value : '0') || 0, 0, 100);
       teammateMistakeDeathChance = pct / 100;
       const mageIgnorePct = clamp(parseFloat(setupMageIgnoreRate ? setupMageIgnoreRate.value : '0') || 0, 0, 100);
@@ -3256,10 +3332,13 @@
       PHYSICAL_KILL_INTERVAL_MS = physicalIntervalMs;
       baseDpm = Math.max(0, parseFloat(setupDpm ? setupDpm.value : String(baseDpm)) || 0);
       applyBossParamSettings();
+      if (setupShootDamage) setupShootDamage.value = String(shootDamage);
+      if (setupWrathDamage) setupWrathDamage.value = String(wrathDamage);
       if (setupMobMaxHp) setupMobMaxHp.value = String(MOB_MAX_HP);
       if (setupOrbMobHp) setupOrbMobHp.value = String(ORB_MOB_HP);
       if (setupStartTimeMin) setupStartTimeMin.value = formatStartClockText(configuredStartMinutes);
       if (setupMageDelay) setupMageDelay.value = formatDelaySecText(mageCommandDelayMs);
+      if (setupMageAutoPickDelay) setupMageAutoPickDelay.value = formatDelaySecText(mageCommandAutoPickDelayMs);
       if (setupMageIgnoreRate) setupMageIgnoreRate.value = String(mageIgnorePct);
       if (setupPhysicalIgnoreRate) setupPhysicalIgnoreRate.value = String(physicalIgnorePct);
       if (setupPhysicalDelay) setupPhysicalDelay.value = formatDelaySecText(physicalDelayMs);
@@ -3267,9 +3346,11 @@
       if (setupHintNoiseRate) setupHintNoiseRate.value = String(hintNoisePct);
       if (setupDpm) setupDpm.value = String(baseDpm);
       updateMageCmdTitle();
+      refreshTeamCommandInfoText();
       refreshBindButtons();
       syncGameModeInputs();
       refreshModeDescriptionLabels();
+      normalizeNumberInputs(setupModal);
     }
     function isBindHit(action, code) {
       const bind = keybinds[action];
@@ -3393,6 +3474,14 @@
         setBgmVolumeByPercent(setupBgmVolume.value);
       });
     }
+    setupNumberInputs.forEach((input) => {
+      input.addEventListener('blur', () => {
+        normalizeNumberInputValue(input);
+      });
+      input.addEventListener('change', () => {
+        normalizeNumberInputValue(input);
+      });
+    });
     if (setupModeList) {
       const modeRadios = setupModeList.querySelectorAll('input[name="gameMode"]');
       modeRadios.forEach((r) => {
@@ -3446,6 +3535,8 @@
     updateSafePointRecordInfo();
     updateMagicDefenseBuffUI();
     setBgmVolumeByPercent(bgmVolume * 100);
+    refreshTeamCommandInfoText();
+    normalizeNumberInputs(setupModal);
 
     function restartToSetup() {
       if (gameOverModal) gameOverModal.classList.remove('show');
@@ -5546,7 +5637,7 @@
         { label: '時間爆炸致死次數', value: `${statTimeExplosionDeathCount}` },
         { label: '時間過高爆炸', value: `${statHighExplosionCount} 次` },
         { label: '時間過低爆炸', value: `${statLowExplosionCount} 次` },
-        { label: '無敵擋下時間爆炸', value: `${statExplosionBlockedByInvCount} 次` },
+        { label: invSkillZeroCdEnabled ? '無敵擋下時間爆炸（復活術 0CD）' : '無敵擋下時間爆炸', value: `${statExplosionBlockedByInvCount} 次` },
       ];
       if (gameOverMsg) {
         const topStatsHtml = topStats
@@ -6087,12 +6178,19 @@
         active: true,
         autoEndAt: performance.now() + rand(MOB_AUTO_DIE_MIN_MS, MOB_AUTO_DIE_MAX_MS),
       };
-      const spawnX = Math.round(TOP_PLAT_X + (TOP_PLAT_W - MOB_W) / 2);
+      const spawnCount = 4;
+      const leftBound = TOP_PLAT_X + MOB_EDGE_PADDING;
+      const rightBound = TOP_PLAT_X + TOP_PLAT_W - MOB_W - MOB_EDGE_PADDING;
+      const spawnCenterX = TOP_PLAT_X + (TOP_PLAT_W - MOB_W) / 2;
+      const usableWidth = Math.max(0, rightBound - leftBound);
+      const spreadGap = spawnCount > 1 ? Math.min(78, usableWidth / (spawnCount - 1)) : 0;
       const effects = [];
       const waveKind = Math.random() < 0.5 ? 'demon' : 'weasel'; // 每波次 50% 決定整波種類
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < spawnCount; i++) {
         const [val, label] = MOB_EFFECT_ITEMS[Math.floor(Math.random() * MOB_EFFECT_ITEMS.length)];
-        const outwardDir = (i % 2 === 0) ? -1 : 1;
+        const offset = (i - ((spawnCount - 1) / 2)) * spreadGap;
+        const spawnX = Math.round(clamp(spawnCenterX + offset, leftBound, rightBound));
+        const outwardDir = offset < 0 ? -1 : (offset > 0 ? 1 : ((i % 2 === 0) ? -1 : 1));
         const mob = spawnMob(spawnX, val, label, outwardDir, waveId, waveKind);
         const timelineLabel = getMobTimelineLabel(mob);
         effects.push(timelineLabel);
@@ -6295,7 +6393,7 @@
         mageCommandPlannedPick = selectedMageCommand;
         mageCommandResolveTimer = performance.now() + Math.max(2000, Math.floor(mageCommandDelayMs || 0));
       } else {
-        mageCommandPickTimer = performance.now() + 2000;
+        mageCommandPickTimer = performance.now() + Math.max(0, Math.floor(mageCommandAutoPickDelayMs || 0));
       }
     }
     function startAntiShieldOrbPattern(now) {
@@ -6476,7 +6574,8 @@
       if (!gameActive || Date.now() < attackLockedUntil || Date.now() - lastShootAt < SHOOT_CD_MS) return;
       if (Date.now() < playerDeadUntil) return;
       if (isStunnedDebuff()) return;
-       if (isSkillLocked()) return;
+      if (isJumping || !isOnGround()) return;
+      if (isSkillLocked()) return;
       lastShootAt = Date.now();
       moveLockedUntil = Date.now() + SHOOT_MOVE_LOCK_MS;
       const arrow = document.createElement('div'); arrow.className = 'arrow';
@@ -6710,13 +6809,13 @@
       if (isStunnedDebuff()) return;
       if (isSkillLocked()) return;
 
-      // 整場只能用一次
-      if (invSkillUsed) { showToast(''); return; }
+      // 預設整場只能用一次；若啟用 0CD 則可重複施放
+      if (!invSkillZeroCdEnabled && invSkillUsed) { showToast(''); return; }
 
       // 施放中就不重複觸發
       if (now < invSkillBusyUntil) return;
 
-      invSkillUsed = true;
+      if (!invSkillZeroCdEnabled) invSkillUsed = true;
 
       // 2.5 秒不能移動
       moveLockedUntil = Math.max(moveLockedUntil, nowMs + 2500);
