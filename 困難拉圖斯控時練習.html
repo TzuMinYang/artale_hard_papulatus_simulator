@@ -786,6 +786,11 @@
     } 
     .timeText { font-variant-numeric: tabular-nums; font-weight: 900; font-size: 33px; letter-spacing: 1px; color: rgba(255,235,180,0.95); text-align: center; line-height: 1; }
     .timeText.deathNum { font-size: 33px; }
+    .timeText.deathStats {
+      font-size: 24px;
+      letter-spacing: 0.6px;
+      white-space: nowrap;
+    }
     .quickRow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
     .quickRow .btn { padding: 8px 10px; font-size: 13px; }
     .hint { font-size: 12px; opacity: 0.85; line-height: 1.25; }
@@ -1729,10 +1734,15 @@
       max-width: 100%;
       height: 28px;
       margin-top: 6px;
+      cursor: ew-resize;
+      touch-action: none;
+      user-select: none;
     }
     #setupBossStartPct {
-      width: 100%;
-      margin-top: 8px;
+      display: none;
+    }
+    #setupBossStartBar.disabled {
+      cursor: not-allowed;
     }
     #setupBossStartHpWrap.disabled {
       opacity: 0.58;
@@ -1741,6 +1751,15 @@
       margin-top: 10px;
     }
     #setupSpecialModeOptions .setupCheckRow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+    }
+    #setupReviveModeOptions {
+      margin-top: 10px;
+    }
+    #setupReviveModeOptions .setupCheckRow {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -2281,7 +2300,7 @@
           <div class="setupField">
             <label for="setupClockWorldOffsetY">時間方框垂直位置（滑鼠拖曳調整）</label>
             <input id="setupClockWorldOffsetY" type="range" min="-180" max="180" step="1" value="0" />
-            <div class="setupFieldHint" id="setupClockWorldOffsetYText">目前 +0（+ 往下 / - 往上）</div>
+            <div class="setupFieldHint" id="setupClockWorldOffsetYText">目前 +0（+ 往上 / - 往下）</div>
           </div>
           <div class="setupField">
             <label for="setupClockWorldScalePct">時間方框大小（%）</label>
@@ -2289,12 +2308,8 @@
             <div class="setupFieldHint" id="setupClockWorldScalePctText">目前 100%</div>
           </div>
           <div class="setupField fullRow">
-            <label for="setupTopCamOffsetY">樓上視角高度微調（按上下調整）</label>
-            <div class="setupAdjustRow">
-              <button class="btn" id="setupTopCamUpBtn" type="button">上</button>
-              <input id="setupTopCamOffsetY" type="number" min="-180" max="300" step="5" value="90" />
-              <button class="btn" id="setupTopCamDownBtn" type="button">下</button>
-            </div>
+            <label for="setupTopCamOffsetY">樓上視角高度（拉霸）</label>
+            <input id="setupTopCamOffsetY" type="range" min="-180" max="300" step="1" value="90" />
             <div class="setupFieldHint" id="setupTopCamOffsetYText">目前 +0（+ 往下 / - 往上）</div>
           </div>
           <div class="setupField fullRow">
@@ -2308,6 +2323,7 @@
           <div id="setupModeList" class="setupModeList">
             <div class="setupModeItem"><input id="modeKillBoss" name="gameMode" type="radio" value="killBoss" checked><label id="modeKillBossLabel" for="modeKillBoss">擊殺王</label></div>
             <div class="setupModeItem"><input id="modeRageSurvival" name="gameMode" type="radio" value="rageSurvival"><label id="modeRageSurvivalLabel" for="modeRageSurvival">狂暴紅鬧鐘存活挑戰（王血固定 19%）</label></div>
+            <div class="setupModeItem"><input id="modeRevivePractice" name="gameMode" type="radio" value="revivePractice"><label id="modeRevivePracticeLabel" for="modeRevivePractice">復甦之光練習模式</label></div>
           </div>
           <div class="setupField" id="setupBossStartHpWrap">
             <label for="setupBossStartPct">Boss 開場血量（1~100%）</label>
@@ -2315,7 +2331,7 @@
               <div id="setupBossStartPctFill" class="bossBarFill"></div>
               <div id="setupBossStartPctText" class="bossBarText">拉圖斯 160,000,000 / 160,000,000 (100%)</div>
             </div>
-            <input id="setupBossStartPct" type="range" min="1" max="100" step="1" value="100" />
+            <input id="setupBossStartPct" type="hidden" min="1" max="100" step="1" value="100" />
             <div class="setupFieldHint" id="setupBossStartPctHint">目前 100%</div>
           </div>
           <div class="setupField" id="setupSpecialModeOptions">
@@ -2324,6 +2340,24 @@
               <input id="setupSpecialControlTime" type="checkbox" checked />
               <span>啟動控時（不勾選時：背後時間鎖定 06:00，不受小怪、扣時、黑球爆炸影響）</span>
             </div>
+          </div>
+          <div class="setupField" id="setupReviveModeOptions">
+            <label>復甦之光練習模式專屬設定</label>
+            <div class="setupGrid" style="margin-top:6px;">
+              <div class="setupField">
+                <label for="setupReviveResetClockMin">時間爆炸重置時鐘最小（MM:SS）</label>
+                <input id="setupReviveResetClockMin" type="text" value="03:00" placeholder="例如 03:00" />
+              </div>
+              <div class="setupField">
+                <label for="setupReviveResetClockMax">時間爆炸重置時鐘最大（MM:SS）</label>
+                <input id="setupReviveResetClockMax" type="text" value="06:00" placeholder="例如 06:00" />
+              </div>
+            </div>
+            <div class="setupCheckRow" style="margin-top:8px;">
+              <input id="setupReviveBossHpFixed" type="checkbox" />
+              <span>王血量固定（不隨時間流逝扣血）</span>
+            </div>
+            <div class="setupFieldHint">此模式會強制啟用「復甦之光（復活術）0 CD」。</div>
           </div>
           <div class="setupField" style="margin-top:10px;">
             <label for="setupStartTimeMin">進入遊戲時時鐘時間（MM:SS）</label>
@@ -2477,7 +2511,7 @@
 
         <div id="setupBossSubWaterPane" class="bossSubPane">
           <div class="setupGrid">
-            <div class="setupField"><label for="setupBlackWaterHpPct">黑水啟用血量（%）</label><input id="setupBlackWaterHpPct" type="number" step="0.1" min="0" max="100" value="60" /></div>
+            <div class="setupField"><label for="setupBlackWaterHpPct">黑水啟用血量（%）</label><input id="setupBlackWaterHpPct" type="number" step="0.1" min="0" max="100" value="70" /></div>
             <div class="setupField"><label for="setupBlackWaterDelayMs">黑水生效延遲（秒）</label><input id="setupBlackWaterDelayMs" type="number" step="0.1" min="0" value="2" /></div>
             <div class="setupField"><label for="setupBlackWaterLifeMs">黑水持續（秒）</label><input id="setupBlackWaterLifeMs" type="number" step="0.1" min="0.1" value="40" /></div>
             <div class="setupField"><label for="setupBlackWaterCdMs">黑水 CD（秒）</label><input id="setupBlackWaterCdMs" type="number" step="0.1" min="0" value="70" /></div>
@@ -2539,8 +2573,8 @@
     const GROUND_Y = 1035;
     const GROUND_H = 18;
     const TOP_PLAT_Y = 332;
-    // 樓上主平台寬度加大
-    const TOP_PLAT_W = 1622;
+    // 樓上主平台寬度 -25%
+    const TOP_PLAT_W = 1217;
     const TOP_PLAT_X = Math.floor((WORLD_W - TOP_PLAT_W) / 2);
     const TOP_PLAT_H = 18;
 
@@ -2617,7 +2651,7 @@
 
     let LASER_CHARGE_MS = 1500;
     let LASER_FIRE_MS = 650;
-    const LASER_BEAM_W = PLAYER_W * 7.8;
+    const LASER_BEAM_W = PLAYER_W * 9.36; // 雷射寬度 +20%
     const LASER_BEAM_H = 30;
     const LASER_SIGIL_W = 36;
     const LASER_SIGIL_H = 94;
@@ -2665,13 +2699,13 @@
     let BLACK_WATER_DELAY_MS = 2000;
     let BLACK_WATER_LIFE_MS = 40000;
     let BLACK_WATER_CD_MS = 70000;
-    let BLACK_WATER_HP_THRESHOLD_PCT = 60;
+    let BLACK_WATER_HP_THRESHOLD_PCT = 70;
     let BLACK_WATER_CAST_LOCK_MS = 900;
     const BOSS_GROUND_SLAM_CD_MIN_MS = 3000;
     const BOSS_GROUND_SLAM_CD_MAX_MS = 6000;
     const BOSS_GROUND_SLAM_CAST_DELAY_MS = 1000;
     const BOSS_GROUND_SLAM_PREVIEW_MS = 473; // 方框出現時間 -30%（相較 675ms）
-    const BOSS_GROUND_SLAM_STUN_MS = 1200;
+    const BOSS_GROUND_SLAM_STUN_MS = 30000;
     const BOSS_GROUND_SLAM_STOP_PCT = 60;
     const BOSS_GROUND_SLAM_RANGE_HALF_WIDTH = BOSS_SIZE * 1.3;
     const BLACK_WATER_W = PLAYER_W * 6.9;
@@ -2812,6 +2846,7 @@
     const setupTopCamUpBtn = document.getElementById('setupTopCamUpBtn');
     const setupTopCamDownBtn = document.getElementById('setupTopCamDownBtn');
     const setupStartTimeMin = document.getElementById('setupStartTimeMin');
+    const setupBossStartBar = document.getElementById('setupBossStartBar');
     const setupBossStartPct = document.getElementById('setupBossStartPct');
     const setupBossStartPctHint = document.getElementById('setupBossStartPctHint');
     const setupBossStartPctFill = document.getElementById('setupBossStartPctFill');
@@ -2821,9 +2856,14 @@
     const setupOrbMobHp = document.getElementById('setupOrbMobHp');
     const modeKillBossLabel = document.getElementById('modeKillBossLabel');
     const modeRageSurvivalLabel = document.getElementById('modeRageSurvivalLabel');
+    const modeRevivePracticeLabel = document.getElementById('modeRevivePracticeLabel');
     const setupModeList = document.getElementById('setupModeList');
     const setupSpecialModeOptions = document.getElementById('setupSpecialModeOptions');
     const setupSpecialControlTime = document.getElementById('setupSpecialControlTime');
+    const setupReviveModeOptions = document.getElementById('setupReviveModeOptions');
+    const setupReviveResetClockMin = document.getElementById('setupReviveResetClockMin');
+    const setupReviveResetClockMax = document.getElementById('setupReviveResetClockMax');
+    const setupReviveBossHpFixed = document.getElementById('setupReviveBossHpFixed');
     const setupMageDelay = document.getElementById('setupMageDelay');
     const setupMageAutoPickDelay = document.getElementById('setupMageAutoPickDelay');
     const setupTeammateDeathRate = document.getElementById('setupTeammateDeathRate');
@@ -2905,6 +2945,9 @@
     let safePointMarkers = [];
     let invSkillZeroCdEnabled = false;
     let specialModeTimeControlEnabled = true;
+    let reviveResetClockMinMinutes = 180; // 03:00
+    let reviveResetClockMaxMinutes = 360; // 06:00
+    let reviveBossHpFixed = false;
     let mageCommandDelayMs = 2000;
     let mageCommandAutoPickDelayMs = 5000;
     let physicalCommandDelayMs = PHYSICAL_KILL_START_DELAY_MS;
@@ -3118,7 +3161,7 @@
       clockWorldOffsetY = Math.round(clamp(readNum(value, clockWorldOffsetY), -180, 180));
       if (setupClockWorldOffsetY && syncInput) setupClockWorldOffsetY.value = String(clockWorldOffsetY);
       if (setupClockWorldOffsetYText) {
-        setupClockWorldOffsetYText.textContent = `目前 ${formatSignedOffsetText(clockWorldOffsetY)}（+ 往下 / - 往上）`;
+        setupClockWorldOffsetYText.textContent = `目前 ${formatSignedOffsetText(clockWorldOffsetY)}（+ 往上 / - 往下）`;
       }
       if (cameraStateReady) updateCamera();
     }
@@ -3131,7 +3174,7 @@
       if (cameraStateReady) updateCamera();
     }
     function setTopFloorCameraOffsetY(value, syncInput = true) {
-      topFloorCameraOffsetY = Math.round(clamp(readNum(value, topFloorCameraOffsetY), -180, 180));
+      topFloorCameraOffsetY = Math.round(clamp(readNum(value, topFloorCameraOffsetY), -180, 300));
       if (setupTopCamOffsetY && syncInput) setupTopCamOffsetY.value = String(topFloorCameraOffsetY);
       if (setupTopCamOffsetYText) {
         setupTopCamOffsetYText.textContent = `目前 ${formatSignedOffsetText(topFloorCameraOffsetY)}（+ 往下 / - 往上）`;
@@ -3305,6 +3348,12 @@
     function isSpecialRageRedMode(mode = selectedGameMode) {
       return String(mode || '') === 'rageSurvival';
     }
+    function isRevivePracticeMode(mode = selectedGameMode) {
+      return String(mode || '') === 'revivePractice';
+    }
+    function isElapsedTimeDisplayMode(mode = selectedGameMode) {
+      return isSpecialRageRedMode(mode) || isRevivePracticeMode(mode);
+    }
     function isSpecialTimeControlEnabled(mode = selectedGameMode) {
       if (!isSpecialRageRedMode(mode)) return true;
       return !!specialModeTimeControlEnabled;
@@ -3315,13 +3364,46 @@
     function getSpecialLockedBossHp() {
       return BOSS_MAX_HP * (SPECIAL_RAGE_RED_LOCKED_PCT / 100);
     }
+    function getReviveResetClockRange() {
+      const minMinutes = clamp(readInt(reviveResetClockMinMinutes, 180), 0, 720);
+      const maxMinutes = clamp(readInt(reviveResetClockMaxMinutes, 360), 0, 720);
+      return {
+        min: Math.min(minMinutes, maxMinutes),
+        max: Math.max(minMinutes, maxMinutes),
+      };
+    }
+    function pickReviveResetClockMinutes() {
+      const range = getReviveResetClockRange();
+      return randInt(range.min, range.max);
+    }
+    function syncReviveModeSettingsInputs() {
+      const range = getReviveResetClockRange();
+      reviveResetClockMinMinutes = range.min;
+      reviveResetClockMaxMinutes = range.max;
+      if (setupReviveResetClockMin) setupReviveResetClockMin.value = formatStartClockText(reviveResetClockMinMinutes);
+      if (setupReviveResetClockMax) setupReviveResetClockMax.value = formatStartClockText(reviveResetClockMaxMinutes);
+      if (setupReviveBossHpFixed) setupReviveBossHpFixed.checked = !!reviveBossHpFixed;
+    }
     function updateSpecialModeOptionVisibility() {
-      if (!setupSpecialModeOptions) return;
       const mode = readSelectedGameMode();
       const isSpecial = isSpecialRageRedMode(mode);
-      setupSpecialModeOptions.style.display = isSpecial ? 'block' : 'none';
+      const isRevive = isRevivePracticeMode(mode);
+      syncReviveModeSettingsInputs();
+      if (setupSpecialModeOptions) setupSpecialModeOptions.style.display = isSpecial ? 'block' : 'none';
+      if (setupReviveModeOptions) setupReviveModeOptions.style.display = isRevive ? 'block' : 'none';
       if (setupSpecialControlTime) {
         setupSpecialControlTime.disabled = setupReadOnlyMode || !isSpecial;
+      }
+      if (setupReviveResetClockMin) setupReviveResetClockMin.disabled = setupReadOnlyMode || !isRevive;
+      if (setupReviveResetClockMax) setupReviveResetClockMax.disabled = setupReadOnlyMode || !isRevive;
+      if (setupReviveBossHpFixed) setupReviveBossHpFixed.disabled = setupReadOnlyMode || !isRevive;
+      if (setupInvSkillZeroCd) {
+        if (isRevive) {
+          setupInvSkillZeroCd.checked = true;
+          setupInvSkillZeroCd.disabled = true;
+        } else {
+          setupInvSkillZeroCd.disabled = setupReadOnlyMode;
+        }
       }
       if (setupBossStartHpWrap) {
         setupBossStartHpWrap.classList.toggle('disabled', setupReadOnlyMode || isSpecial);
@@ -3336,11 +3418,22 @@
       }
       if (setupBossStartPctHint) setupBossStartPctHint.textContent = `目前 ${Math.round(pct)}%`;
     }
+    function setConfiguredBossStartPct(pctValue, syncInput = true) {
+      const pct = clamp(readNum(pctValue, configuredBossStartPct), 1, 100);
+      configuredBossStartPct = pct;
+      if (setupBossStartPct && syncInput) setupBossStartPct.value = String(Math.round(pct));
+      updateSetupBossStartHpPreview(pct);
+      refreshModeDescriptionLabels();
+    }
     function updateBossStartPctInputState() {
       const mode = readSelectedGameMode();
       const isSpecial = isSpecialRageRedMode(mode);
       const disabled = setupReadOnlyMode || isSpecial;
       if (setupBossStartPct) setupBossStartPct.disabled = disabled;
+      if (setupBossStartBar) {
+        setupBossStartBar.classList.toggle('disabled', disabled);
+        setupBossStartBar.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+      }
       const previewPct = isSpecial
         ? SPECIAL_RAGE_RED_LOCKED_PCT
         : clamp(readNum(setupBossStartPct ? setupBossStartPct.value : configuredBossStartPct, configuredBossStartPct), 1, 100);
@@ -3353,7 +3446,7 @@
     function gameModeLabel(mode) {
       return isSpecialRageRedMode(mode)
         ? '狂暴紅鬧鐘存活挑戰'
-        : '擊殺王';
+        : (isRevivePracticeMode(mode) ? '復甦之光練習模式' : '擊殺王');
     }
     function formatPctText(v) {
       const n = clamp(readNum(v, 0), 0, 100);
@@ -3377,6 +3470,9 @@
       }
       if (modeRageSurvivalLabel) {
         modeRageSurvivalLabel.textContent = `狂暴紅鬧鐘存活挑戰（王血固定 ${formatPctText(SPECIAL_RAGE_RED_LOCKED_PCT)}%）`;
+      }
+      if (modeRevivePracticeLabel) {
+        modeRevivePracticeLabel.textContent = '復甦之光練習模式（強制復甦之光 0CD）';
       }
     }
     function isClockMechanicActive() {
@@ -3619,12 +3715,27 @@
     function applySetupSettings() {
       shootDamage = Math.max(0, parseFloat(setupShootDamage ? setupShootDamage.value : '1') || 0);
       wrathDamage = Math.max(0, parseFloat(setupWrathDamage ? setupWrathDamage.value : '2') || 0);
+      selectedGameMode = readSelectedGameMode();
       invSkillZeroCdEnabled = !!(setupInvSkillZeroCd && setupInvSkillZeroCd.checked);
+      if (isRevivePracticeMode(selectedGameMode)) {
+        invSkillZeroCdEnabled = true;
+        if (setupInvSkillZeroCd) setupInvSkillZeroCd.checked = true;
+      }
       specialModeTimeControlEnabled = !!(setupSpecialControlTime ? setupSpecialControlTime.checked : specialModeTimeControlEnabled);
+      const reviveClockMinRaw = parseStartClockText(
+        setupReviveResetClockMin ? setupReviveResetClockMin.value : formatStartClockText(reviveResetClockMinMinutes),
+        reviveResetClockMinMinutes
+      );
+      const reviveClockMaxRaw = parseStartClockText(
+        setupReviveResetClockMax ? setupReviveResetClockMax.value : formatStartClockText(reviveResetClockMaxMinutes),
+        reviveResetClockMaxMinutes
+      );
+      reviveResetClockMinMinutes = Math.min(reviveClockMinRaw, reviveClockMaxRaw);
+      reviveResetClockMaxMinutes = Math.max(reviveClockMinRaw, reviveClockMaxRaw);
+      reviveBossHpFixed = !!(setupReviveBossHpFixed && setupReviveBossHpFixed.checked);
       MOB_MAX_HP = Math.max(0.1, readNum(setupMobMaxHp ? setupMobMaxHp.value : MOB_MAX_HP, MOB_MAX_HP));
       ORB_MOB_HP = Math.max(0.1, readNum(setupOrbMobHp ? setupOrbMobHp.value : ORB_MOB_HP, ORB_MOB_HP));
       setBgmVolumeByPercent(setupBgmVolume ? setupBgmVolume.value : (bgmVolume * 100));
-      selectedGameMode = readSelectedGameMode();
       if (!isSpecialRageRedMode(selectedGameMode)) {
         configuredBossStartPct = clamp(readInt(setupBossStartPct ? setupBossStartPct.value : configuredBossStartPct, configuredBossStartPct), 1, 100);
       }
@@ -3676,6 +3787,7 @@
       if (setupStartTimeMin) setupStartTimeMin.value = formatStartClockText(configuredStartMinutes);
       if (setupBossStartPct) setupBossStartPct.value = String(Math.round(clamp(configuredBossStartPct, 1, 100)));
       if (setupSpecialControlTime) setupSpecialControlTime.checked = !!specialModeTimeControlEnabled;
+      syncReviveModeSettingsInputs();
       if (setupMageDelay) setupMageDelay.value = formatDelaySecText(mageCommandDelayMs);
       if (setupMageAutoPickDelay) setupMageAutoPickDelay.value = formatDelaySecText(mageCommandAutoPickDelayMs);
       if (setupMageIgnoreRate) setupMageIgnoreRate.value = String(mageIgnorePct);
@@ -3766,6 +3878,14 @@
       updateMageCmdTitle();
       syncGameModeInputs();
       updateSafePointRecordInfo();
+      if (!fromInGame && !gameActive) {
+        playerX = TOP_PLAT_X + (TOP_PLAT_W / 2) - (PLAYER_W / 2);
+        playerY = TOP_PLAT_Y - PLAYER_H;
+        playerVY = 0;
+        isJumping = false;
+        syncPlayerUI();
+        updateCamera();
+      }
     }
     function closeSetupModal() {
       if (!setupModal) return;
@@ -3841,28 +3961,49 @@
         setTopFloorCameraOffsetY(setupTopCamOffsetY.value, false);
       });
     }
-    if (setupTopCamUpBtn) {
-      setupTopCamUpBtn.addEventListener('click', () => {
-        setTopFloorCameraOffsetY(topFloorCameraOffsetY - 5);
-      });
-    }
-    if (setupTopCamDownBtn) {
-      setupTopCamDownBtn.addEventListener('click', () => {
-        setTopFloorCameraOffsetY(topFloorCameraOffsetY + 5);
-      });
-    }
     if (setupBossStartPct) {
       setupBossStartPct.addEventListener('input', () => {
-        const pct = clamp(readNum(setupBossStartPct.value, configuredBossStartPct), 1, 100);
-        configuredBossStartPct = pct;
-        updateSetupBossStartHpPreview(pct);
-        refreshModeDescriptionLabels();
+        setConfiguredBossStartPct(setupBossStartPct.value, false);
       });
       setupBossStartPct.addEventListener('change', () => {
-        const pct = clamp(readNum(setupBossStartPct.value, configuredBossStartPct), 1, 100);
-        configuredBossStartPct = pct;
-        updateSetupBossStartHpPreview(pct);
-        refreshModeDescriptionLabels();
+        setConfiguredBossStartPct(setupBossStartPct.value, false);
+      });
+    }
+    if (setupBossStartBar) {
+      let draggingBossStartBar = false;
+      let bossStartBarPointerId = null;
+      const canDragBossStartBar = () => !setupReadOnlyMode && !isSpecialRageRedMode(readSelectedGameMode());
+      const applyBossStartPctByClientX = (clientX) => {
+        if (!setupBossStartBar) return;
+        const rect = setupBossStartBar.getBoundingClientRect();
+        if (!rect || rect.width <= 0) return;
+        const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
+        const pct = Math.round(1 + ratio * 99);
+        setConfiguredBossStartPct(pct);
+      };
+      const endBossStartBarDrag = () => {
+        draggingBossStartBar = false;
+        bossStartBarPointerId = null;
+      };
+      setupBossStartBar.addEventListener('pointerdown', (e) => {
+        if (!canDragBossStartBar()) return;
+        e.preventDefault();
+        draggingBossStartBar = true;
+        bossStartBarPointerId = e.pointerId;
+        if (setupBossStartBar.setPointerCapture) setupBossStartBar.setPointerCapture(e.pointerId);
+        applyBossStartPctByClientX(e.clientX);
+      });
+      setupBossStartBar.addEventListener('pointermove', (e) => {
+        if (!draggingBossStartBar) return;
+        if (bossStartBarPointerId !== null && e.pointerId !== bossStartBarPointerId) return;
+        applyBossStartPctByClientX(e.clientX);
+      });
+      setupBossStartBar.addEventListener('pointerup', endBossStartBarDrag);
+      setupBossStartBar.addEventListener('pointercancel', endBossStartBarDrag);
+      setupBossStartBar.addEventListener('lostpointercapture', endBossStartBarDrag);
+      setupBossStartBar.addEventListener('click', (e) => {
+        if (!canDragBossStartBar()) return;
+        applyBossStartPctByClientX(e.clientX);
       });
     }
     setupNumberInputs.forEach((input) => {
@@ -4627,7 +4768,7 @@
       const yByResolution = clamp((viewH - 520) * 0.12, -42, 28);
       const aspect = viewW / Math.max(1, viewH);
       const yByAspect = clamp((aspect - 1.78) * 18, -12, 14);
-      const clockCenterY = baseClockY + yByResolution + yByAspect + clockWorldOffsetY;
+      const clockCenterY = baseClockY + yByResolution + yByAspect - clockWorldOffsetY;
       const sizeByResolution = clamp(Math.min(viewW / 1360, viewH / 780), 0.78, 1.18);
       const scaleMul = clamp(clockWorldScalePct / 100, 0.7, 1.5);
       const clockSize = clamp(Math.round(529 * sizeByResolution * scaleMul), 320, 760);
@@ -4758,16 +4899,36 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
     }
-    function formatReplayAt(atMs) {
-      const base = replayStartAt || atMs || Date.now();
-      const sec = Math.max(0, Math.floor(((atMs || Date.now()) - base) / 1000));
-      const mm = Math.floor(sec / 60);
-      const ss = sec % 60;
-      return `${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`;
+    function getReplayClockSecAt(atMs) {
+      const t = Number(atMs) || Date.now();
+      if (Array.isArray(replaySamples) && replaySamples.length > 0) {
+        let nearest = replaySamples[0];
+        let nearestGap = Math.abs((Number(nearest.at) || 0) - t);
+        for (let i = 1; i < replaySamples.length; i++) {
+          const s = replaySamples[i];
+          const gap = Math.abs((Number(s.at) || 0) - t);
+          if (gap < nearestGap) {
+            nearest = s;
+            nearestGap = gap;
+          }
+        }
+        const sampleSec = Number(nearest && nearest.countdownSec);
+        if (Number.isFinite(sampleSec)) return Math.max(0, Math.floor(sampleSec));
+      }
+      const base = replayStartAt || t || Date.now();
+      return Math.max(0, Math.floor((t - base) / 1000));
+    }
+    function formatReplayAt(input) {
+      const atMs = (input && typeof input === 'object') ? (Number(input.at) || Date.now()) : (Number(input) || Date.now());
+      const snapSecRaw = (input && typeof input === 'object') ? Number(input.replaySec) : NaN;
+      const sec = Number.isFinite(snapSecRaw)
+        ? Math.max(0, Math.floor(snapSecRaw))
+        : getReplayClockSecAt(atMs);
+      return formatCountdown(sec);
     }
     function pushTimeline(text, kind = 'general') {
       if (!text) return;
-      const ev = { at: Date.now(), text: String(text), kind: String(kind || 'general') };
+      const ev = { at: Date.now(), replaySec: Math.max(0, Math.floor(countdownSec)), text: String(text), kind: String(kind || 'general') };
       timelineReplay.push(ev);
       replayEvents.push(ev);
       if (timelineReplay.length > 800) timelineReplay.shift();
@@ -4776,6 +4937,7 @@
     function pushDeathReplay(reasonText, deathCost) {
       deathReplay.push({
         at: Date.now(),
+        replaySec: Math.max(0, Math.floor(countdownSec)),
         reason: String(reasonText || '未知原因'),
         cost: Math.max(1, Math.floor(deathCost || 1)),
       });
@@ -4807,6 +4969,7 @@
     function pushMobCoverageEvent(action, detail = {}) {
       const ev = {
         at: Date.now(),
+        replaySec: Math.max(0, Math.floor(countdownSec)),
         action: String(action || 'state'),
         waveId: Math.max(0, Math.floor(Number(detail.waveId) || 0)),
         mobLabel: String(detail.mobLabel || ''),
@@ -4857,6 +5020,7 @@
     function recordReplaySample(atMs = Date.now()) {
       replaySamples.push({
         at: atMs,
+        countdownSec: Math.max(0, Math.floor(countdownSec)),
         totalMinutes,
         bossPct: bossPct(),
         deathRemain: deathLimitRemain,
@@ -4972,11 +5136,10 @@
       for (let i = 0; i <= 4; i++) {
         const ratio = i / 4;
         const x = Math.round(left + innerW * ratio);
-        const sec = Math.floor((durationMs / 1000) * ratio);
-        const mm = Math.floor(sec / 60);
-        const ss = sec % 60;
+        const atMs = startAt + durationMs * ratio;
+        const tickText = formatReplayAt(atMs);
         ticks += `<line x1="${x}" y1="${top + innerH}" x2="${x}" y2="${top + innerH + 6}" stroke="rgba(255,255,255,0.35)" stroke-width="1" />`;
-        ticks += `<text x="${x}" y="${H - 70}" text-anchor="middle" fill="rgba(220,235,255,0.9)" font-size="11">${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}</text>`;
+        ticks += `<text x="${x}" y="${H - 70}" text-anchor="middle" fill="rgba(220,235,255,0.9)" font-size="11">${tickText}</text>`;
       }
 
       timelineHoverData = {
@@ -5191,7 +5354,7 @@
           const kind = kindFromLabel(r.mobLabel);
           if (kind) {
             const deltaText = String(r.timeChange || '').split('，')[0];
-            const tText = formatReplayAt(atMs);
+            const tText = formatReplayAt(r);
             killTimes[kind].push(deltaText ? `${tText}（${deltaText}）` : tText);
           }
         }
@@ -6168,9 +6331,20 @@
       updateBossGroundSlamRanges(now);
     }
     function updateHud() {
-      const countdown = formatCountdown(countdownSec);
-      if (timeText) timeText.textContent = countdown.replace(':', ' : ');
-      if (deathLimitText) deathLimitText.textContent = String(deathLimitRemain);
+      const timeDisplay = formatCountdown(countdownSec);
+      if (timeText) timeText.textContent = timeDisplay.replace(':', ' : ');
+      if (deathLimitText) {
+        if (isRevivePracticeMode()) {
+          const explosionTotal = statHighExplosionCount + statLowExplosionCount;
+          deathLimitText.textContent = `死 ${deathUsed}｜爆 ${explosionTotal}｜擋 ${statExplosionBlockedByInvCount}`;
+          deathLimitText.classList.add('deathStats');
+          deathLimitText.classList.remove('deathNum');
+        } else {
+          deathLimitText.textContent = String(deathLimitRemain);
+          deathLimitText.classList.add('deathNum');
+          deathLimitText.classList.remove('deathStats');
+        }
+      }
       if (worldClockText) {
         if (isSpecialTimeLockedMode()) worldClockText.textContent = formatHm(SPECIAL_LOCKED_CLOCK_MINUTES);
         else worldClockText.textContent = isClockMechanicActive() ? formatHm(totalMinutes) : '--:--';
@@ -6194,7 +6368,7 @@
       deathLimitRemain = Math.max(0, deathLimitRemain - a);
       updateHud();
       recordReplaySample();
-      if (deathLimitRemain <= 0) {
+      if (deathLimitRemain <= 0 && !isRevivePracticeMode()) {
         endGame('死亡次數已耗盡，挑戰失敗');
       }
     }
@@ -6237,7 +6411,7 @@
       if (type === 'low') statLowExplosionCount++;
       const typeText = (type === 'high') ? '時間過高' : '時間過低';
       const before = totalMinutes;
-      totalMinutes = 360;
+      totalMinutes = isRevivePracticeMode() ? pickReviveResetClockMinutes() : 360;
       // 時間爆炸只能由「技能無敵」擋下，不能用一般無敵幀（受擊/復活）躲掉
       if (performance.now() < specialInvUntil) {
         statExplosionBlockedByInvCount++;
@@ -6343,9 +6517,10 @@
       const totalPlaySec = totalPlayDurationSec;
       const clearRun = /通關|成功擊殺/.test(String(msg || ''));
       const specialModeRun = isSpecialRageRedMode();
+      const reviveModeRun = isRevivePracticeMode();
       const manualEnd = /手動結束|遊戲結束/.test(String(msg || ''));
       const deathExhausted = /死亡次數已耗盡/.test(String(msg || ''));
-      const specialGameEnded = specialModeRun && (manualEnd || deathExhausted);
+      const specialGameEnded = (specialModeRun || reviveModeRun) && (manualEnd || deathExhausted);
       const reasonText = clearRun
         ? `🏆 ${String(msg || '')}`
         : (specialGameEnded ? '遊戲結束' : String(msg || ''));
@@ -6358,7 +6533,7 @@
         { label: '當時隊伍 DPM', value: `${Math.floor(battleStartDpm).toLocaleString()}` },
         { label: '本次遊玩時間', value: `${formatDuration(playDurationSec)}` },
         { label: '總遊玩時間', value: `${formatDuration(totalPlaySec)}` },
-        { label: '剩餘死亡次數', value: `${deathLimitRemain}` },
+        { label: reviveModeRun ? '死亡計次' : '剩餘死亡次數', value: reviveModeRun ? `${deathUsed}` : `${deathLimitRemain}` },
         { label: '平均傷害倍率', value: avgMulText },
       ];
       const stats = [
@@ -6373,12 +6548,12 @@
         const timelineSvgHtml = buildUnifiedTimelineSvg();
         const timelineHtml = timelineReplay.length > 0
           ? timelineReplay
-              .map((r) => `<div class="goReplayItem"><span class="goReplayAt">${formatReplayAt(r.at)}</span><span class="goReplayText">${escapeHtml(r.text)}</span></div>`)
+              .map((r) => `<div class="goReplayItem"><span class="goReplayAt">${formatReplayAt(r)}</span><span class="goReplayText">${escapeHtml(r.text)}</span></div>`)
               .join('')
           : `<div class="goReplayEmpty">本場沒有可回放的時間事件。</div>`;
         const deathHtml = deathReplay.length > 0
           ? deathReplay
-              .map((d) => `<div class="goReplayItem"><span class="goReplayAt">${formatReplayAt(d.at)}</span><span class="goReplayText">${escapeHtml(d.reason)}（-${d.cost} 次）</span></div>`)
+              .map((d) => `<div class="goReplayItem"><span class="goReplayAt">${formatReplayAt(d)}</span><span class="goReplayText">${escapeHtml(d.reason)}（-${d.cost} 次）</span></div>`)
               .join('')
           : `<div class="goReplayEmpty">本場沒有角色死亡紀錄。</div>`;
 
@@ -8234,8 +8409,11 @@
     function tickGameLogic() {
       if (!gameActive || gamePaused) return;
       const specialModeRun = isSpecialRageRedMode();
+      const reviveModeRun = isRevivePracticeMode();
+      const elapsedTimeModeRun = isElapsedTimeDisplayMode();
+      const bossHpFixedModeRun = specialModeRun || (reviveModeRun && reviveBossHpFixed);
       clockTickCount++;
-      if (specialModeRun) countdownSec = Math.max(0, countdownSec + 1);
+      if (elapsedTimeModeRun) countdownSec = Math.max(0, countdownSec + 1);
       else countdownSec = Math.max(0, countdownSec - 1);
       if (isSpecialTimeLockedMode()) totalMinutes = SPECIAL_LOCKED_CLOCK_MINUTES;
       const clockActive = isClockMechanicActive();
@@ -8266,17 +8444,18 @@
         if (bossCloneHp <= 0) {
           destroyBossClone('隊伍輸出擊破分身');
         }
-      } else if (!specialModeRun) {
+      } else if (!bossHpFixedModeRun) {
         bossHp -= (effectiveDpm / 60);
       }
       if (specialModeRun) bossHp = getSpecialLockedBossHp();
+      else if (reviveModeRun && reviveBossHpFixed) bossHp = BOSS_MAX_HP * (battleStartPct / 100);
       if (clockActive && totalMinutes <= 0) { killPlayerForTimeExplosion('時間低於或等於 00:00，觸發爆炸（死亡 10 秒）', 1, 'low'); }
       if (clockActive && totalMinutes >= 720) {
         killPlayerForTimeExplosion('時間高於或等於 12:00，觸發爆炸（死亡 10 秒）', 1, 'high');
       }
       processPhysicalKillQueue(performance.now());
       recordReplaySample();
-      if (!specialModeRun && !bossCloneActive && bossHp <= 0) { bossHp = 0; updateHud(); endGame('成功擊殺通關'); return; }
+      if (!bossHpFixedModeRun && !bossCloneActive && bossHp <= 0) { bossHp = 0; updateHud(); endGame('成功擊殺通關'); return; }
       updateHud(); tickOrbMobs();
     }
     function startGame() {
@@ -8292,6 +8471,8 @@
       totalMinutes = configuredStartMinutes;
       const startPct = gameModeStartPct(selectedGameMode);
       const specialModeRun = isSpecialRageRedMode();
+      const reviveModeRun = isRevivePracticeMode();
+      const elapsedTimeModeRun = isElapsedTimeDisplayMode();
       if (specialModeRun && isSpecialTimeLockedMode()) totalMinutes = SPECIAL_LOCKED_CLOCK_MINUTES;
       battleStartPct = startPct;
       bossHp = specialModeRun ? getSpecialLockedBossHp() : (BOSS_MAX_HP * (startPct / 100));
@@ -8300,7 +8481,7 @@
       clockTickCount = 0;
       syncHudSupportVisibility();
       setPauseState(false);
-      countdownSec = specialModeRun ? 0 : computeStartCountdownSec(startPct, baseDpm);
+      countdownSec = elapsedTimeModeRun ? 0 : computeStartCountdownSec(startPct, baseDpm);
       playerDeadUntil = 0; timeExplosionLockUntil = 0;
       deathRespawnInvPending = false;
       deathLimitRemain = 10; deathUsed = 0;
@@ -8401,7 +8582,11 @@
       orbTimer = null;
       const startTimelineText = specialModeRun
         ? `戰鬥開始：${gameModeLabel(selectedGameMode)}，控時 ${isSpecialTimeControlEnabled() ? '啟用' : '停用'}，背後時間 ${formatHm(totalMinutes)}，王血固定 ${formatPctText(SPECIAL_RAGE_RED_LOCKED_PCT)}%`
-        : `戰鬥開始：${gameModeLabel(selectedGameMode)}，時間 ${formatHm(totalMinutes)}，王血 ${startPct}%`;
+        : (
+            reviveModeRun
+              ? `戰鬥開始：${gameModeLabel(selectedGameMode)}，時間 ${formatHm(totalMinutes)}，王血${reviveBossHpFixed ? '固定' : '照常流逝'} ${formatPctText(startPct)}%，爆炸重置 ${formatHm(reviveResetClockMinMinutes)}~${formatHm(reviveResetClockMaxMinutes)}`
+              : `戰鬥開始：${gameModeLabel(selectedGameMode)}，時間 ${formatHm(totalMinutes)}，王血 ${startPct}%`
+          );
       pushTimeline(startTimelineText, 'system');
       recordReplaySample(replayStartAt);
       updateHud(); showMsg('');
@@ -8593,6 +8778,12 @@ function loop(now) {
       const pTR = document.createElement('div'); pTR.className = 'portalDown'; pTR.style.left = (TOP_PLAT_X+TOP_PLAT_W-PORTAL_ZONE_W+10)+'px'; pTR.style.top = (TOP_PLAT_Y-120)+'px'; world.appendChild(pTR);
       ensureBoss();
       ensurePlayer();
+      // 首次開啟設定頁時先放到樓上，方便預覽樓上視角拉霸效果
+      playerX = TOP_PLAT_X + (TOP_PLAT_W / 2) - (PLAYER_W / 2);
+      playerY = TOP_PLAT_Y - PLAYER_H;
+      playerVY = 0;
+      isJumping = false;
+      syncPlayerUI();
       ensureTeammates();
       syncTeammateVisibility();
       if (rafId) cancelAnimationFrame(rafId); lastFrameAt = performance.now(); rafId = requestAnimationFrame(loop);
