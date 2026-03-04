@@ -80,7 +80,7 @@
       height: var(--hud-bottom-h);
       padding: var(--hud-pad);
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr) minmax(210px, 260px);
+      grid-template-columns: minmax(0, 7fr) minmax(0, 3fr) minmax(210px, 260px);
       grid-template-rows: auto 1fr;
       gap: 8px 10px;
       background: linear-gradient(to top, rgba(0,0,0,0.72), rgba(0,0,0,0.18));
@@ -2411,11 +2411,11 @@
             <div class="setupGrid" style="margin-top:6px;">
               <div class="setupField">
                 <label for="setupReviveResetClockMin">時間爆炸重置時鐘最小（MM:SS）</label>
-                <input id="setupReviveResetClockMin" type="text" value="03:00" placeholder="例如 03:00" />
+                <input id="setupReviveResetClockMin" type="text" value="02:00" placeholder="例如 02:00" />
               </div>
               <div class="setupField">
                 <label for="setupReviveResetClockMax">時間爆炸重置時鐘最大（MM:SS）</label>
-                <input id="setupReviveResetClockMax" type="text" value="06:00" placeholder="例如 06:00" />
+                <input id="setupReviveResetClockMax" type="text" value="03:00" placeholder="例如 03:00" />
               </div>
             </div>
             <div class="setupCheckRow" style="margin-top:8px;">
@@ -2503,7 +2503,10 @@
           <div class="bindRow"><span class="name">魔心防禦</span><button class="btn keyBindBtn" data-bind="magicDefense">Digit1</button></div>
           <div class="bindRow"><span class="name">萬能療傷藥</span><button class="btn keyBindBtn" data-bind="clearDebuff">Delete</button></div>
         </div>
-        <div id="setupTip">點擊右側按鈕後，按下任意鍵即可改綁。方向移動仍使用方向鍵；傳送點固定為 ArrowUp。戰鬥中開啟設定僅可查看，不能調整。</div>
+        <div class="setupCheckRow" style="margin-top:8px;">
+          <button class="btn" id="setupExportKeybindJsonBtn" type="button">只匯出按鍵設定</button>
+        </div>
+        <div id="setupTip">點擊右側按鈕後，按下任意鍵即可改綁。方向移動仍使用方向鍵；傳送點固定為 ArrowUp。戰鬥中可調整按鍵設定，其他設定需在開局前調整。</div>
       </div>
       <div id="setupTabBossPane" class="setupTabPane">
         <div class="bossSubTabs">
@@ -2518,7 +2521,7 @@
         <div id="setupBossSubOrbPane" class="bossSubPane show">
           <div class="setupGrid">
             <div class="setupField"><label for="setupBossOrbPhasePct">黑球階段啟用血量（%）</label><input id="setupBossOrbPhasePct" type="number" step="0.1" min="0" max="100" value="83" /></div>
-            <div class="setupField"><label for="setupBossOrbLifeSec">黑球存活（秒）</label><input id="setupBossOrbLifeSec" type="number" step="0.1" min="1" value="15" /></div>
+            <div class="setupField"><label for="setupBossOrbLifeSec">黑球存活（秒）</label><input id="setupBossOrbLifeSec" type="number" step="0.1" min="1" value="14" /></div>
             <div class="setupField"><label for="setupBossAntiShieldMs">反盾持續（秒）</label><input id="setupBossAntiShieldMs" type="number" step="0.1" min="0" value="8" /></div>
             <div class="setupField"><label for="setupBossAntiShieldCdMs">反盾 CD（秒）</label><input id="setupBossAntiShieldCdMs" type="number" step="0.1" min="0" value="120" /></div>
           </div>
@@ -2531,7 +2534,7 @@
             <div class="setupField"><label for="setupLaserChargeMs">雷射預警延遲（秒）</label><input id="setupLaserChargeMs" type="number" step="0.1" min="0" value="1.5" /></div>
             <div class="setupField"><label for="setupLaserFireMs">雷射噴射持續（ms）</label><input id="setupLaserFireMs" type="number" step="1" min="1" value="650" /></div>
             <div class="setupField"><label for="setupLaserTopMax">雷射上層最多（個）</label><input id="setupLaserTopMax" type="number" step="1" min="1" value="4" /></div>
-            <div class="setupField"><label for="setupLaserGroundMax">雷射一樓最多（個）</label><input id="setupLaserGroundMax" type="number" step="1" min="1" value="8" /></div>
+            <div class="setupField"><label for="setupLaserGroundMax">雷射一樓最多（個）</label><input id="setupLaserGroundMax" type="number" step="1" min="1" value="7" /></div>
             <div class="setupField"><label for="setupLaserChainMin">雷射連發最少（次）</label><input id="setupLaserChainMin" type="number" step="1" min="1" value="1" /></div>
             <div class="setupField"><label for="setupLaserChainMax">雷射連發最多（次）</label><input id="setupLaserChainMax" type="number" step="1" min="1" value="3" /></div>
             <div class="setupField"><label for="setupLaserRestMinMs">雷射休息最短（秒）</label><input id="setupLaserRestMinMs" type="number" step="0.1" min="0" value="6" /></div>
@@ -2543,7 +2546,7 @@
           <div class="setupGrid">
             <div class="setupField"><label for="setupBlueClockHpPct">藍鬧鐘啟用血量（%）</label><input id="setupBlueClockHpPct" type="number" step="0.1" min="0" max="100" value="100" /></div>
             <div class="setupField"><label for="setupBlueClockExtraMin">藍鬧鐘額外最少（個）</label><input id="setupBlueClockExtraMin" type="number" step="1" min="0" value="2" /></div>
-            <div class="setupField"><label for="setupBlueClockExtraMax">藍鬧鐘額外最多（個）</label><input id="setupBlueClockExtraMax" type="number" step="1" min="0" value="6" /></div>
+            <div class="setupField"><label for="setupBlueClockExtraMax">藍鬧鐘額外最多（個）</label><input id="setupBlueClockExtraMax" type="number" step="1" min="0" value="5" /></div>
             <div class="setupField"><label for="setupBlueClockCdMinMs">藍鬧鐘 CD 最短（秒）</label><input id="setupBlueClockCdMinMs" type="number" step="0.1" min="0" value="7" /></div>
             <div class="setupField"><label for="setupBlueClockCdMaxMs">藍鬧鐘 CD 最長（秒）</label><input id="setupBlueClockCdMaxMs" type="number" step="0.1" min="0" value="12" /></div>
             <div class="setupField"><label for="setupClockChargeMs">鬧鐘共用預警延遲（秒）</label><input id="setupClockChargeMs" type="number" step="0.1" min="0" value="1.5" /></div>
@@ -2565,7 +2568,7 @@
             <div class="setupField"><label for="setupRedBurstIntervalMs">紅鬧鐘連發間隔（ms）</label><input id="setupRedBurstIntervalMs" type="number" step="1" min="1" value="1000" /></div>
             <div class="setupField"><label for="setupRedBurstRestMs">紅鬧鐘連發後休息（秒）</label><input id="setupRedBurstRestMs" type="number" step="0.1" min="0" value="3" /></div>
             <div class="setupField"><label for="setupRedBurstPostCdMs">紅鬧鐘連發後額外 CD（秒）</label><input id="setupRedBurstPostCdMs" type="number" step="0.1" min="0" value="3" /></div>
-            <div class="setupField"><label for="setupRedClockSafeRadiusAdjustPx">安全點半徑微調（px，負值縮小）</label><input id="setupRedClockSafeRadiusAdjustPx" type="number" step="1" min="-80" max="80" value="-8" /></div>
+            <div class="setupField"><label for="setupRedClockSafeRadiusAdjustPx">安全點半徑微調（px，負值縮小）</label><input id="setupRedClockSafeRadiusAdjustPx" type="number" step="1" min="-80" max="80" value="-15" /></div>
             <div class="setupField"><label for="setupRedClockSafePoints">安全點 X 座標（錄製結果）</label><input id="setupRedClockSafePoints" type="text" value="" placeholder="請按下方錄製按鈕後用 Ctrl 紀錄" readonly disabled /></div>
           </div>
           <div class="safePointTools">
@@ -2773,7 +2776,8 @@
 
     let CLOCK_CHARGE_MS = 1500;
     let CLOCK_PILLAR_MS = 350;
-    const CLOCK_PILLAR_H = PLAYER_H * 7;
+    const CLOCK_COMBO_CD_SCALE = 0.4; // 紅藍鬧鐘連招區間（50%~20%）CD 縮短
+    const CLOCK_PILLAR_H = Math.round(PLAYER_H * 7 * 1.3); // 鬧鐘光柱高度 +30%
     const CLOCK_PILLAR_W = Math.round(PLAYER_W * 1.35);
     let BLUE_CLOCK_HP_THRESHOLD_PCT = 100;
     let BLUE_CLOCK_EXTRA_MIN = 0;
@@ -2791,7 +2795,7 @@
     let RED_BURST_INTERVAL_MS = 1000;
     let RED_BURST_REST_MS = 3000;
     let RED_BURST_POST_REST_CD_MS = 3000;
-    let RED_CLOCK_SAFE_RADIUS_ADJUST_PX = -8;
+    let RED_CLOCK_SAFE_RADIUS_ADJUST_PX = -16;
     const RED_CLOCK_SAFE_RADIUS = 10;
     const RED_CLOCK_SAFE_BLOCK_HALF_WIDTH = 35;
     const SAFE_POINT_GUIDE_TEXT = '安全點錄製中：按 Ctrl 設定或取消安全點，按 Esc 結束';
@@ -2940,6 +2944,7 @@
     const mpText = document.getElementById('mpText');
     const setupModal = document.getElementById('setupModal');
     const setupExportJsonBtn = document.getElementById('setupExportJsonBtn');
+    const setupExportKeybindJsonBtn = document.getElementById('setupExportKeybindJsonBtn');
     const setupImportJsonBtn = document.getElementById('setupImportJsonBtn');
     const setupImportJsonInput = document.getElementById('setupImportJsonInput');
     const setupStartBtn = document.getElementById('setupStartBtn');
@@ -3084,8 +3089,8 @@
     let safePointMarkers = [];
     let invSkillZeroCdEnabled = false;
     let specialModeTimeControlEnabled = true;
-    let reviveResetClockMinMinutes = 180; // 03:00
-    let reviveResetClockMaxMinutes = 360; // 06:00
+    let reviveResetClockMinMinutes = 120; // 02:00
+    let reviveResetClockMaxMinutes = 180; // 03:00
     let reviveBossHpFixed = false;
     let mageCommandDelayMs = 2000;
     let mageCommandAutoPickDelayMs = 5000;
@@ -3406,6 +3411,13 @@
         },
       };
     }
+    function buildKeybindExportPayload() {
+      return {
+        schema: 'hard-latus-keybind-v1',
+        exportedAt: new Date().toISOString(),
+        keybinds: { ...keybinds },
+      };
+    }
     function downloadSetupJson() {
       try {
         const payload = buildSetupExportPayload();
@@ -3421,6 +3433,25 @@
         a.remove();
         URL.revokeObjectURL(url);
         showHint('設定已匯出');
+      } catch (_err) {
+        showHint('匯出失敗');
+      }
+    }
+    function downloadKeybindJson() {
+      try {
+        const payload = buildKeybindExportPayload();
+        const json = JSON.stringify(payload, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const stamp = new Date().toISOString().replace(/[:T]/g, '-').replace(/\..+$/, '');
+        a.href = url;
+        a.download = `hard-latus-keybind-${stamp}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        showHint('按鍵設定已匯出');
       } catch (_err) {
         showHint('匯出失敗');
       }
@@ -3503,8 +3534,8 @@
       return BOSS_MAX_HP * (SPECIAL_RAGE_RED_LOCKED_PCT / 100);
     }
     function getReviveResetClockRange() {
-      const minMinutes = clamp(readInt(reviveResetClockMinMinutes, 180), 0, 720);
-      const maxMinutes = clamp(readInt(reviveResetClockMaxMinutes, 360), 0, 720);
+      const minMinutes = clamp(readInt(reviveResetClockMinMinutes, 120), 0, 720);
+      const maxMinutes = clamp(readInt(reviveResetClockMaxMinutes, 180), 0, 720);
       return {
         min: Math.min(minMinutes, maxMinutes),
         max: Math.max(minMinutes, maxMinutes),
@@ -3654,8 +3685,9 @@
         updateStartTimeInputState();
       }
       for (const btn of keyBindBtns) {
-        btn.disabled = setupReadOnlyMode;
-        btn.style.opacity = setupReadOnlyMode ? '0.55' : '1';
+        // 遊戲中開啟設定時也允許改按鍵。
+        btn.disabled = false;
+        btn.style.opacity = '1';
       }
       if (startSafePointRecordBtn) {
         startSafePointRecordBtn.disabled = setupReadOnlyMode;
@@ -3668,6 +3700,10 @@
       if (setupExportJsonBtn) {
         setupExportJsonBtn.disabled = false;
         setupExportJsonBtn.style.opacity = '1';
+      }
+      if (setupExportKeybindJsonBtn) {
+        setupExportKeybindJsonBtn.disabled = false;
+        setupExportKeybindJsonBtn.style.opacity = '1';
       }
       if (setupImportJsonBtn) {
         setupImportJsonBtn.disabled = setupReadOnlyMode;
@@ -4218,6 +4254,11 @@
     if (setupExportJsonBtn) {
       setupExportJsonBtn.addEventListener('click', () => {
         downloadSetupJson();
+      });
+    }
+    if (setupExportKeybindJsonBtn) {
+      setupExportKeybindJsonBtn.addEventListener('click', () => {
+        downloadKeybindJson();
       });
     }
     if (setupImportJsonBtn) {
@@ -6332,10 +6373,25 @@
       }
     }
 
-    function castBlueClock(now) {
+    function rollClockCdMs(minMs, maxMs, scale = 1) {
+      const s = Number.isFinite(scale) ? Math.max(0, scale) : 1;
+      const lo = Math.max(0, Math.round(minMs * s));
+      const hi = Math.max(lo, Math.round(maxMs * s));
+      return randInt(lo, hi);
+    }
+    function castBlueClock(now, opts = {}) {
       queueBossClockStretch(now);
-      const lockSurface = getPlayerLockSurface();
-      createClockTele('blue', playerX + PLAYER_W / 2, lockSurface.y, now);
+      // 保底：玩家與每位隊友身上各 1 顆藍鬧鐘（含死亡中的隊友）。
+      const playerCenterX = playerX + PLAYER_W / 2;
+      const playerSurface = getPlayerLockSurface();
+      createClockTele('blue', Math.round(playerCenterX), playerSurface.y, now);
+      for (const t of teammates) {
+        if (!t) continue;
+        const centerX = t.x + TEAMMATE_W / 2;
+        const footY = t.y + TEAMMATE_H;
+        const surface = getSurfaceBelow(centerX, footY);
+        createClockTele('blue', Math.round(centerX), surface.y, now);
+      }
       const surfaces = [
         { x: 0, y: GROUND_Y, w: WORLD_W },
         { x: TOP_PLAT_X, y: TOP_PLAT_Y, w: TOP_PLAT_W },
@@ -6350,10 +6406,14 @@
       }
       spawnBossHandClocks(now);
       markBossAction('blueClock', now + CLOCK_CHARGE_MS + CLOCK_PILLAR_MS);
-      bossBlueClockNextAt = now + randInt(BLUE_CLOCK_CD_MIN_MS, BLUE_CLOCK_CD_MAX_MS);
+      const comboFast = !!(opts && opts.comboFast);
+      const cdScale = comboFast ? CLOCK_COMBO_CD_SCALE : 1;
+      bossBlueClockNextAt = now + rollClockCdMs(BLUE_CLOCK_CD_MIN_MS, BLUE_CLOCK_CD_MAX_MS, cdScale);
     }
 
-    function isRedClockBlockedBySafePoint(xCenter) {
+    function isRedClockBlockedBySafePoint(xCenter, surfaceY) {
+      // 安全點只作用於一樓，樓上主平台與小平台都不套用。
+      if (Math.abs((Number(surfaceY) || 0) - GROUND_Y) > 0.5) return false;
       if (!Array.isArray(RED_CLOCK_SAFE_POINTS) || RED_CLOCK_SAFE_POINTS.length <= 0) return false;
       // 安全點需覆蓋「紅鬧鐘柱寬 + 角色寬」的一半，避免站在安全點仍被掃到。
       const minSafeHalfBase = Math.ceil((CLOCK_PILLAR_W + PLAYER_W) / 2) + 8;
@@ -6390,7 +6450,7 @@
         if (maxX < minX) return false;
         for (let tries = 0; tries < maxTries; tries++) {
           const xCenter = Math.round(rand(minX, maxX));
-          const blocked = isRedClockBlockedBySafePoint(xCenter) || isRedClockBlockedByPortalZone(xCenter, s.y);
+          const blocked = isRedClockBlockedBySafePoint(xCenter, s.y) || isRedClockBlockedByPortalZone(xCenter, s.y);
           if (blocked) continue;
           createClockTele('red', xCenter, s.y, now);
           return true;
@@ -6589,12 +6649,12 @@
             if (now >= bossRedClockNextAt) {
               castRedClockWave(now);
               markBossAction('redClock', now + CLOCK_CHARGE_MS + CLOCK_PILLAR_MS);
-              bossRedClockNextAt = now + randInt(RED_CLOCK_CD_MIN_MS, RED_CLOCK_CD_MAX_MS);
+              bossRedClockNextAt = now + rollClockCdMs(RED_CLOCK_CD_MIN_MS, RED_CLOCK_CD_MAX_MS, CLOCK_COMBO_CD_SCALE);
               bossClockAlternateNext = 'blue';
             }
           } else {
             if (pct <= BLUE_CLOCK_HP_THRESHOLD_PCT && now >= bossBlueClockNextAt) {
-              castBlueClock(now);
+              castBlueClock(now, { comboFast: true });
               bossClockAlternateNext = 'red';
             }
           }
