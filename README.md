@@ -1,11 +1,11 @@
-# 困難拉圖斯控時練習
+# 困難拉圖斯模擬
 
 非官方的《楓之谷》困難拉圖斯機制練習工具。  
 重點在控時、走位、技能判斷、隊友協作與失誤演練。
 
 ## 專案連結
 
-- 遊玩網站: https://hardpapulatus.2yangfam.com/困難拉圖斯控時練習
+- 遊玩網站: https://hardpapulatus.2yangfam.com/困難拉圖斯模擬
 - GitHub: https://github.com/TzuMinYang/artale_hard_papulatus_simulator
 - 贊助: https://portaly.cc/tmyang/support
 

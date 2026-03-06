@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hardpapulatus.2yangfam.com/sitemap.xml

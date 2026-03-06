@@ -4,9 +4,56 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
+  <meta name="google-adsense-account" content="ca-pub-1813542272395896">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1813542272395896"
+       crossorigin="anonymous"></script>
   <link rel="icon" type="image/png" href="拉圖斯.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>困難拉圖斯控時練習</title>
+  <meta name="description" content="楓之谷 Artale 懷舊服/怀旧服困難拉圖斯（困拉、拉圖斯）控時模擬與練習工具：支援控時、走位、隊友協作、技能判斷與戰鬥設定。MapleStory Artale Hard Papulatus timer control simulator practice.">
+  <meta name="keywords" content="楓之谷,枫之谷,MapleStory,Artale,懷舊服,怀旧服,old school server,困難拉圖斯,困难拉图斯,Hard Papulatus,困拉,拉圖斯,拉图斯,Papulatus,控時,控时,timer control,模擬,模拟,simulator,練習,练习,practice">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <link rel="canonical" href="https://hardpapulatus.2yangfam.com/%E5%9B%B0%E9%9B%A3%E6%8B%89%E5%9C%96%E6%96%AF%E6%A8%A1%E6%93%AC.html" />
+  <meta name="theme-color" content="#000000">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="困難拉圖斯模擬">
+  <meta property="og:title" content="困難拉圖斯模擬 | 楓之谷 Artale">
+  <meta property="og:description" content="楓之谷 Artale 懷舊服/怀旧服困難拉圖斯（困拉、拉圖斯）控時模擬與練習工具。MapleStory Artale Hard Papulatus timer control simulator practice.">
+  <meta property="og:url" content="https://hardpapulatus.2yangfam.com/%E5%9B%B0%E9%9B%A3%E6%8B%89%E5%9C%96%E6%96%AF%E6%A8%A1%E6%93%AC.html">
+  <meta property="og:image" content="https://hardpapulatus.2yangfam.com/%E6%8B%89%E5%9C%96%E6%96%AF.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="困難拉圖斯模擬 | 楓之谷 Artale">
+  <meta name="twitter:description" content="楓之谷 Artale 懷舊服/怀旧服困難拉圖斯（困拉、拉圖斯）控時模擬與練習工具。MapleStory Artale Hard Papulatus timer control simulator practice.">
+  <meta name="twitter:image" content="https://hardpapulatus.2yangfam.com/%E6%8B%89%E5%9C%96%E6%96%AF.png">
+  <title>困難拉圖斯模擬</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "困難拉圖斯模擬",
+    "alternateName": [
+      "困难拉图斯模拟",
+      "Hard Papulatus Simulator",
+      "Papulatus Timer Control Practice"
+    ],
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "inLanguage": "zh-TW",
+    "keywords": [
+      "楓之谷", "枫之谷", "MapleStory",
+      "Artale",
+      "懷舊服", "怀旧服", "old school server",
+      "困難拉圖斯", "困难拉图斯", "Hard Papulatus",
+      "困拉", "拉圖斯", "拉图斯", "Papulatus",
+      "控時", "控时", "timer control",
+      "模擬", "模拟", "simulator",
+      "練習", "练习", "practice"
+    ],
+    "url": "https://hardpapulatus.2yangfam.com/%E5%9B%B0%E9%9B%A3%E6%8B%89%E5%9C%96%E6%96%AF%E6%A8%A1%E6%93%AC.html",
+    "image": "https://hardpapulatus.2yangfam.com/%E6%8B%89%E5%9C%96%E6%96%AF.png",
+    "description": "楓之谷 Artale 困難拉圖斯模擬器，支援控時、走位、技能判斷、隊友協作與戰鬥參數設定。"
+  }
+  </script>
   <style>
     :root {
       --hud-pad: 10px;
@@ -2355,11 +2402,11 @@
       <div id="teamInfoColumn">
         <div id="hitRuleInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">受擊規則</div>
-          <div class="teamInfoBody">所有傷害固定為設定值（預設 12000）。有魔心時 HP 承擔 20%、其餘 MP 承擔；未開魔心時全部由 HP 承擔。</div>
+          <div class="teamInfoBody">所有傷害預設固定為6500。有魔心時 HP 承擔 20%、其餘 MP 承擔；未開魔心時全部由 HP 承擔。</div>
         </div>
         <div id="healRuleInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">補血規則</div>
-          <div class="teamInfoBody">鎖水期間以外，受擊後 1 秒會自動補滿；鎖水期間要自己靠櫻桃派補血。若魔心被關閉，不會自動補放魔心。</div>
+          <div class="teamInfoBody">預設受擊後 1.5 秒自動補滿；也可改成低於門檻自動喝 HP/MP 藥水。鎖水期間無法自動補，也無法手動喝水。</div>
         </div>
         <div id="redClockSafePointInfoPanel" class="chip teamInfoCard">
           <div class="teamInfoTitle">紅鬧鐘安全點</div>
@@ -2392,7 +2439,7 @@
         </div>
       </div>
     </div>
-    <div id="hudVersionBadge" class="versionBadge">v0.0.11</div>
+    <div id="hudVersionBadge" class="versionBadge">v0.0.12</div>
   </div>
 
   <div id="pauseScreen" aria-hidden="true"><div class="text">已暫停</div></div>
@@ -2409,13 +2456,22 @@
 
   <div id="gameOverModal" role="dialog" aria-modal="true" aria-label="遊戲結算">
     <div id="gameOverCard">
-      <div id="gameOverVersionBadge" class="versionBadge cardVersionBadge">v0.0.11</div>
+      <div id="gameOverVersionBadge" class="versionBadge cardVersionBadge">v0.0.12</div>
       <div id="gameOverTitle">遊戲結束</div>
       <div id="gameOverMsg">—</div>
       <div id="gameOverActions">
         <a class="btn githubLinkBtn" href="https://github.com/TzuMinYang/artale_hard_papulatus_simulator" target="_blank" rel="noopener noreferrer"><svg class="githubIcon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.95-.82-1.14-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.5 7.5 0 0 1 8 4.74c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>GitHub</span></a>
         <a class="btn supportHeartBtn" href="https://portaly.cc/tmyang/support" target="_blank" rel="noopener noreferrer"><span class="heart">❤</span><span>贊助連結</span></a>
         <button class="btn primary" id="restartBtn">重新開始</button>
+      </div>
+      <div id="gameOverAdBox" style="margin-top:14px;">
+        <!-- ad -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1813542272395896"
+             data-ad-slot="6142902058"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
       </div>
     </div>
   </div>
@@ -2433,9 +2489,21 @@
 
   <div id="setupModal" role="dialog" aria-modal="true" aria-label="說明與設定">
     <div id="setupCard">
-      <div id="setupVersionBadge" class="versionBadge cardVersionBadge">v0.0.11</div>
-      <h2>困難拉圖斯控時練習：說明與設定</h2>
+      <div id="setupVersionBadge" class="versionBadge cardVersionBadge">v0.0.12</div>
+      <h2>困難拉圖斯模擬：說明與設定</h2>
       <p>這個程式用來練習困難拉圖斯的控時、走位、招式辨識與失誤處理，也可單純用來練習走位躲紅鬧鐘。先設定你的技能與鍵位，再開始遊玩。</p>
+      <div id="setupAdBox" style="margin: 10px 0 12px;">
+        <!-- 設定 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1813542272395896"
+             data-ad-slot="5967971805"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
       <div class="setupTabs">
         <button type="button" class="btn setupTabBtn active" id="setupTabBasicBtn">一般設定</button>
         <button type="button" class="btn setupTabBtn" id="setupTabKeyBtn">按鍵設定</button>
@@ -2462,6 +2530,17 @@
           <div class="setupField">
             <label class="setupLabelRow" for="setupTopCamOffsetY"><span>樓上視角高度</span><span id="setupTopCamOffsetYText" class="setupInlineValue">+0</span></label>
             <input id="setupTopCamOffsetY" type="range" min="-180" max="300" step="1" value="90" />
+          </div>
+          <div class="setupField">
+            <label for="setupResolutionWidth">模擬解析度寬（px）</label>
+            <input id="setupResolutionWidth" type="number" step="1" min="960" max="3840" value="1366" />
+          </div>
+          <div class="setupField">
+            <label for="setupResolutionHeight">模擬解析度高（px）</label>
+            <input id="setupResolutionHeight" type="number" step="1" min="540" max="2160" value="768" />
+          </div>
+          <div class="setupField fullRow">
+            <div class="setupFieldHint" id="setupResolutionHint">解析度預設（自動偵測視窗）：玩家 3.4、跳躍 15.8、重力 1.25、最大下墜 10.4、王 0.5</div>
           </div>
         </div>
         <div class="setupField" style="margin-top:10px;">
@@ -2571,7 +2650,7 @@
           </div>
           <div class="setupField">
             <label for="setupPlayerHitDamage">受擊固定傷害</label>
-            <input id="setupPlayerHitDamage" type="number" step="1" min="1" value="12000" />
+            <input id="setupPlayerHitDamage" type="number" step="1" min="1" value="6500" />
           </div>
           <div class="setupField">
             <label for="setupPlayerHitInvSec">玩家無敵幀（秒）</label>
@@ -2579,7 +2658,7 @@
           </div>
           <div class="setupField">
             <label for="setupPlayerHitKnockback">玩家受擊擊退距離（數值）</label>
-            <input id="setupPlayerHitKnockback" type="number" step="0.01" min="0" value="3.8" />
+            <input id="setupPlayerHitKnockback" type="number" step="0.01" min="0" value="2.0" />
           </div>
           <div class="setupField">
             <label for="setupPlayerMaxHp">角色 HP 上限</label>
@@ -2589,10 +2668,34 @@
             <label for="setupPlayerMaxMp">角色 MP 上限</label>
             <input id="setupPlayerMaxMp" type="number" step="1" min="1" value="24000" />
           </div>
+          <div class="setupField">
+            <label for="setupHpPotionAmount">HP 藥水補量</label>
+            <input id="setupHpPotionAmount" type="number" step="1" min="1" value="2000" />
+          </div>
+          <div class="setupField">
+            <label for="setupMpPotionAmount">MP 藥水補量</label>
+            <input id="setupMpPotionAmount" type="number" step="1" min="1" value="5000" />
+          </div>
+          <div class="setupField fullRow">
+            <label for="setupAutoRecoverFull">受傷後 1.5 秒自動補滿（關閉則改為低於門檻自動喝水）</label>
+            <input id="setupAutoRecoverFull" type="checkbox" checked />
+          </div>
+          <div class="setupField">
+            <label for="setupAutoPotionHpPct">自動喝 HP 水門檻（%）</label>
+            <input id="setupAutoPotionHpPct" type="number" step="0.1" min="0" max="100" value="65" />
+          </div>
+          <div class="setupField">
+            <label for="setupAutoPotionMpPct">自動喝 MP 水門檻（%）</label>
+            <input id="setupAutoPotionMpPct" type="number" step="0.1" min="0" max="100" value="65" />
+          </div>
+          <div class="setupField">
+            <label for="setupAutoPotionIntervalSec">自動喝水間隔（秒）</label>
+            <input id="setupAutoPotionIntervalSec" type="number" step="0.1" min="0.1" value="1.5" />
+          </div>
           <div class="setupField fullRow">
             <label for="setupMagicDefenseEnabled">是否啟用魔心防禦</label>
             <input id="setupMagicDefenseEnabled" type="checkbox" checked />
-            <div class="setupFieldHint">未啟用時：整場不能手動開魔心；受擊仍會自動補滿，但不會自動補放魔心。</div>
+            <div class="setupFieldHint">未啟用時：整場不能手動開魔心，角色 HP 會固定改為 8500。</div>
           </div>
           <div class="setupField fullRow">
             <label for="setupInvSkillZeroCd">復甦之光（復活術）10 秒 CD</label>
@@ -2650,6 +2753,8 @@
           <div class="bindRow"><span class="name">瞬移</span><button class="btn keyBindBtn" data-bind="teleport">ShiftLeft</button></div>
           <div class="bindRow"><span class="name">復甦之光（復活術）</span><button class="btn keyBindBtn" data-bind="invSkill">PageUp</button></div>
           <div class="bindRow"><span class="name">櫻桃派</span><button class="btn keyBindBtn" data-bind="cherryPie">KeyX</button></div>
+          <div class="bindRow"><span class="name">HP 藥水</span><button class="btn keyBindBtn" data-bind="hpPotion">End</button></div>
+          <div class="bindRow"><span class="name">MP 藥水</span><button class="btn keyBindBtn" data-bind="mpPotion">PageDown</button></div>
           <div class="bindRow"><span class="name">魔心防禦</span><button class="btn keyBindBtn" data-bind="magicDefense">Digit1</button></div>
           <div class="bindRow"><span class="name">萬能療傷藥</span><button class="btn keyBindBtn" data-bind="clearDebuff">Delete</button></div>
         </div>
@@ -2735,9 +2840,9 @@
         <div id="setupBossSubRedClockPane" class="bossSubPane">
           <div class="setupGrid">
             <div class="setupField"><label for="setupRedClockHpPct">紅鬧鐘啟用血量（%）</label><input id="setupRedClockHpPct" type="number" step="0.1" min="0" max="100" value="50" /></div>
-            <div class="setupField"><label for="setupRedClockTopMax">紅鬧鐘上層最多（個）</label><input id="setupRedClockTopMax" type="number" step="1" min="0" value="4" /></div>
-            <div class="setupField"><label for="setupRedClockGroundMax">紅鬧鐘一樓最多（個）</label><input id="setupRedClockGroundMax" type="number" step="1" min="0" value="7" /></div>
-            <div class="setupField"><label for="setupRedClockTotal">紅鬧鐘總數（個）</label><input id="setupRedClockTotal" type="number" step="1" min="1" value="10" /></div>
+            <div class="setupField"><label for="setupRedClockTopMax">紅鬧鐘上層最多（個）</label><input id="setupRedClockTopMax" type="number" step="1" min="2" value="6" /></div>
+            <div class="setupField"><label for="setupRedClockGroundMax">紅鬧鐘一樓最多（個）</label><input id="setupRedClockGroundMax" type="number" step="1" min="0" value="12" /></div>
+            <div class="setupField"><label for="setupRedClockTotal">紅鬧鐘總數（個）</label><input id="setupRedClockTotal" type="number" step="1" min="1" value="15" /></div>
             <div class="setupField"><label for="setupRedClockCdMinMs">紅鬧鐘 CD 最短（秒）</label><input id="setupRedClockCdMinMs" type="number" step="0.1" min="0" value="9" /></div>
             <div class="setupField"><label for="setupRedClockCdMaxMs">紅鬧鐘 CD 最長（秒）</label><input id="setupRedClockCdMaxMs" type="number" step="0.1" min="0" value="12" /></div>
 
@@ -2771,14 +2876,16 @@
           <div class="setupGrid">
             <div class="setupField"><label for="setupBlackWaterHpPct">黑水啟用血量（%）</label><input id="setupBlackWaterHpPct" type="number" step="0.1" min="0" max="100" value="70" /></div>
             <div class="setupField"><label for="setupBlackWaterDelayMs">黑水生效延遲（秒）</label><input id="setupBlackWaterDelayMs" type="number" step="0.1" min="0" value="2" /></div>
-            <div class="setupField"><label for="setupBlackWaterLifeMs">黑水持續（秒）</label><input id="setupBlackWaterLifeMs" type="number" step="0.1" min="0.1" value="40" /></div>
-            <div class="setupField"><label for="setupBlackWaterCdMs">黑水 CD（秒）</label><input id="setupBlackWaterCdMs" type="number" step="0.1" min="0" value="70" /></div>
+            <div class="setupField"><label for="setupBlackWaterLifeMs">黑水持續（秒）</label><input id="setupBlackWaterLifeMs" type="number" step="0.1" min="0.1" value="30" /></div>
+            <div class="setupField"><label for="setupBlackWaterCdMs">黑水 CD（秒）</label><input id="setupBlackWaterCdMs" type="number" step="0.1" min="0" value="60" /></div>
             <div class="setupField"><label for="setupBlackWaterCastLockMs">黑水施法停頓（ms）</label><input id="setupBlackWaterCastLockMs" type="number" step="1" min="0" value="900" /></div>
+            <div class="setupField"><label for="setupBlackWaterWidthPx">黑水寬度（px）</label><input id="setupBlackWaterWidthPx" type="number" step="1" min="1" value="290" /></div>
           </div>
         </div>
         <div id="setupBossSubMobPane" class="bossSubPane">
           <div class="setupGrid">
             <div class="setupField"><label for="setupMobWaveTriggerPct">小怪啟用血量（%）</label><input id="setupMobWaveTriggerPct" type="number" step="0.1" min="0" max="100" value="84" /></div>
+            <div class="setupField"><label for="setupMobWeaselChancePct">鼬鼠出現機率（%）</label><input id="setupMobWeaselChancePct" type="number" step="0.1" min="0" max="100" value="50" /></div>
             <div class="setupField"><label for="setupMobAutoDieMinSec">小怪自滅最短（秒）</label><input id="setupMobAutoDieMinSec" type="number" step="0.1" min="0" value="45" /></div>
             <div class="setupField"><label for="setupMobAutoDieMaxSec">小怪自滅最長（秒）</label><input id="setupMobAutoDieMaxSec" type="number" step="0.1" min="0" value="50" /></div>
             <div class="setupField"><label for="setupMobRespawnMinSec">小怪重生最短（秒）</label><input id="setupMobRespawnMinSec" type="number" step="0.1" min="0" value="0" /></div>
@@ -2828,6 +2935,12 @@
     const WORLD_W = 2048;
     const WORLD_H = 1052;
     const CAMERA_ZOOM = 1.43;
+    const RESOLUTION_BASE_W = 1366;
+    const RESOLUTION_BASE_H = 768;
+    const RESOLUTION_MIN_W = 960;
+    const RESOLUTION_MAX_W = 3840;
+    const RESOLUTION_MIN_H = 540;
+    const RESOLUTION_MAX_H = 2160;
 
     const GROUND_Y = 1035;
     const GROUND_H = 18;
@@ -2872,7 +2985,8 @@
 
     const PLAYER_W = 42;
     const PLAYER_H = 56;
-    const MOVE_SPEED = 3.4;
+    const BASE_MOVE_SPEED = 3.4;
+    let MOVE_SPEED = BASE_MOVE_SPEED;
 
     // 物理調整：
     // 1. 基礎下墜速度 +15%（GRAVITY / MAX_FALL_SPEED）
@@ -2882,9 +2996,12 @@
     // 原始 V33: G=1.1, V0=16.1, Max=8.98
     // 目標: Fall Speed +15% -> Max ~10.33, G ~1.26
     // 目標: Height -10% -> 需稍微調降 V0 (配合重力增加)
-    const JUMP_V0 = 15.8;  
-    const GRAVITY = 1.25;          
-    const MAX_FALL_SPEED = 10.4;
+    const BASE_JUMP_V0 = 15.8;
+    const BASE_GRAVITY = 1.25;
+    const BASE_MAX_FALL_SPEED = 10.4;
+    let JUMP_V0 = BASE_JUMP_V0;
+    let GRAVITY = BASE_GRAVITY;
+    let MAX_FALL_SPEED = BASE_MAX_FALL_SPEED;
     // 跳躍後的下墜階段，重力倍率（再次下調）
     const JUMP_FALL_FACTOR = 0.72;
 
@@ -2932,8 +3049,9 @@
     const INV_SKILL_REPEAT_CD_MS = 10000;
     const BOSS_SIZE = 360;
     const DAMAGE_POP_DIGIT_PX = Math.round(BOSS_SIZE / 12);
+    const BASE_BOSS_MOVE_SPEED_SCALE = 0.5;
     let BOSS_ACTION_IDLE_GAP_MS = 1500;
-    let BOSS_MOVE_SPEED_SCALE = 0.5; // 拉圖斯移動速度（數值）
+    let BOSS_MOVE_SPEED_SCALE = BASE_BOSS_MOVE_SPEED_SCALE; // 拉圖斯移動速度（數值）
     let BOSS_IDLE_WEIGHT = 0.38 * 1.2; // 發呆頻率 +20%
     let BOSS_FOLLOW_WEIGHT = 0.34 * 0.7; // 跟隨移動頻率 -30%
     let BOSS_FORCED_WEIGHT = 0.28 * 0.7; // 強制移動頻率 -30%
@@ -3046,15 +3164,24 @@
     let BOSS_GROUND_SLAM_START_PCT = 100;
     let BOSS_GROUND_SLAM_STOP_PCT = 60;
     let BOSS_GROUND_SLAM_RANGE_HALF_WIDTH = BOSS_SIZE * 1.3;
-    const BLACK_WATER_W = PLAYER_W * 6.9;
+    let BLACK_WATER_W = PLAYER_W * 6.9;
     let PLAYER_HIT_INV_MS = 2000;
     const TIME_EXPLOSION_FX_MS = 3000;
     const RESULT_NOTIFY_DURATION_MS = 3000;
     const GAME_OVER_MODAL_DELAY_MS = 1500;
+    const PLAYER_DEAD_MS = 10000;
+    const PLAYER_RESPAWN_INV_MS = 2000;
+    const PLAYER_HP_WHEN_MAGIC_DEF_OFF = 8500;
     let PLAYER_MAX_HP = 5000;
     let PLAYER_MAX_MP = 24000;
-    let PLAYER_HIT_DAMAGE = 12000;
+    let PLAYER_HIT_DAMAGE = 6500;
     let PLAYER_HIT_KNOCKBACK_VX = 5.95 * 0.7;
+    let HP_POTION_HEAL = 2000;
+    let MP_POTION_HEAL = 5000;
+    let AUTO_RECOVER_FULL_AFTER_HIT = true;
+    let AUTO_POTION_HP_THRESHOLD_PCT = 65;
+    let AUTO_POTION_MP_THRESHOLD_PCT = 65;
+    let AUTO_POTION_INTERVAL_MS = 1000;
     const MAGIC_DEFENSE_HP_SHARE = 0.2;
     let LASER_DEBUFF_MS = 30000;
     const CLONE_CAST_CD_MS = 30000;
@@ -3064,6 +3191,7 @@
     const CLONE_MAX_HP = 60000000;
     let PHYSICAL_KILL_START_DELAY_MS = 3000;
     let PHYSICAL_KILL_INTERVAL_MS = 2000;
+    let MOB_WEASEL_WAVE_CHANCE_PCT = 50;
     const NOISE_HINT_MESSAGES = [
       '黑水要出了嗎?',
       '炸彈炸彈走開',
@@ -3112,6 +3240,8 @@
     // =============================
     const viewport = document.getElementById('viewport');
     const world = document.getElementById('world');
+    const hudTop = document.getElementById('hudTop');
+    const hudBottom = document.getElementById('hudBottom');
     const bgClockEl = world ? world.querySelector('.bgClock') : null;
     const bossFill = document.getElementById('bossFill');
     const bossText = document.getElementById('bossText');
@@ -3121,6 +3251,7 @@
     const noiseWarnBox = document.getElementById('noiseWarnBox');
     const gameOverModal = document.getElementById('gameOverModal');
     const gameOverMsg = document.getElementById('gameOverMsg');
+    const gameOverAdSlot = document.querySelector('#gameOverAdBox .adsbygoogle');
     const restartBtn = document.getElementById('restartBtn');
     const worldClockText = document.getElementById('worldClockText');
     const hintToast = document.getElementById('hintToast');
@@ -3194,6 +3325,9 @@
     const setupClockWorldScalePctText = document.getElementById('setupClockWorldScalePctText');
     const setupTopCamOffsetY = document.getElementById('setupTopCamOffsetY');
     const setupTopCamOffsetYText = document.getElementById('setupTopCamOffsetYText');
+    const setupResolutionWidth = document.getElementById('setupResolutionWidth');
+    const setupResolutionHeight = document.getElementById('setupResolutionHeight');
+    const setupResolutionHint = document.getElementById('setupResolutionHint');
     const setupTopCamUpBtn = document.getElementById('setupTopCamUpBtn');
     const setupTopCamDownBtn = document.getElementById('setupTopCamDownBtn');
     const setupStartTimeMin = document.getElementById('setupStartTimeMin');
@@ -3238,6 +3372,12 @@
     const setupPlayerHitKnockback = document.getElementById('setupPlayerHitKnockback');
     const setupPlayerMaxHp = document.getElementById('setupPlayerMaxHp');
     const setupPlayerMaxMp = document.getElementById('setupPlayerMaxMp');
+    const setupHpPotionAmount = document.getElementById('setupHpPotionAmount');
+    const setupMpPotionAmount = document.getElementById('setupMpPotionAmount');
+    const setupAutoRecoverFull = document.getElementById('setupAutoRecoverFull');
+    const setupAutoPotionHpPct = document.getElementById('setupAutoPotionHpPct');
+    const setupAutoPotionMpPct = document.getElementById('setupAutoPotionMpPct');
+    const setupAutoPotionIntervalSec = document.getElementById('setupAutoPotionIntervalSec');
     const setupMagicDefenseEnabled = document.getElementById('setupMagicDefenseEnabled');
     const mageAutoPickInfoBody = document.getElementById('mageAutoPickInfoBody');
     const setupTeamNote = document.getElementById('setupTeamNote');
@@ -3297,7 +3437,9 @@
     const setupBlackWaterLifeMs = document.getElementById('setupBlackWaterLifeMs');
     const setupBlackWaterCdMs = document.getElementById('setupBlackWaterCdMs');
     const setupBlackWaterCastLockMs = document.getElementById('setupBlackWaterCastLockMs');
+    const setupBlackWaterWidthPx = document.getElementById('setupBlackWaterWidthPx');
     const setupMobWaveTriggerPct = document.getElementById('setupMobWaveTriggerPct');
+    const setupMobWeaselChancePct = document.getElementById('setupMobWeaselChancePct');
     const setupMobAutoDieMinSec = document.getElementById('setupMobAutoDieMinSec');
     const setupMobAutoDieMaxSec = document.getElementById('setupMobAutoDieMaxSec');
     const setupMobRespawnMinSec = document.getElementById('setupMobRespawnMinSec');
@@ -3355,6 +3497,8 @@
     let clockWorldOffsetY = 0;
     let clockWorldScalePct = 100;
     let topFloorCameraOffsetY = 0;
+    let simResolutionW = RESOLUTION_BASE_W;
+    let simResolutionH = RESOLUTION_BASE_H;
     let cameraStateReady = false;
     let bgmVolume = 0.2;
     let bgmAudio = null;
@@ -3369,6 +3513,8 @@
       invSkill: 'PageUp',
       portalUp: 'ArrowUp',
       cherryPie: 'KeyX',
+      hpPotion: 'End',
+      mpPotion: 'PageDown',
       magicDefense: 'Digit1',
       clearDebuff: 'Delete',
     };
@@ -3397,6 +3543,7 @@
       cloneZombieUntil = shiftFutureMs(cloneZombieUntil, deltaMs);
       magicDefenseRestoreAt = shiftFutureMs(magicDefenseRestoreAt, deltaMs);
       vitalsRecoverAt = shiftFutureMs(vitalsRecoverAt, deltaMs);
+      autoPotionNextAt = shiftFutureMs(autoPotionNextAt, deltaMs);
       playerLastBossHitAt = shiftFutureMs(playerLastBossHitAt, deltaMs);
 
       dropThroughUntil = shiftFuturePerf(dropThroughUntil, deltaPerf);
@@ -3580,6 +3727,104 @@
         setupTopCamOffsetYText.textContent = `${formatSignedOffsetText(topFloorCameraOffsetY)}`;
       }
       if (cameraStateReady) updateCamera();
+    }
+    function normalizeResolutionWidth(value, fallback = simResolutionW) {
+      return Math.round(clamp(readNum(value, fallback), RESOLUTION_MIN_W, RESOLUTION_MAX_W));
+    }
+    function normalizeResolutionHeight(value, fallback = simResolutionH) {
+      return Math.round(clamp(readNum(value, fallback), RESOLUTION_MIN_H, RESOLUTION_MAX_H));
+    }
+    function calcResolutionMotionDefaults(width = simResolutionW, height = simResolutionH) {
+      const w = normalizeResolutionWidth(width, simResolutionW);
+      const h = normalizeResolutionHeight(height, simResolutionH);
+      const widthScale = clamp(w / RESOLUTION_BASE_W, 0.7, 1.6);
+      const heightScale = clamp(h / RESOLUTION_BASE_H, 0.7, 1.6);
+      return {
+        moveSpeed: BASE_MOVE_SPEED * widthScale,
+        jumpV0: BASE_JUMP_V0 * heightScale,
+        gravity: BASE_GRAVITY * heightScale,
+        maxFallSpeed: BASE_MAX_FALL_SPEED * heightScale,
+        bossMoveSpeedScale: BASE_BOSS_MOVE_SPEED_SCALE * widthScale,
+      };
+    }
+    function detectAutoSimulationResolution() {
+      const screenW = Math.max(
+        0,
+        Math.floor(Number((window.screen && window.screen.width) || 0) || 0)
+      );
+      const screenH = Math.max(
+        0,
+        Math.floor(Number((window.screen && window.screen.height) || 0) || 0)
+      );
+      const viewportWRaw = Math.max(
+        0,
+        Math.floor(Number(window.innerWidth || 0) || 0)
+      );
+      const viewportHRaw = Math.max(
+        0,
+        Math.floor(Number(window.innerHeight || 0) || 0)
+      );
+      const topHudH = Math.max(0, Math.round((hudTop && hudTop.offsetHeight) || 0));
+      const bottomHudH = Math.max(0, Math.round((hudBottom && hudBottom.offsetHeight) || 0));
+      const rawW = viewportWRaw > 0 ? viewportWRaw : screenW;
+      const rawH = viewportHRaw > 0 ? viewportHRaw : screenH;
+      const autoW = Math.max(320, rawW - 12);
+      const autoH = Math.max(180, rawH - topHudH - bottomHudH - 12);
+      return {
+        width: normalizeResolutionWidth(autoW, RESOLUTION_BASE_W),
+        height: normalizeResolutionHeight(autoH, RESOLUTION_BASE_H),
+      };
+    }
+    function applyAutoDetectedSimulationResolution() {
+      const detected = detectAutoSimulationResolution();
+      simResolutionW = detected.width;
+      simResolutionH = detected.height;
+      if (setupResolutionWidth) setupResolutionWidth.defaultValue = String(simResolutionW);
+      if (setupResolutionHeight) setupResolutionHeight.defaultValue = String(simResolutionH);
+      applySimulationResolution(simResolutionW, simResolutionH, { syncInput: true, syncBossDefault: true });
+    }
+    function updateResolutionHintText() {
+      if (!setupResolutionHint) return;
+      const defaults = calcResolutionMotionDefaults(simResolutionW, simResolutionH);
+      setupResolutionHint.textContent = `解析度預設（自動偵測視窗）：玩家 ${formatCombatNum(defaults.moveSpeed)}、跳躍 ${formatCombatNum(defaults.jumpV0)}、重力 ${formatCombatNum(defaults.gravity)}、最大下墜 ${formatCombatNum(defaults.maxFallSpeed)}、王 ${formatCombatNum(defaults.bossMoveSpeedScale)}`;
+    }
+    function fitViewportToResolution() {
+      if (!viewport) return;
+      const topHudH = Math.max(0, Math.round((hudTop && hudTop.offsetHeight) || 0));
+      const bottomHudH = Math.max(0, Math.round((hudBottom && hudBottom.offsetHeight) || 0));
+      const availableW = Math.max(320, Math.floor(window.innerWidth - 12));
+      const availableH = Math.max(180, Math.floor(window.innerHeight - topHudH - bottomHudH - 12));
+      const scale = Math.max(0.1, Math.min(availableW / simResolutionW, availableH / simResolutionH));
+      const viewW = Math.max(320, Math.round(simResolutionW * scale));
+      const viewH = Math.max(180, Math.round(simResolutionH * scale));
+      viewport.style.width = `${viewW}px`;
+      viewport.style.height = `${viewH}px`;
+    }
+    function applySimulationResolution(widthValue, heightValue, options = {}) {
+      const syncInput = options.syncInput !== false;
+      const syncBossDefault = !!options.syncBossDefault;
+      simResolutionW = normalizeResolutionWidth(widthValue, simResolutionW);
+      simResolutionH = normalizeResolutionHeight(heightValue, simResolutionH);
+      if (setupResolutionWidth && syncInput) setupResolutionWidth.value = String(simResolutionW);
+      if (setupResolutionHeight && syncInput) setupResolutionHeight.value = String(simResolutionH);
+      const defaults = calcResolutionMotionDefaults(simResolutionW, simResolutionH);
+      MOVE_SPEED = defaults.moveSpeed;
+      JUMP_V0 = defaults.jumpV0;
+      GRAVITY = defaults.gravity;
+      MAX_FALL_SPEED = defaults.maxFallSpeed;
+      BOSS_MOVE_SPEED_SCALE = defaults.bossMoveSpeedScale;
+      if (setupBossMoveSpeedScalePct && syncBossDefault) {
+        setupBossMoveSpeedScalePct.value = formatCombatNum(BOSS_MOVE_SPEED_SCALE);
+      }
+      fitViewportToResolution();
+      updateResolutionHintText();
+      if (cameraStateReady) updateCamera();
+    }
+    function syncAutoRecoverModeInputs() {
+      const useFullRecover = setupAutoRecoverFull ? !!setupAutoRecoverFull.checked : !!AUTO_RECOVER_FULL_AFTER_HIT;
+      if (setupAutoPotionHpPct) setupAutoPotionHpPct.disabled = setupReadOnlyMode || useFullRecover;
+      if (setupAutoPotionMpPct) setupAutoPotionMpPct.disabled = setupReadOnlyMode || useFullRecover;
+      if (setupAutoPotionIntervalSec) setupAutoPotionIntervalSec.disabled = setupReadOnlyMode || useFullRecover;
     }
     function playBgmLoop() {
       const audio = ensureBgmAudio();
@@ -4110,6 +4355,7 @@
       if (setupStartBtn) {
         setupStartBtn.textContent = setupReadOnlyMode ? '返回遊戲' : (gameActive ? '開始遊玩' : '開始遊玩');
       }
+      syncAutoRecoverModeInputs();
     }
     function updateSafePointRecordInfo() {
       if (!safePointRecordInfo) return;
@@ -4242,7 +4488,9 @@
       if (setupBlackWaterLifeMs) setupBlackWaterLifeMs.value = formatDelaySecText(BLACK_WATER_LIFE_MS);
       if (setupBlackWaterCdMs) setupBlackWaterCdMs.value = formatDelaySecText(BLACK_WATER_CD_MS);
       if (setupBlackWaterCastLockMs) setupBlackWaterCastLockMs.value = String(BLACK_WATER_CAST_LOCK_MS);
+      if (setupBlackWaterWidthPx) setupBlackWaterWidthPx.value = String(Math.round(BLACK_WATER_W));
       if (setupMobWaveTriggerPct) setupMobWaveTriggerPct.value = String(MOB_WAVE_TRIGGER_PCT);
+      if (setupMobWeaselChancePct) setupMobWeaselChancePct.value = String(MOB_WEASEL_WAVE_CHANCE_PCT);
       if (setupMobAutoDieMinSec) setupMobAutoDieMinSec.value = String((MOB_AUTO_DIE_MIN_MS / 1000).toFixed(1).replace(/\.0$/, ''));
       if (setupMobAutoDieMaxSec) setupMobAutoDieMaxSec.value = String((MOB_AUTO_DIE_MAX_MS / 1000).toFixed(1).replace(/\.0$/, ''));
       if (setupMobRespawnMinSec) setupMobRespawnMinSec.value = String((MOB_RESPAWN_MIN_MS / 1000).toFixed(1).replace(/\.0$/, ''));
@@ -4332,7 +4580,9 @@
       BLACK_WATER_LIFE_MS = Math.max(1, Math.round(readNum(setupBlackWaterLifeMs ? setupBlackWaterLifeMs.value : (BLACK_WATER_LIFE_MS / 1000), BLACK_WATER_LIFE_MS / 1000) * 1000));
       BLACK_WATER_CD_MS = Math.max(0, Math.round(readNum(setupBlackWaterCdMs ? setupBlackWaterCdMs.value : (BLACK_WATER_CD_MS / 1000), BLACK_WATER_CD_MS / 1000) * 1000));
       BLACK_WATER_CAST_LOCK_MS = Math.max(0, readInt(setupBlackWaterCastLockMs ? setupBlackWaterCastLockMs.value : BLACK_WATER_CAST_LOCK_MS, BLACK_WATER_CAST_LOCK_MS));
+      BLACK_WATER_W = Math.max(1, readNum(setupBlackWaterWidthPx ? setupBlackWaterWidthPx.value : BLACK_WATER_W, BLACK_WATER_W));
       MOB_WAVE_TRIGGER_PCT = clamp(readNum(setupMobWaveTriggerPct ? setupMobWaveTriggerPct.value : MOB_WAVE_TRIGGER_PCT, MOB_WAVE_TRIGGER_PCT), 0, 100);
+      MOB_WEASEL_WAVE_CHANCE_PCT = clamp(readNum(setupMobWeaselChancePct ? setupMobWeaselChancePct.value : MOB_WEASEL_WAVE_CHANCE_PCT, MOB_WEASEL_WAVE_CHANCE_PCT), 0, 100);
       const autoDieMinSec = Math.max(0, readNum(setupMobAutoDieMinSec ? setupMobAutoDieMinSec.value : (MOB_AUTO_DIE_MIN_MS / 1000), MOB_AUTO_DIE_MIN_MS / 1000));
       const autoDieMaxSec = Math.max(autoDieMinSec, readNum(setupMobAutoDieMaxSec ? setupMobAutoDieMaxSec.value : (MOB_AUTO_DIE_MAX_MS / 1000), MOB_AUTO_DIE_MAX_MS / 1000));
       const respawnMinSec = Math.max(0, readNum(setupMobRespawnMinSec ? setupMobRespawnMinSec.value : (MOB_RESPAWN_MIN_MS / 1000), MOB_RESPAWN_MIN_MS / 1000));
@@ -4358,9 +4608,16 @@
       PLAYER_HIT_DAMAGE = Math.max(1, readInt(setupPlayerHitDamage ? setupPlayerHitDamage.value : PLAYER_HIT_DAMAGE, PLAYER_HIT_DAMAGE));
       PLAYER_HIT_INV_MS = Math.max(0, Math.round(readNum(setupPlayerHitInvSec ? setupPlayerHitInvSec.value : (PLAYER_HIT_INV_MS / 1000), PLAYER_HIT_INV_MS / 1000) * 1000));
       PLAYER_HIT_KNOCKBACK_VX = Math.max(0, readNum(setupPlayerHitKnockback ? setupPlayerHitKnockback.value : PLAYER_HIT_KNOCKBACK_VX, PLAYER_HIT_KNOCKBACK_VX));
-      PLAYER_MAX_HP = Math.max(1, readInt(setupPlayerMaxHp ? setupPlayerMaxHp.value : PLAYER_MAX_HP, PLAYER_MAX_HP));
+      const setupMaxHpInput = Math.max(1, readInt(setupPlayerMaxHp ? setupPlayerMaxHp.value : PLAYER_MAX_HP, PLAYER_MAX_HP));
       PLAYER_MAX_MP = Math.max(1, readInt(setupPlayerMaxMp ? setupPlayerMaxMp.value : PLAYER_MAX_MP, PLAYER_MAX_MP));
+      HP_POTION_HEAL = Math.max(1, readInt(setupHpPotionAmount ? setupHpPotionAmount.value : HP_POTION_HEAL, HP_POTION_HEAL));
+      MP_POTION_HEAL = Math.max(1, readInt(setupMpPotionAmount ? setupMpPotionAmount.value : MP_POTION_HEAL, MP_POTION_HEAL));
+      AUTO_RECOVER_FULL_AFTER_HIT = !!(setupAutoRecoverFull ? setupAutoRecoverFull.checked : AUTO_RECOVER_FULL_AFTER_HIT);
+      AUTO_POTION_HP_THRESHOLD_PCT = clamp(readNum(setupAutoPotionHpPct ? setupAutoPotionHpPct.value : AUTO_POTION_HP_THRESHOLD_PCT, AUTO_POTION_HP_THRESHOLD_PCT), 0, 100);
+      AUTO_POTION_MP_THRESHOLD_PCT = clamp(readNum(setupAutoPotionMpPct ? setupAutoPotionMpPct.value : AUTO_POTION_MP_THRESHOLD_PCT, AUTO_POTION_MP_THRESHOLD_PCT), 0, 100);
+      AUTO_POTION_INTERVAL_MS = Math.max(100, Math.round(readNum(setupAutoPotionIntervalSec ? setupAutoPotionIntervalSec.value : (AUTO_POTION_INTERVAL_MS / 1000), AUTO_POTION_INTERVAL_MS / 1000) * 1000));
       magicDefenseFeatureEnabled = !!(setupMagicDefenseEnabled ? setupMagicDefenseEnabled.checked : magicDefenseFeatureEnabled);
+      PLAYER_MAX_HP = magicDefenseFeatureEnabled ? setupMaxHpInput : PLAYER_HP_WHEN_MAGIC_DEF_OFF;
       selectedGameMode = readSelectedGameMode();
       invSkillZeroCdEnabled = !!(setupInvSkillZeroCd && setupInvSkillZeroCd.checked);
       if (isRevivePracticeMode(selectedGameMode)) {
@@ -4445,6 +4702,11 @@
       setClockWorldOffsetY(setupClockWorldOffsetY ? setupClockWorldOffsetY.value : clockWorldOffsetY);
       setClockWorldScalePct(setupClockWorldScalePct ? setupClockWorldScalePct.value : clockWorldScalePct);
       setTopFloorCameraOffsetY(setupTopCamOffsetY ? setupTopCamOffsetY.value : topFloorCameraOffsetY);
+      applySimulationResolution(
+        setupResolutionWidth ? setupResolutionWidth.value : simResolutionW,
+        setupResolutionHeight ? setupResolutionHeight.value : simResolutionH,
+        { syncInput: true, syncBossDefault: false }
+      );
       applyBossParamSettings();
       if (setupShootDamage) setupShootDamage.value = String(shootDamage);
       if (setupShootMoveLockMs) setupShootMoveLockMs.value = String(SHOOT_MOVE_LOCK_MS);
@@ -4454,6 +4716,12 @@
       if (setupPlayerHitKnockback) setupPlayerHitKnockback.value = formatCombatNum(PLAYER_HIT_KNOCKBACK_VX);
       if (setupPlayerMaxHp) setupPlayerMaxHp.value = String(PLAYER_MAX_HP);
       if (setupPlayerMaxMp) setupPlayerMaxMp.value = String(PLAYER_MAX_MP);
+      if (setupHpPotionAmount) setupHpPotionAmount.value = String(HP_POTION_HEAL);
+      if (setupMpPotionAmount) setupMpPotionAmount.value = String(MP_POTION_HEAL);
+      if (setupAutoRecoverFull) setupAutoRecoverFull.checked = !!AUTO_RECOVER_FULL_AFTER_HIT;
+      if (setupAutoPotionHpPct) setupAutoPotionHpPct.value = String(AUTO_POTION_HP_THRESHOLD_PCT);
+      if (setupAutoPotionMpPct) setupAutoPotionMpPct.value = String(AUTO_POTION_MP_THRESHOLD_PCT);
+      if (setupAutoPotionIntervalSec) setupAutoPotionIntervalSec.value = formatDelaySecText(AUTO_POTION_INTERVAL_MS);
       if (setupMagicDefenseEnabled) setupMagicDefenseEnabled.checked = !!magicDefenseFeatureEnabled;
       if (setupMobMaxHp) setupMobMaxHp.value = String(MOB_MAX_HP);
       if (setupOrbMobHp) setupOrbMobHp.value = String(ORB_MOB_HP);
@@ -4473,6 +4741,10 @@
       if (setupClockWorldOffsetY) setupClockWorldOffsetY.value = String(clockWorldOffsetY);
       if (setupClockWorldScalePct) setupClockWorldScalePct.value = String(clockWorldScalePct);
       if (setupTopCamOffsetY) setupTopCamOffsetY.value = String(topFloorCameraOffsetY);
+      if (setupResolutionWidth) setupResolutionWidth.value = String(simResolutionW);
+      if (setupResolutionHeight) setupResolutionHeight.value = String(simResolutionH);
+      updateResolutionHintText();
+      autoPotionNextAt = 0;
       setVitalsNow(playerHp, playerMp);
       if (!magicDefenseFeatureEnabled) {
         setMagicDefense(false, 0);
@@ -4480,6 +4752,7 @@
       updateMageCmdTitle();
       refreshTeamCommandInfoText();
       refreshBindButtons();
+      syncAutoRecoverModeInputs();
       syncGameModeInputs();
       updateSpecialModeOptionVisibility();
       refreshModeDescriptionLabels();
@@ -4656,6 +4929,32 @@
         setTopFloorCameraOffsetY(setupTopCamOffsetY.value, false);
       });
     }
+    const applyResolutionFromInputs = () => {
+      applySimulationResolution(
+        setupResolutionWidth ? setupResolutionWidth.value : simResolutionW,
+        setupResolutionHeight ? setupResolutionHeight.value : simResolutionH,
+        { syncInput: true, syncBossDefault: true }
+      );
+    };
+    if (setupResolutionWidth) {
+      setupResolutionWidth.addEventListener('change', applyResolutionFromInputs);
+      setupResolutionWidth.addEventListener('blur', applyResolutionFromInputs);
+    }
+    if (setupResolutionHeight) {
+      setupResolutionHeight.addEventListener('change', applyResolutionFromInputs);
+      setupResolutionHeight.addEventListener('blur', applyResolutionFromInputs);
+    }
+    if (setupAutoRecoverFull) {
+      setupAutoRecoverFull.addEventListener('change', () => {
+        syncAutoRecoverModeInputs();
+      });
+    }
+    if (setupMagicDefenseEnabled) {
+      setupMagicDefenseEnabled.addEventListener('change', () => {
+        if (!setupPlayerMaxHp) return;
+        if (!setupMagicDefenseEnabled.checked) setupPlayerMaxHp.value = String(PLAYER_HP_WHEN_MAGIC_DEF_OFF);
+      });
+    }
     if (setupBossStartPct) {
       setupBossStartPct.addEventListener('input', () => {
         setConfiguredBossStartPct(setupBossStartPct.value, false);
@@ -4701,6 +5000,10 @@
         applyBossStartPctByClientX(e.clientX);
       });
     }
+    window.addEventListener('resize', () => {
+      fitViewportToResolution();
+      if (cameraStateReady) updateCamera();
+    });
     setupNumberInputs.forEach((input) => {
       input.addEventListener('blur', () => {
         normalizeNumberInputValue(input);
@@ -4804,7 +5107,9 @@
     setClockWorldOffsetY(clockWorldOffsetY);
     setClockWorldScalePct(clockWorldScalePct);
     setTopFloorCameraOffsetY(topFloorCameraOffsetY);
+    applyAutoDetectedSimulationResolution();
     refreshTeamCommandInfoText();
+    syncAutoRecoverModeInputs();
     normalizeNumberInputs(setupModal);
 
     function restartToSetup() {
@@ -5389,6 +5694,8 @@
     let timeExplosionFxTimer = null;
     let resultNotifyFxTimer = null;
     let gameOverShowTimer = null;
+    let gameOverAdRequested = false;
+    let gameOverAdRetryTimer = null;
 
     // 死亡次數限制：從 10 開始，扣到 0 則遊戲失敗
     let deathLimitRemain = 10;
@@ -5506,6 +5813,7 @@
     let playerHp = PLAYER_MAX_HP;
     let playerMp = PLAYER_MAX_MP;
     let vitalsRecoverAt = 0;
+    let autoPotionNextAt = 0;
     let ropeJumpUntil = 0;
     let ropeJumpVX = 0;
     const DAMAGE_POP_LIFE_MS = 2440;
@@ -5640,6 +5948,36 @@
         hideResultNotifyFx();
       }, RESULT_NOTIFY_DURATION_MS);
     }
+    function requestGameOverAdRender(retryCount = 0) {
+      if (gameOverAdRequested) return;
+      if (!gameOverModal || !gameOverModal.classList.contains('show')) return;
+      if (!gameOverAdSlot) return;
+      const adBox = gameOverAdSlot.parentElement;
+      if (!adBox) return;
+      const boxWidth = Math.round(adBox.getBoundingClientRect().width || 0);
+      if (boxWidth <= 0) {
+        if (retryCount >= 8) return;
+        if (gameOverAdRetryTimer) clearTimeout(gameOverAdRetryTimer);
+        gameOverAdRetryTimer = setTimeout(() => {
+          gameOverAdRetryTimer = null;
+          requestGameOverAdRender(retryCount + 1);
+        }, 250);
+        return;
+      }
+      if (!window.adsbygoogle || typeof window.adsbygoogle.push !== 'function') {
+        if (retryCount >= 8) return;
+        if (gameOverAdRetryTimer) clearTimeout(gameOverAdRetryTimer);
+        gameOverAdRetryTimer = setTimeout(() => {
+          gameOverAdRetryTimer = null;
+          requestGameOverAdRender(retryCount + 1);
+        }, 250);
+        return;
+      }
+      try {
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        gameOverAdRequested = true;
+      } catch (_err) {}
+    }
     function hideOrbWarn() {
       if (!orbWarnBox) return;
       orbWarnBox.classList.remove('show');
@@ -5753,14 +6091,12 @@
       const text = String(ev.text || '').trim();
       const kind = String(ev.kind || '');
       if (!text) return false;
-      // 時間變化回放不顯示玩家/隊友死亡相關項目
-      if (kind === 'death') return false;
-      if (/^角色死亡（/.test(text)) return false;
-      if (/^隊友.+死亡（/.test(text)) return false;
+      // 時間變化回放只保留時間相關事件（時鐘/時間小怪/黑球爆炸/時間爆炸）
+      if (kind === 'time' || kind === 'mob' || kind === 'explosion') return true;
       if (kind === 'orb') {
         return /黑球爆炸/.test(text);
       }
-      return true;
+      return false;
     }
     function summarizeMageOrbActionText(text) {
       const raw = String(text || '').trim();
@@ -6495,17 +6831,57 @@
     }
     function setVitalsDead() {
       vitalsRecoverAt = 0;
+      autoPotionNextAt = 0;
       setVitalsNow(0, 0);
     }
     function setVitalsFull() {
       vitalsRecoverAt = 0;
+      autoPotionNextAt = 0;
       setVitalsNow(PLAYER_MAX_HP, PLAYER_MAX_MP);
     }
+    function drinkHpPotion() {
+      const nowMs = Date.now();
+      if (!gameActive) return false;
+      if (nowMs < playerDeadUntil) return false;
+      if (isLockWaterActive(nowMs)) return false;
+      if (playerHp >= PLAYER_MAX_HP) return false;
+      setVitalsNow(playerHp + Math.max(1, HP_POTION_HEAL), playerMp);
+      return true;
+    }
+    function drinkMpPotion() {
+      const nowMs = Date.now();
+      if (!gameActive) return false;
+      if (nowMs < playerDeadUntil) return false;
+      if (isLockWaterActive(nowMs)) return false;
+      if (playerMp >= PLAYER_MAX_MP) return false;
+      setVitalsNow(playerHp, playerMp + Math.max(1, MP_POTION_HEAL));
+      return true;
+    }
     function updateVitalsRecovery(nowMs) {
-      if (isLockWaterActive(nowMs)) return;
-      if (vitalsRecoverAt > 0 && nowMs >= vitalsRecoverAt) {
+      if (nowMs < playerDeadUntil) return;
+      if (isLockWaterActive(nowMs)) {
+        autoPotionNextAt = 0;
+        return;
+      }
+      if (vitalsRecoverAt > 0) {
+        if (nowMs < vitalsRecoverAt) return;
         vitalsRecoverAt = 0;
-        setVitalsNow(PLAYER_MAX_HP, PLAYER_MAX_MP);
+        if (AUTO_RECOVER_FULL_AFTER_HIT) {
+          setVitalsNow(PLAYER_MAX_HP, PLAYER_MAX_MP);
+          autoPotionNextAt = 0;
+          return;
+        }
+        autoPotionNextAt = 0;
+      }
+      if (AUTO_RECOVER_FULL_AFTER_HIT) return;
+      if (autoPotionNextAt > 0 && nowMs < autoPotionNextAt) return;
+      const hpPct = (PLAYER_MAX_HP > 0) ? ((playerHp / PLAYER_MAX_HP) * 100) : 0;
+      const mpPct = (PLAYER_MAX_MP > 0) ? ((playerMp / PLAYER_MAX_MP) * 100) : 0;
+      let usedPotion = false;
+      if (hpPct <= AUTO_POTION_HP_THRESHOLD_PCT) usedPotion = drinkHpPotion() || usedPotion;
+      if (mpPct <= AUTO_POTION_MP_THRESHOLD_PCT) usedPotion = drinkMpPotion() || usedPotion;
+      if (usedPotion) {
+        autoPotionNextAt = nowMs + AUTO_POTION_INTERVAL_MS;
       }
     }
     function isWallClockStamp(ts) {
@@ -6667,7 +7043,7 @@
       playerKnockVX = dir * PLAYER_HIT_KNOCKBACK_VX;
       const lockWaterNow = isLockWaterActive();
       if (lockWaterNow) vitalsRecoverAt = 0;
-      const incomingDamage = Math.max(1, readInt(PLAYER_HIT_DAMAGE, 12000));
+      const incomingDamage = Math.max(1, readInt(PLAYER_HIT_DAMAGE, 6500));
       if (vitalsMode === 'one') {
         const blueClockDamage = Math.max(1, (PLAYER_MAX_HP + PLAYER_MAX_MP) - 2);
         showPlayerDamagePop(blueClockDamage);
@@ -7030,7 +7406,7 @@
         if (p.type === 'blue') {
           applyNormalHit(p.x + p.w / 2, 'one');
         } else {
-          if (isPlayerInvincible(now)) continue;
+          if (isPlayerInvincible()) continue;
           showPlayerDamagePop(Math.max(1, PLAYER_MAX_HP + PLAYER_MAX_MP));
           killPlayer('紅色鬧鐘光柱命中，角色死亡 10 秒', 1);
         }
@@ -7057,21 +7433,40 @@
       const lockSurface = getPlayerLockSurface();
       createBlackWaterAt(playerX + PLAYER_W / 2, lockSurface.y, now);
     }
+    function pickRandomBlackWaterTarget() {
+      const nowMs = Date.now();
+      const candidates = [];
+      if (nowMs >= playerDeadUntil) {
+        candidates.push({
+          name: '自己',
+          centerX: playerX + PLAYER_W / 2,
+          footY: playerY + PLAYER_H,
+        });
+      }
+      for (const t of teammates) {
+        if (!t || nowMs < t.deadUntil) continue;
+        candidates.push({
+          name: t.name,
+          centerX: t.x + TEAMMATE_W / 2,
+          footY: t.y + TEAMMATE_H,
+        });
+      }
+      if (candidates.length <= 0) return null;
+      return candidates[Math.floor(Math.random() * candidates.length)] || null;
+    }
     function pickRandomAliveTeammate() {
       const alive = teammates.filter((t) => t && Date.now() >= t.deadUntil);
       if (alive.length <= 0) return null;
       return alive[Math.floor(Math.random() * alive.length)] || null;
     }
     function createBlackWaterAtTeammateFoot(now) {
-      const target = pickRandomAliveTeammate();
+      const target = pickRandomBlackWaterTarget();
       if (!target) {
         createBlackWaterAtPlayer(now);
         return '自己';
       }
-      const centerX = target.x + TEAMMATE_W / 2;
-      const footY = target.y + TEAMMATE_H;
-      const surface = getSurfaceBelow(centerX, footY);
-      createBlackWaterAt(centerX, surface.y, now);
+      const surface = getSurfaceBelow(target.centerX, target.footY);
+      createBlackWaterAt(target.centerX, surface.y, now);
       return target.name;
     }
 
@@ -7168,9 +7563,10 @@
     function castRedClockWave(now) {
       queueBossClockStretch(now);
       const mainTop = { x: TOP_PLAT_X, y: TOP_PLAT_Y, w: TOP_PLAT_W };
-      const extraTopSurfaces = collidablePlats.filter(p => p && p.key !== 'ground' && p.key !== 'top');
-      const allTopSurfaces = [mainTop, ...extraTopSurfaces];
       const ground = { x: 0, y: GROUND_Y, w: WORLD_W };
+      // 小平台不算樓上：與一樓共用紅鬧鐘數量池。
+      const lowerSurfaces = [ground, ...collidablePlats.filter((p) => p && p.key !== 'ground' && p.key !== 'top')];
+      const lowerTotalWidth = lowerSurfaces.reduce((sum, s) => sum + Math.max(1, Number(s && s.w) || 0), 0);
       const redRange = getRedClockDynamicCountRange();
       const waveTotal = randInt(redRange.totalMin, redRange.totalMax);
       let topTarget = randInt(redRange.topMin, Math.min(redRange.topMax, waveTotal));
@@ -7193,6 +7589,20 @@
         }
         return false;
       }
+      function pickRandomLowerSurface() {
+        if (!Array.isArray(lowerSurfaces) || lowerSurfaces.length <= 0) return null;
+        if (lowerTotalWidth <= 0) {
+          return lowerSurfaces[Math.floor(Math.random() * lowerSurfaces.length)] || null;
+        }
+        let roll = rand(0, lowerTotalWidth);
+        for (let i = 0; i < lowerSurfaces.length; i++) {
+          const s = lowerSurfaces[i];
+          const w = Math.max(1, Number(s && s.w) || 0);
+          roll -= w;
+          if (roll <= 0) return s;
+        }
+        return lowerSurfaces[lowerSurfaces.length - 1] || null;
+      }
 
       while (remainingTotal > 0) {
         const topCanGrow = topTarget < redRange.topMax;
@@ -7203,13 +7613,15 @@
         remainingTotal--;
       }
 
+      // 樓上數量只放樓上主平台，小平台不計入樓上。
       for (let i = 0; i < topTarget; i++) {
-        const s = allTopSurfaces[Math.floor(Math.random() * allTopSurfaces.length)];
-        if (s) spawnOn(s, 40);
+        spawnOn(mainTop, 120);
       }
 
       for (let i = 0; i < groundTarget; i++) {
-        spawnOn(ground, 40);
+        if (lowerSurfaces.length <= 0) break;
+        const s = pickRandomLowerSurface();
+        if (s) spawnOn(s, 40);
       }
       spawnBossHandClocks(now);
     }
@@ -7470,10 +7882,12 @@
     function killPlayer(reasonText, deathCost) {
       const nowMs = Date.now();
       if (nowMs < playerDeadUntil) return false;
+      const nowPerf = performance.now();
       const cost = Math.max(1, Math.floor(deathCost || 1));
-      playerDeadUntil = Math.max(playerDeadUntil, nowMs + 10000);
+      playerDeadUntil = Math.max(playerDeadUntil, nowMs + PLAYER_DEAD_MS);
       deathRespawnInvPending = true;
-      playerInvUntil = 0;
+      // 預先保留復活後無敵幀，避免復活同幀先吃到紅鬧鐘判定。
+      playerInvUntil = Math.max(playerInvUntil, nowPerf + PLAYER_DEAD_MS + PLAYER_RESPAWN_INV_MS);
       specialInvUntil = 0;
       shieldUntil = 0;
       teammateInvUntil = 0;
@@ -7529,9 +7943,11 @@
       pushDeathReplayUnique(replayReason, 0);
       pushTimeline(explosionTimelineText, 'explosion');
       if (!playerAlreadyDead) {
-        playerDeadUntil = Math.max(playerDeadUntil, nowMs + 10000);
+        const nowPerf = performance.now();
+        playerDeadUntil = Math.max(playerDeadUntil, nowMs + PLAYER_DEAD_MS);
         deathRespawnInvPending = true;
-        playerInvUntil = 0;
+        // 預先保留復活後無敵幀，避免復活同幀先吃到紅鬧鐘判定。
+        playerInvUntil = Math.max(playerInvUntil, nowPerf + PLAYER_DEAD_MS + PLAYER_RESPAWN_INV_MS);
         specialInvUntil = 0;
         shieldUntil = 0;
         teammateInvUntil = 0;
@@ -7713,6 +8129,11 @@
         gameOverShowTimer = setTimeout(() => {
           gameOverShowTimer = null;
           gameOverModal.classList.add('show');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              requestGameOverAdRender(0);
+            });
+          });
         }, GAME_OVER_MODAL_DELAY_MS);
       }
     }
@@ -8273,7 +8694,8 @@
       const usableWidth = Math.max(0, rightBound - leftBound);
       const spreadGap = spawnCount > 1 ? Math.min(110, usableWidth / (spawnCount - 1)) : 0;
       const effects = [];
-      const waveKind = Math.random() < 0.5 ? 'demon' : 'weasel'; // 每波次 50% 決定整波種類
+      const weaselChance = clamp(readNum(MOB_WEASEL_WAVE_CHANCE_PCT, 50), 0, 100) / 100;
+      const waveKind = Math.random() < weaselChance ? 'weasel' : 'demon';
       const slowScatterWave = Math.random() < 0.1; // 10% 波次會慢分散
       for (let i = 0; i < spawnCount; i++) {
         const [val, label] = MOB_EFFECT_ITEMS[Math.floor(Math.random() * MOB_EFFECT_ITEMS.length)];
@@ -8614,6 +9036,18 @@
         if (safePointMoveMode) return;
         e.preventDefault();
         useCherryPie();
+        return;
+      }
+      if (isBindHit('hpPotion', e.code)) {
+        if (safePointMoveMode) return;
+        e.preventDefault();
+        drinkHpPotion();
+        return;
+      }
+      if (isBindHit('mpPotion', e.code)) {
+        if (safePointMoveMode) return;
+        e.preventDefault();
+        drinkMpPotion();
         return;
       }
       if (isBindHit('magicDefense', e.code)) {
@@ -8964,6 +9398,7 @@
     function useCherryPie() {
       if (!gameActive) return;
       if (Date.now() < playerDeadUntil) return;
+      if (isLockWaterActive()) return;
       setVitalsNow(playerHp + 2000, playerMp + 2000);
     }
     function tryMagicDefense() {
@@ -9316,7 +9751,7 @@
         return;
       } else {
         if (deathRespawnInvPending) {
-          playerInvUntil = Math.max(playerInvUntil, performance.now() + 2000);
+          playerInvUntil = Math.max(playerInvUntil, performance.now() + PLAYER_RESPAWN_INV_MS);
           deathRespawnInvPending = false;
           setVitalsFull();
           setMagicDefense(false, 3000);
@@ -9922,6 +10357,7 @@ function loop(now) {
     }
 
     function init() {
+      fitViewportToResolution();
       world.style.width = WORLD_W + 'px'; world.style.height = WORLD_H + 'px';
 
       // 重建可碰撞平台清單
@@ -9970,5 +10406,6 @@ function loop(now) {
     }
     init();
   </script>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f3342cfdf5364f9181a17900a980b314"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
